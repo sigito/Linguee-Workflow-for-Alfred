@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "LingueeOnAlfred",
+    platforms: [
+      .macOS(.v10_15),
+    ],
     dependencies: [
         .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.3.2"),
     ],
