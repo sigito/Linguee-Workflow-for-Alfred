@@ -20,6 +20,7 @@ linguee.search(for: query) { result in
       .forEach { workflow.add($0) }
   }
   try! workflow.emit()
+  exit(0)
 }
 
 RunLoop.main.run()
