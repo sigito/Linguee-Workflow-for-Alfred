@@ -40,7 +40,12 @@ class Linguee {
       // TODO: prapagate the error.
       .receive(on: DispatchQueue.main)
       .sink(receiveCompletion: { result in
-        print(result)
+        switch result {
+        case .failure(let error):
+          completion(.failure(error))
+        default:
+          return
+        }
       }, receiveValue: { results in
         completion(.success(results))
       })
