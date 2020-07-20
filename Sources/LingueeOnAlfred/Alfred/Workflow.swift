@@ -70,16 +70,21 @@ fileprivate let mockResults = """
 }
 """
 
-struct Workflow {
+extension Alfred {
+  struct Workflow {
 
-  private(set) var items: [AlfredItem] = []
+  private var items = Items()
 
-  mutating func add(_ item: AlfredItem) {
-    self.items.append(item)
+  mutating func add(_ item: Item) {
+    self.items.add(item)
   }
 
-  func emit() {
-    // TOOD: print items.
-    print(mockResults)
+  func emit() throws {
+    let jsonData = try JSONEncoder().encode(self.items)
+    guard let json = String(data: jsonData, encoding: .utf8) else {
+      fatalError()
+    }
+    print(json)
   }
+}
 }

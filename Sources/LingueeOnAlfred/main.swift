@@ -4,22 +4,22 @@ import Foundation
 guard CommandLine.arguments.count > 1 else {
   fatalError("No query parameter provided.")
 }
-let query = CommandLine.arguments[1]
+let query = CommandLine.arguments[1].trimmingCharacters(in: .whitespacesAndNewlines)
 
 
 let linguee = Linguee()
 linguee.search(for: query) { result in
-  var workflow = Workflow()
+  var workflow = Alfred.Workflow()
 
   switch result {
   case .failure(let error):
-    workflow.add(AlfredItem(title: "Failed to get translations", subtitle: error.localizedDescription, arg: "???"))
+    workflow.add(.init(title: "Failed to get translations", subtitle: error.localizedDescription, arg: "???"))
   case .success(let results):
     results
       .map { $0.alfredItem }
       .forEach { workflow.add($0) }
   }
-  workflow.emit()
+  try! workflow.emit()
 }
 
 RunLoop.main.run()
