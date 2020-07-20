@@ -1,6 +1,6 @@
 struct AlfredItem : Codable {
-  let uid: String? = nil
-  let title: String
-  let subtitle: String
-  let arg: String
+  var uid: String? = nil
+  var title: String
+  var subtitle: String
+  var arg: String
 }

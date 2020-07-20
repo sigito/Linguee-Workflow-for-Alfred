@@ -74,7 +74,7 @@ struct Workflow {
 
   private(set) var items: [AlfredItem] = []
 
-  func add(_ item: AlfredItem) {
+  mutating func add(_ item: AlfredItem) {
     self.items.append(item)
   }
 
