@@ -26,23 +26,31 @@ struct LingueeResult {
 }
 
 class Linguee {
+  enum Error: Swift.Error {
+    case badEncoding
+    case generic(Swift.Error)
+  }
+
   private var cancellables = Set<AnyCancellable>()
 
   func search(for query: String, completion: @escaping (Result<[LingueeResult], Error>) -> Void) {
     URLSession.shared.dataTaskPublisher(for: .linqueeSearch(query))
-      .compactMap { (data, _) in
-        String(data: data, encoding: .utf8)
+      .tryMap { (data, _) -> String in
+        // Linguee returns content in iso-8859-15 encoding.
+        guard let html = String(data: data, encoding: .isoLatin1) else {
+          throw Error.badEncoding
+        }
+        return html
       }
       .tryMap { html in
         let document = try SwiftSoup.parse(html)
         return try self.selectTranslations(in: document)
       }
-      // TODO: prapagate the error.
       .receive(on: DispatchQueue.main)
       .sink(receiveCompletion: { result in
         switch result {
         case .failure(let error):
-          completion(.failure(error))
+          completion(.failure(.generic(error)))
         default:
           return
         }

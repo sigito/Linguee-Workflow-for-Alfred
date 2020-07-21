@@ -13,14 +13,14 @@ linguee.search(for: query) { result in
 
   switch result {
   case .failure(let error):
-    workflow.add(.init(title: "Failed to get translations", subtitle: error.localizedDescription, arg: "???"))
+    workflow.add(.init(title: "Failed to get translations", subtitle: "\(error)", arg: ""))
   case .success(let results):
     results
       .map { $0.alfredItem }
       .forEach { workflow.add($0) }
   }
   try! workflow.emit()
-  exit(0)
+  exit(EXIT_SUCCESS)
 }
 
 RunLoop.main.run()
