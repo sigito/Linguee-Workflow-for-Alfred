@@ -12,7 +12,9 @@ extension URL {
 
   static func linqueeSearch(_ query: String) -> URL {
     // https://www.linguee.com/english-german/search?qe=query&source=auto
-    return URL(string: "english-german/search?source=auto&qe=\(query)", relativeTo: .linguee)!
+    // TODO: throw erros if creation fails.
+    let escaped = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    return URL(string: "english-german/search?source=auto&qe=\(escaped)", relativeTo: .linguee)!
   }
 }
 
