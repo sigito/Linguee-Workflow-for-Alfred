@@ -73,18 +73,18 @@ fileprivate let mockResults = """
 extension Alfred {
   struct Workflow {
 
-  private var items = Items()
+    private var items = Items()
 
-  mutating func add(_ item: Item) {
-    self.items.add(item)
-  }
-
-  func emit() throws {
-    let jsonData = try JSONEncoder().encode(self.items)
-    guard let json = String(data: jsonData, encoding: .utf8) else {
-      fatalError()
+    mutating func add(_ item: Item) {
+      self.items.add(item)
     }
-    print(json)
+
+    func emit() throws {
+      let jsonData = try JSONEncoder().encode(self.items)
+      guard let json = String(data: jsonData, encoding: .utf8) else {
+        fatalError()
+      }
+      print(json)
+    }
   }
-}
 }
