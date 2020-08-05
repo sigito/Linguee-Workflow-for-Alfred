@@ -81,7 +81,7 @@ extension LingueeResult {
     guard let url = URL.linguee(hrefAttribute) else {
       fatalError("'href' attribute content is not a URL: \(hrefAttribute)")
     }
-    let translations = try element.select(".translation_item").map { $0.ownText() }
+    let translations = try element.select(".translation_row").map { try $0.text() }
     // TODO: add gender.
     return LingueeResult(phrase: try mainItem.text(), translations: translations, link: url)
   }
