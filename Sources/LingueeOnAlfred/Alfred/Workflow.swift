@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Yurii Samsoniuk on 19.07.20.
-//
-
 import Foundation
 
 fileprivate let mockResults = """
