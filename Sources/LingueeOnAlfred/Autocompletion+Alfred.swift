@@ -3,6 +3,9 @@ import Linguee
 
 /// Returns the title in format "Beobachten (n/...)".
 fileprivate func format(phrase: String, wordTypes: [String]) -> String {
+  guard !wordTypes.isEmpty else {
+    return phrase
+  }
   return "\(phrase) (\(wordTypes.joined(separator: "/")))"
 }
 
