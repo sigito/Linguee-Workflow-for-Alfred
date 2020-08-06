@@ -1,4 +1,6 @@
+import Alfred
 import Foundation
+import Linguee
 
 // TODO: use ArgumentParser intead?
 guard CommandLine.arguments.count > 1 else {
@@ -14,7 +16,7 @@ let query = CommandLine.arguments[1]
 
 let linguee = Linguee()
 linguee.search(for: query) { result in
-  var workflow = Alfred.Workflow()
+  var workflow = Workflow()
 
   switch result {
   case .failure(let error):

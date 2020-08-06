@@ -4,19 +4,25 @@
 import PackageDescription
 
 let package = Package(
-    name: "LingueeOnAlfred",
-    platforms: [
-      .macOS(.v10_15),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.3.2"),
-    ],
-    targets: [
-        .target(
-            name: "LingueeOnAlfred",
-            dependencies: ["SwiftSoup"]),
-        .testTarget(
-            name: "LingueeOnAlfredTests",
-            dependencies: ["LingueeOnAlfred"]),
-    ]
+  name: "LingueeOnAlfred",
+  platforms: [
+    .macOS(.v10_15),
+  ],
+  dependencies: [
+    .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.3.2"),
+  ],
+  targets: [
+    .target(
+      name: "LingueeOnAlfred",
+      dependencies: ["Linguee", "Alfred"]),
+    .target(
+      name: "Linguee",
+      dependencies: ["SwiftSoup"]),
+    .target(
+      name: "Alfred",
+      dependencies: []),
+    .testTarget(
+      name: "LingueeTests",
+      dependencies: ["Linguee"]),
+  ]
 )

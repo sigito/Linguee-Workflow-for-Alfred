@@ -18,24 +18,32 @@ extension URL {
   }
 }
 
-struct LingueeResult {
+public struct LingueeResult {
   /// The transloted phrase.
-  var phrase: String
+  public var phrase: String
   /// The phrase translations.
-  var translations: [String]
+  public var translations: [String]
   /// The link to this translation result.
-  var link: URL
+  public var link: URL
+
+  public init(phrase: String, translations: [String], link: URL) {
+    self.phrase = phrase
+    self.translations = translations
+    self.link = link
+  }
 }
 
-class Linguee {
-  enum Error: Swift.Error {
+public class Linguee {
+  public enum Error: Swift.Error {
     case badEncoding
     case generic(Swift.Error)
   }
 
+  public init() {}
+
   private var cancellables = Set<AnyCancellable>()
 
-  func search(for query: String, completion: @escaping (Result<[LingueeResult], Error>) -> Void) {
+  public func search(for query: String, completion: @escaping (Result<[LingueeResult], Error>) -> Void) {
     URLSession.shared.dataTaskPublisher(for: .linqueeSearch(query))
       .tryMap { (data, _) -> String in
         // Linguee returns content in iso-8859-15 encoding.
