@@ -27,8 +27,10 @@ linguee.search(for: query) { result in
       .forEach { workflow.add($0) }
   }
   // Add a direct search link to the end of the list.
-  let searchURL = Linguee.searchURL(query: query)
-  workflow.add(.init(title: "Search Linguee for '\(query)'", arg: searchURL.absoluteString))
+  // Trim the query, there is no difference in case of a direct search.
+  let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
+  let searchURL = Linguee.searchURL(query: trimmedQuery)
+  workflow.add(.init(title: "Search Linguee for '\(trimmedQuery)'", arg: searchURL.absoluteString))
   try! workflow.emit()
   exit(EXIT_SUCCESS)
 }
