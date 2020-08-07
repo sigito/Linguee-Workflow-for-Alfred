@@ -65,16 +65,19 @@ fileprivate let mockResults = """
 
 public struct Workflow {
 
-  private var items = Items()
+  private var itemsContainer = Items()
+  public var items: [Item] {
+    return self.itemsContainer.items
+  }
 
   public init() {}
 
   public mutating func add(_ item: Item) {
-    self.items.add(item)
+    self.itemsContainer.add(item)
   }
 
   public func emit() throws {
-    let jsonData = try JSONEncoder().encode(self.items)
+    let jsonData = try JSONEncoder().encode(self.itemsContainer)
     guard let json = String(data: jsonData, encoding: .utf8) else {
       fatalError()
     }
