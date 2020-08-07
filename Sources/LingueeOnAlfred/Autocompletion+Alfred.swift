@@ -17,6 +17,7 @@ extension Autocompletion {
   var alfredItem: Item {
     return Item(title: format(phrase: self.mainItem.phrase, wordTypes: self.mainItem.wordTypes),
                 subtitle: format(translations: self.translations),
-                arg: self.mainItem.link.absoluteString)
+                arg: self.mainItem.link.absoluteString,
+                autocomplete: self.mainItem.phrase)
   }
 }

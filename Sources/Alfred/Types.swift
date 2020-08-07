@@ -6,24 +6,28 @@ public struct Items: Codable {
   }
 }
 
+/// See https://www.alfredapp.com/help/workflows/inputs/script-filter/json/ for fields descriptions.
 public struct Item : Codable {
-  public var uid: String? = nil
-  public var valid: Bool = true
+  public var uid: String?
+  public var valid: Bool
   public var title: String
-  public var subtitle: String
+  public var subtitle: String?
   public var arg: String
+  public var autocomplete: String?
 
   public init(
     uid: String? = nil,
     valid: Bool = true,
     title: String,
-    subtitle: String,
-    arg: String
+    subtitle: String? = nil,
+    arg: String,
+    autocomplete: String? = nil
   ) {
     self.uid = uid
     self.valid = valid
     self.title = title
     self.subtitle = subtitle
     self.arg = arg
+    self.autocomplete = autocomplete
   }
 }
