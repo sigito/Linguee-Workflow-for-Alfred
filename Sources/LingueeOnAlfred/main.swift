@@ -20,7 +20,7 @@ linguee.search(for: query) { result in
 
   switch result {
   case .failure(let error):
-    workflow.add(.init(title: "Failed to get translations", subtitle: "\(error)", arg: ""))
+    workflow.add(.init(valid: false, title: "Failed to get translations", subtitle: "\(error)"))
   case .success(let results):
     results
       .map { $0.alfredItem }

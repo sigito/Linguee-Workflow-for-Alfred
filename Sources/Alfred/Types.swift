@@ -12,7 +12,7 @@ public struct Item : Codable {
   public var valid: Bool
   public var title: String
   public var subtitle: String?
-  public var arg: String
+  public var arg: String?
   public var autocomplete: String?
 
   public init(
@@ -20,7 +20,7 @@ public struct Item : Codable {
     valid: Bool = true,
     title: String,
     subtitle: String? = nil,
-    arg: String,
+    arg: String? = nil,
     autocomplete: String? = nil
   ) {
     self.uid = uid
