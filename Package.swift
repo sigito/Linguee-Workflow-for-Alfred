@@ -15,14 +15,19 @@ let package = Package(
     .target(
       name: "LingueeOnAlfred",
       dependencies: ["Linguee", "Alfred"]),
+
     .target(
       name: "Linguee",
       dependencies: ["SwiftSoup"]),
+    .testTarget(
+      name: "LingueeTests",
+      dependencies: ["Linguee"]),
+
     .target(
       name: "Alfred",
       dependencies: []),
     .testTarget(
-      name: "LingueeTests",
-      dependencies: ["Linguee"]),
+      name: "AlfredTests",
+      dependencies: ["Alfred"]),
   ]
 )

@@ -13,24 +13,21 @@ let query = CommandLine.arguments[1]
   // https://stackoverflow.com/questions/23219482#23226449
   .precomposedStringWithCanonicalMapping
 
-
 let linguee = Linguee()
 linguee.search(for: query) { result in
   var workflow = Workflow()
+  let fallback = DefaultFallback(query: query)
 
   switch result {
   case .failure(let error):
     workflow.add(.init(valid: false, title: "Failed to get translations", subtitle: "\(error)"))
   case .success(let results):
     results
-      .map { $0.alfredItem }
+      .map { $0.alfredItem(defaultFallback: fallback) }
       .forEach { workflow.add($0) }
   }
   // Add a direct search link to the end of the list.
-  // Trim the query, there is no difference in case of a direct search.
-  let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
-  let searchURL = Linguee.searchURL(query: trimmedQuery)
-  workflow.add(.init(title: "Search Linguee for '\(trimmedQuery)'", arg: searchURL.absoluteString))
+  workflow.add(.fromDefaultFallback(fallback))
   try! workflow.emit()
   exit(EXIT_SUCCESS)
 }
