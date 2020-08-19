@@ -29,7 +29,6 @@ extension URL {
     searchURL.queryItems = [
       self.sourceQueryItem,
       URLQueryItem(name: mode.rawValue, value: query),
-      URLQueryItem(name: mode.rawValue, value: "hello there")
     ]
     // TODO: throw an error if the URL creation fails.
     return searchURL.url!
