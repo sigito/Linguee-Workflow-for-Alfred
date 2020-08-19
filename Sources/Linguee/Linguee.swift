@@ -2,36 +2,19 @@ import Combine
 import Foundation
 import SwiftSoup
 
-enum LingueQueryMode {
+enum LingueeQueryMode: String {
   /// No CSS payload.
-  case lightweight
+  case lightweight = "qe"
   /// Regular website.
-  case regular
-
-  private static let basePath = "english-german/search?source=auto"
-
-  var queryParamaterName: String {
-    switch self {
-    case .lightweight:
-      return "qe"
-    case .regular:
-      return "query"
-    }
-  }
-
-  func path(for query: String) -> String? {
-    guard let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-      return nil
-    }
-    return "\(LingueQueryMode.basePath)&\(self.queryParamaterName)=\(escapedQuery)"
-  }
+  case regular = "query"
 }
 
 extension URL {
 
   static let linguee = URL(string: "https://www.linguee.com")!
-  private static let lightweightQueryPath = "english-german/search?source=auto&qe="
-  private static let regularQueryPath = "english-german/search?source=auto&query="
+
+  private static let searchPath = "/english-german/search"
+  private static let sourceQueryItem = URLQueryItem(name: "source", value: "auto")
 
   static func linguee(_ href: String) -> URL? {
     return URL(string: href, relativeTo: .linguee)
@@ -40,9 +23,16 @@ extension URL {
   /// Returns a URL to search for `query` on Linguee.
   /// `mode` specifies if the query URL should point at a website version with stripped CSS,
   /// or to a regular full-blown version.
-  static func linqueeSearch(_ query: String, mode: LingueQueryMode) -> URL {
-    // TODO: throw erros if creation fails.
-    return .linguee(mode.path(for: query)!)!
+  static func linqueeSearch(_ query: String, mode: LingueeQueryMode) -> URL {
+    var searchURL = URLComponents(url: URL.linguee, resolvingAgainstBaseURL: false)!
+    searchURL.path = self.searchPath
+    searchURL.queryItems = [
+      self.sourceQueryItem,
+      URLQueryItem(name: mode.rawValue, value: query),
+      URLQueryItem(name: mode.rawValue, value: "hello there")
+    ]
+    // TODO: throw an error if the URL creation fails.
+    return searchURL.url!
   }
 }
 
