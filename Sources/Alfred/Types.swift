@@ -27,6 +27,7 @@ public struct Mods : Encodable {
   public let cmd: Modifier?
 
   /// Private initializer, since we do not want to have an object with both keys set to `nil`.
+  // TODO: add a public initializer requiring both modifiers.
   private init(alt: Modifier? = nil, cmd: Modifier? = nil) {
     self.alt = alt
     self.cmd = cmd
@@ -41,6 +42,35 @@ public struct Mods : Encodable {
   }
 }
 
+public struct Text : Encodable {
+  public var copy: String?
+  public var largeType: String?
+
+  private enum CodingKeys: String, CodingKey {
+    case copy
+    case largeType = "largetype"
+  }
+
+  /// Private initializer, since we do not want to have an object with both keys set to `nil`.
+  private init(copy: String? = nil, largeType: String? = nil) {
+    self.copy = copy
+    self.largeType = largeType
+  }
+
+  public init(copy: String, largeType: String) {
+    self.copy = copy
+    self.largeType = largeType
+  }
+
+  public static func copy(_ copyText: String) -> Self {
+    return .init(copy: copyText)
+  }
+
+  public static func largeType(_ largeTypeText: String) -> Self {
+    return .init(largeType: largeTypeText)
+  }
+}
+
 /// See https://www.alfredapp.com/help/workflows/inputs/script-filter/json/ for fields descriptions.
 public struct Item : Encodable {
   public var uid: String?
@@ -51,6 +81,7 @@ public struct Item : Encodable {
   public var arg: String?
   public var autocomplete: String?
   public var mods: Mods?
+  public var text: Text?
 
   public init(
     uid: String? = nil,
@@ -59,7 +90,8 @@ public struct Item : Encodable {
     subtitle: String? = nil,
     arg: String? = nil,
     autocomplete: String? = nil,
-    mods: Mods? = nil
+    mods: Mods? = nil,
+    text: Text? = nil
   ) {
     self.uid = uid
     self.valid = valid
@@ -68,5 +100,6 @@ public struct Item : Encodable {
     self.arg = arg
     self.autocomplete = autocomplete
     self.mods = mods
+    self.text = text
   }
 }
