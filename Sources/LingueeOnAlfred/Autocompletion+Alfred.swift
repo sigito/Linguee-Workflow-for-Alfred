@@ -41,10 +41,20 @@ extension Item {
 
 extension Autocompletion {
   func alfredItem(defaultFallback: DefaultFallback) -> Item {
-    return Item(title: format(phrase: self.mainItem.phrase, wordTypes: self.mainItem.wordTypes),
-                subtitle: format(translations: self.translations),
-                arg: self.mainItem.link.absoluteString,
+    let formattedTitle = format(phrase: self.mainItem.phrase, wordTypes: self.mainItem.wordTypes)
+    let formattedTranslations = format(translations: self.translations)
+    let resultsURL = self.mainItem.link.absoluteString
+    let copyText = """
+    \(formattedTitle)
+    \(formattedTranslations)
+
+    \(resultsURL)
+    """
+    return Item(title: formattedTitle,
+                subtitle: formattedTranslations,
+                arg: resultsURL,
                 autocomplete: self.mainItem.phrase,
-                mods: .cmd(.defaultFallback(defaultFallback)))
+                mods: .cmd(.defaultFallback(defaultFallback)),
+                text: .copy(copyText))
   }
 }
