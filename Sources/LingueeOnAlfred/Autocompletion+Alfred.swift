@@ -44,17 +44,29 @@ extension Autocompletion {
     let formattedTitle = format(phrase: self.mainItem.phrase, wordTypes: self.mainItem.wordTypes)
     let formattedTranslations = format(translations: self.translations)
     let resultsURL = self.mainItem.link.absoluteString
-    let copyText = """
-    \(formattedTitle)
-    \(formattedTranslations)
-
-    \(resultsURL)
-    """
+    let copyText = self.copyText(title: formattedTitle, translations: formattedTranslations, resultsURL: resultsURL)
     return Item(title: formattedTitle,
                 subtitle: formattedTranslations,
                 arg: resultsURL,
                 autocomplete: self.mainItem.phrase,
                 mods: .cmd(.defaultFallback(defaultFallback)),
                 text: .copy(copyText))
+  }
+
+  private func copyText(title: String, translations: String, resultsURL: String) -> String {
+    // Do not add a translations line, if there are no translations found.
+    if translations.isEmpty {
+      return """
+      \(title)
+
+      \(resultsURL)
+      """
+    }
+    return """
+    \(title)
+    \(translations)
+
+    \(resultsURL)
+    """
   }
 }
