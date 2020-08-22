@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.samsoniuk.linguee-on-alfred</string>
+	<string>com.samsoniuk.alfred.linguee-search</string>
 	<key>category</key>
 	<string>Tools</string>
 	<key>connections</key>
