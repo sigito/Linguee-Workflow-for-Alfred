@@ -3,6 +3,8 @@
 ## Features
 
 * Rich search resulfts for query translations betwwen English and German.
+* Use `l` keyword to search in Alfred.
+  * The keyword is configurable in the Alfred workflow settings.
 * Global keyboard schortcut `⇧ ⌘ L` (Shift-Command-L).
   * The shortcut is configurable in the Alfred workflow settings.
 * Open the the translation page in a browser by hitting `↩` (Return) on the result entry.
