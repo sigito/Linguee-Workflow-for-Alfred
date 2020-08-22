@@ -9,9 +9,6 @@ The latest version of the workflow can be downloaded from [GitHub releases](http
 * Rich search resulfts for query translations betwwen English and German.
 * Use `l` keyword to search in Alfred.
   * The keyword is configurable in the Alfred workflow settings.
-* Global keyboard schortcut `⇧ ⌘ L` (Shift-Command-L).
-  * Searched for the selected text if any.
-  * The shortcut and its behavior are configurable in the Alfred workflow settings.
 * Open the the translation page in a browser by hitting `↩` (Return) on the result entry.
 * Open an initial search query in a browser:
   * `⌘ ↩` (Command-Return) on any search result, or
