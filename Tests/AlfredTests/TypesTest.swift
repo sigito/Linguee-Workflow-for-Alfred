@@ -28,7 +28,7 @@ class TypesTest : XCTestCase {
 
   /// Tests that `Item` with `Modifier` is encoded accourding to the format expected by Alfred.
   func testItemWithModifier() throws {
-    let item = Item(title: "Title", mods: .alt(.testModifier))
+    let item = Item(title: "Title", mods: [.alt : .testModifier])
     let expectedOutput = #"""
     {
       "mods" : {
@@ -49,7 +49,7 @@ class TypesTest : XCTestCase {
 
   /// Tests that `Item` with `text` is encoded according to the format expected by Alfred.
   func testTextObject() throws {
-    let item = Item(title: "Title", text: .init(copy: "Copy text", largeType: "Large text"))
+    let item = Item(title: "Title", text: [.copy: "Copy text", .largeType:"Large text"])
     let expectedOutput = """
     {
       "text" : {
@@ -66,6 +66,7 @@ class TypesTest : XCTestCase {
 
   /// MARK: - Private
 
+  /// Returns a string with an JSON-encoded `value`.
   private func encodedJson<T>(_ value: T) throws -> String where T : Encodable {
     let data = try self.encoder.encode(value)
     return try XCTUnwrap(String(data: data, encoding: .utf8))

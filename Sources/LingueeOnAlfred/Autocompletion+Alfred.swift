@@ -49,8 +49,8 @@ extension Autocompletion {
                 subtitle: formattedTranslations,
                 arg: resultsURL,
                 autocomplete: self.mainItem.phrase,
-                mods: .cmd(.defaultFallback(defaultFallback)),
-                text: .copy(copyText))
+                mods: [.cmd : .defaultFallback(defaultFallback)],
+                text: [.copy : copyText])
   }
 
   private func copyText(title: String, translations: String, resultsURL: String) -> String {
