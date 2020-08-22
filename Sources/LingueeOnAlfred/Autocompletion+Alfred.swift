@@ -11,8 +11,10 @@ fileprivate func format(phrase: String, wordTypes: [String]) -> String {
 }
 
 fileprivate func format(translations: [TranslationItem]) -> String {
-  return translations.map { format(phrase: $0.translation, wordTypes: $0.wordTypes) }.joined(
-    separator: " · ")
+  return
+    translations
+    .map { format(phrase: $0.translation, wordTypes: $0.wordTypes) }
+    .joined(separator: " · ")
 }
 
 struct DefaultFallback {
@@ -47,13 +49,14 @@ extension Autocompletion {
     let resultsURL = self.mainItem.link.absoluteString
     let copyText = self.copyText(
       title: formattedTitle, translations: formattedTranslations, resultsURL: resultsURL)
+    let largeType = self.largeType(title: formattedTitle, translations: self.translations)
     return Item(
       title: formattedTitle,
       subtitle: formattedTranslations,
       arg: resultsURL,
       autocomplete: self.mainItem.phrase,
       mods: [.cmd: .defaultFallback(defaultFallback)],
-      text: [.copy: copyText])
+      text: [.copy: copyText, .largeType: largeType])
   }
 
   private func copyText(title: String, translations: String, resultsURL: String) -> String {
@@ -71,5 +74,22 @@ extension Autocompletion {
 
       \(resultsURL)
       """
+  }
+
+  private func largeType(title: String, translations: [TranslationItem]) -> String {
+    if translations.isEmpty {
+      return title
+    } else {
+      let formattedTranslations =
+        translations.map { item in
+          let line = format(phrase: item.translation, wordTypes: item.wordTypes)
+          return "· \(line)"
+        }
+        .joined(separator: "\n")
+      return """
+        \(title)
+        \(formattedTranslations)
+        """
+    }
   }
 }
