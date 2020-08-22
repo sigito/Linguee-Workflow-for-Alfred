@@ -38,7 +38,7 @@
 	<key>createdby</key>
 	<string>Yurii Samsoniuk</string>
 	<key>description</key>
-	<string></string>
+	<string>Lingee.com Translations Search Workflow</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -146,7 +146,9 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string></string>
+	<string>Search for a phrase translation on Linguee.com. The results are auto-populated in the Alfred search window. Hit Enter to open the translation in the browser, or CMD-C to copy the translation.
+
+Use "l" to initiate the Linguee Search in the Alfred window, or "⇧ ⌘ L" (Shift-Command-L) to open Alfred window with results for the current text selection (or empty if none selected).</string>
 	<key>uidata</key>
 	<dict>
 		<key>50B0CD10-4D52-4898-9C05-DD3A34A829C3</key>
@@ -176,6 +178,6 @@
 	<key>version</key>
 	<string>0.3.2</string>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/sigito/Linguee-Workflow-for-Alfred#readme</string>
 </dict>
 </plist>
