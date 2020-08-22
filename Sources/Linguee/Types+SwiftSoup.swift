@@ -1,13 +1,14 @@
 import Foundation
 import SwiftSoup
 
-fileprivate enum ClassPrefix : String {
+fileprivate enum ClassPrefix: String {
   case main = "main_"
   case none = ""
 }
 
 fileprivate func parseWordTypes(in element: Element, classPrefix: ClassPrefix) throws -> [String] {
-  return try element
+  return try
+    element
     .select("div.\(classPrefix.rawValue)wordtype")
     // Drop word types without text.
     .filter { $0.hasText() }  // TODO: add a test for empty word types.
@@ -28,7 +29,8 @@ extension TranslationItem {
 
 extension MainItem {
   static func from(mainRow: Element) throws -> Self {
-    guard try mainRow.classNames().contains(where: { ["main_row", "suggest_row"].contains($0) }) else {
+    guard try mainRow.classNames().contains(where: { ["main_row", "suggest_row"].contains($0) })
+    else {
       preconditionFailure("Expected main_row class: \(mainRow)")
     }
     guard let mainItem = try mainRow.select("div.main_item").first() else {
@@ -53,12 +55,15 @@ extension Autocompletion {
       preconditionFailure("Expected autocompletion_item class: \(autocompletionItem)")
     }
     // TODO: test div.suggest_row
-    guard let mainRowElement = try autocompletionItem.select("div.main_row,div.suggest_row").first() else {
+    guard let mainRowElement = try autocompletionItem.select("div.main_row,div.suggest_row").first()
+    else {
       fatalError("Main row element not found in \(autocompletionItem)")
     }
     let mainItem = try MainItem.from(mainRow: mainRowElement)
-    let translations = try autocompletionItem.select("div.translation_row > div > div.translation_item")
-      .map { try TranslationItem.from(_: $0) }
+    let translations = try autocompletionItem.select(
+      "div.translation_row > div > div.translation_item"
+    )
+    .map { try TranslationItem.from(_: $0) }
     return self.init(mainItem: mainItem, translations: translations)
   }
 }

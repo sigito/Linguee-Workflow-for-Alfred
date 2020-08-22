@@ -50,7 +50,9 @@ public class Linguee {
     return .linqueeSearch(query, mode: .regular)
   }
 
-  public func search(for query: String, completion: @escaping (Result<[Autocompletion], Error>) -> Void) {
+  public func search(
+    for query: String, completion: @escaping (Result<[Autocompletion], Error>) -> Void
+  ) {
     URLSession.shared.dataTaskPublisher(for: .linqueeSearch(query, mode: .lightweight))
       .tryMap { (data, _) -> String in
         // Linguee returns content in iso-8859-15 encoding.
@@ -64,21 +66,25 @@ public class Linguee {
         return try self.selectTranslations(in: document)
       }
       .receive(on: DispatchQueue.main)
-      .sink(receiveCompletion: { result in
-        switch result {
-        case .failure(let error):
-          completion(.failure(.generic(error)))
-        default:
-          return
+      .sink(
+        receiveCompletion: { result in
+          switch result {
+          case .failure(let error):
+            completion(.failure(.generic(error)))
+          default:
+            return
+          }
+        },
+        receiveValue: { results in
+          completion(.success(results))
         }
-      }, receiveValue: { results in
-        completion(.success(results))
-      })
+      )
       .store(in: &cancellables)
   }
 
   func selectTranslations(in document: Document) throws -> [Autocompletion] {
-    return try document
+    return try
+      document
       .select(".autocompletion_item")
       .compactMap(Autocompletion.from(autocompletionItem:))
   }

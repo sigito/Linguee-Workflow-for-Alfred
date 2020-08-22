@@ -1,36 +1,38 @@
-@testable import Linguee
-
 import Foundation
 import SwiftSoup
 import XCTest
+
+@testable import Linguee
 
 final class Types_SwiftSoupTest: XCTestCase {
 
   func testParseAutocompletionItem() throws {
     let html = """
-      <div class='autocompletion_item sourceIsLang1 isForeignTerm'>
-        <div class='main_row'>
-          <div class='main_item' lid='DE:Beobachten32806' lc='DE' href='/german-english/translation/Beobachten.html'>
-            Beobachten
-          </div>
-          <div class='main_wordtype' wt='105'>
-            nt
-          </div>
-        </div>
-        <div class='translation_row line singleline'>
-          <div>
-            <div class='translation_item' bid='10000313746'  lid='EN:observation46431'>
-              observation
-              <div class='wordtype' wt='100'>
-                n
-              </div>
+        <div class='autocompletion_item sourceIsLang1 isForeignTerm'>
+          <div class='main_row'>
+            <div class='main_item' lid='DE:Beobachten32806' lc='DE' href='/german-english/translation/Beobachten.html'>
+              Beobachten
             </div>
-            &#8203;
+            <div class='main_wordtype' wt='105'>
+              nt
+            </div>
+          </div>
+          <div class='translation_row line singleline'>
+            <div>
+              <div class='translation_item' bid='10000313746'  lid='EN:observation46431'>
+                observation
+                <div class='wordtype' wt='100'>
+                  n
+                </div>
+              </div>
+              &#8203;
+            </div>
           </div>
         </div>
-      </div>
-    """
-    let element = try SwiftSoup.parseBodyFragment(html).select("html > body > div.autocompletion_item").first()!
+      """
+    let element = try SwiftSoup.parseBodyFragment(html).select(
+      "html > body > div.autocompletion_item"
+    ).first()!
     let expectedautocompletion =
       Autocompletion(
         mainItem: MainItem(
@@ -48,6 +50,6 @@ final class Types_SwiftSoupTest: XCTestCase {
   }
 
   static var allTests = [
-    ("testParseAutocompletionItem", testParseAutocompletionItem),
+    ("testParseAutocompletionItem", testParseAutocompletionItem)
   ]
 }

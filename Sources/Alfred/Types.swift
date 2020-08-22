@@ -6,7 +6,7 @@ struct Items: Encodable {
   }
 }
 
-public struct Modifier : Encodable {
+public struct Modifier: Encodable {
   var valid: Bool
   var arg: String?
   var subtitle: String
@@ -22,7 +22,7 @@ public struct Modifier : Encodable {
   }
 }
 
-public struct Mods : Encodable {
+public struct Mods: Encodable {
   public enum Key {
     case alt
     case cmd
@@ -41,7 +41,7 @@ public struct Mods : Encodable {
   }
 }
 
-public struct Text : Encodable {
+public struct Text: Encodable {
   public enum Option {
     case copy
     case largeType
@@ -66,7 +66,7 @@ public struct Text : Encodable {
 }
 
 /// See https://www.alfredapp.com/help/workflows/inputs/script-filter/json/ for fields descriptions.
-public struct Item : Encodable {
+public struct Item: Encodable {
   public var uid: String?
   // TODO: remove `valid` and infer it based on the `arg` presence.
   public var valid: Bool
@@ -84,8 +84,8 @@ public struct Item : Encodable {
     subtitle: String? = nil,
     arg: String? = nil,
     autocomplete: String? = nil,
-    mods: [Mods.Key : Modifier] = [:],
-    text: [Text.Option : String] = [:]
+    mods: [Mods.Key: Modifier] = [:],
+    text: [Text.Option: String] = [:]
   ) {
     self.uid = uid
     self.valid = valid

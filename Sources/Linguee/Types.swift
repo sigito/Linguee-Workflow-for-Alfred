@@ -1,6 +1,6 @@
 import Foundation
 
-public struct TranslationItem : Equatable {
+public struct TranslationItem: Equatable {
   /// The actual translation.
   public var translation: String
   /// The work types of the translation.
@@ -15,7 +15,7 @@ public struct TranslationItem : Equatable {
   }
 }
 
-public struct MainItem : Equatable {
+public struct MainItem: Equatable {
   /// The translated phrase.
   public var phrase: String
   /// The word types of the phares.
@@ -34,7 +34,7 @@ public struct MainItem : Equatable {
   }
 }
 
-public struct Autocompletion : Equatable {
+public struct Autocompletion: Equatable {
   public var mainItem: MainItem
   public var translations: [TranslationItem]
 
