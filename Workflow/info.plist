@@ -5,7 +5,7 @@
 	<key>bundleid</key>
 	<string>com.samsoniuk.alfred.linguee-search</string>
 	<key>category</key>
-	<string>Tools</string>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>50B0CD10-4D52-4898-9C05-DD3A34A829C3</key>
