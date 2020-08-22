@@ -1,3 +1,5 @@
+import Foundation
+
 struct Items: Encodable {
   private(set) var items: [Item] = []
 
@@ -76,6 +78,21 @@ public struct Item: Encodable {
   public var autocomplete: String?
   public var mods: Mods?
   public var text: Text?
+  /// A Quick Look URL which will be visible if the user uses the Quick Look feature within Alfred
+  /// (tapping shift, or cmd+y).
+  public var quickLookURL: String?
+
+  private enum CodingKeys: String, CodingKey {
+    case uid
+    case valid
+    case title
+    case subtitle
+    case arg
+    case autocomplete
+    case mods
+    case text
+    case quickLookURL = "quicklookurl"
+  }
 
   public init(
     uid: String? = nil,
@@ -85,7 +102,8 @@ public struct Item: Encodable {
     arg: String? = nil,
     autocomplete: String? = nil,
     mods: [Mods.Key: Modifier] = [:],
-    text: [Text.Option: String] = [:]
+    text: [Text.Option: String] = [:],
+    quickLookURL: String? = nil
   ) {
     self.uid = uid
     self.valid = valid
@@ -95,5 +113,6 @@ public struct Item: Encodable {
     self.autocomplete = autocomplete
     self.mods = Mods(modifiers: mods)
     self.text = Text(options: text)
+    self.quickLookURL = quickLookURL
   }
 }

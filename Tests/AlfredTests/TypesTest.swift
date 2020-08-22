@@ -64,6 +64,20 @@ class TypesTest: XCTestCase {
     XCTAssertEqual(encodedItem, expectedOutput)
   }
 
+  /// Tests that the `Item.quickLookURL` is encoded with a correct key and value.
+  func testQuickLookURL() throws {
+    let item = Item(title: "Title", quickLookURL: "https://example.com/")
+    let expectedOutput = #"""
+      {
+        "quicklookurl" : "https:\/\/example.com\/",
+        "title" : "Title",
+        "valid" : true
+      }
+      """#
+    let encodedItem = try self.encodedJson(item)
+    XCTAssertEqual(encodedItem, expectedOutput)
+  }
+
   /// MARK: - Private
 
   /// Returns a string with an JSON-encoded `value`.

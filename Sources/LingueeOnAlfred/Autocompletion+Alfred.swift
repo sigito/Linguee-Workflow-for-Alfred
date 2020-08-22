@@ -56,7 +56,8 @@ extension Autocompletion {
       arg: resultsURL,
       autocomplete: self.mainItem.phrase,
       mods: [.cmd: .defaultFallback(defaultFallback)],
-      text: [.copy: copyText, .largeType: largeType])
+      text: [.copy: copyText, .largeType: largeType],
+      quickLookURL: resultsURL)
   }
 
   private func copyText(title: String, translations: String, resultsURL: String) -> String {
