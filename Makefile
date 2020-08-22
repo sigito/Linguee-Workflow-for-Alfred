@@ -31,3 +31,6 @@ clean:
 	rm "$(WORKFLOW_ZIP)"
 	swift package clean
 
+format:
+	@echo "Formatting the code..."
+	swift-format -i --configuration swift-format.config.json -r Sources Tests
