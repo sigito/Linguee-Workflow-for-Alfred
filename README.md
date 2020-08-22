@@ -19,6 +19,23 @@ The latest version of the workflow can be downloaded from [GitHub releases](http
 * Search autocomplete on `↹` (Tab).
 * Copy the results with `⌘ C` (Command-C).
 
+### Setting a global keyboard schortcut
+
+There is an option to trigger the Linguee Search from anywhere, skipping typing of the command prefix (`l` in our case) in the shared Alfred search window. Unfortunately, Alfred does not import the hotkeys, thus a manual setup is necessary.
+
+The workflow already contains an empty global keyboard shortuct configuration. You should:
+1. Open the workflows panel in Alfred settings.
+1. Select this workflow.
+1. Double-click on the "Hotkey" box in the workflow (alternatively right click and choose "Configure Object...").
+1. Press the key combination that should be used as a system-wide shortcut. E.g., `⇧ ⌘ L` (Shift-Command-L).
+1. Click "Save".
+
+By default the shortcut would searched for the selected text, or open a ready-to-go Linguee search in Alfred.
+
+To change the assigned key combination, just repeat the steps described above.
+
+More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/workflows/triggers/hotkey/).
+
 ## Create a workflow file yourself
 
 Clone the repository and run from within the directory with the cloned project:
