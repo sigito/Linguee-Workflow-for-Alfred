@@ -4,6 +4,14 @@
 
 The latest version of the workflow can be downloaded from [GitHub releases](https://github.com/sigito/Linguee-Workflow-for-Alfred/releases).
 
+### Manually install the workflow
+
+You can also build and install the workflow yourself. Just clone the repository and run the next command in Terminal from the directory with the cloned project:
+```
+make install
+```
+A new `Linguee.Search.alfredworkflow` workflow would be built from source and opened in Alfred.
+
 ## Features
 
 * Rich search resulfts for query translations betwwen English and German.
@@ -32,14 +40,6 @@ By default the shortcut would searched for the selected text, or open a ready-to
 To change the assigned key combination, just repeat the steps described above.
 
 More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/workflows/triggers/hotkey/).
-
-## Create a workflow file yourself
-
-Clone the repository and run from within the directory with the cloned project:
-```
-make release
-```
-A new `Linguee.Search.alfredworkflow` workflow would be created in the root of the cloned project.
 
 ## Credits
 

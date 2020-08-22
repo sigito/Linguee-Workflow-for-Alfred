@@ -1,8 +1,12 @@
-.PHONY := clean
+.PHONY := install clean
 RELEASE_DIR := .release
 WORKFLOW_ZIP := Linguee.Search.alfredworkflow
 
 all: workflow
+
+install: workflow
+	@echo "Openning the newly created $(WORKFLOW_ZIP)."
+	open $(WORKFLOW_ZIP)
 
 build-release:
 	@echo "Building a release binary..."
