@@ -107,8 +107,6 @@
 				<string>./LingueeOnAlfred "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
-				<key>scriptfile</key>
-				<string>/Users/sigito/bin/LingueeOnAlfred</string>
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
