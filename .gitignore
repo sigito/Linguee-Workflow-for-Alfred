@@ -1,6 +1,8 @@
+*.alfredworkflow
 .DS_Store
+.release
+.swiftpm
+/*.xcodeproj
 /.build
 /Packages
-/*.xcodeproj
 xcuserdata/
-.swiftpm

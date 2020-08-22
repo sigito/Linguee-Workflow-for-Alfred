@@ -19,6 +19,14 @@ The latest version of the workflow can be downloaded from [GitHub releases](http
 * Search autocomplete on `↹` (Tab).
 * Copy the results with `⌘ C` (Command-C).
 
+## Create a workflow file yourself
+
+Clone the repository and run from within the directory with the cloned project:
+```
+make release
+```
+A new `Linguee.Search.alfredworkflow` workflow would be created in the root of the cloned project.
+
 ## Credits
 
 The workflow is inspired by [linguee-alfred-workflow](https://github.com/alexander-heimbuch/linguee-alfred-workflow) from Alexander Heimbuch.
