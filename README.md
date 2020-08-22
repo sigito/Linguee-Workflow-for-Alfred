@@ -1,5 +1,9 @@
 # Linguee Workflow for Alfred
 
+## Download the workflow
+
+The latest version of the workflow can be downloaded from [GitHub releases](https://github.com/sigito/Linguee-Workflow-for-Alfred/releases).
+
 ## Features
 
 * Rich search resulfts for query translations betwwen English and German.
