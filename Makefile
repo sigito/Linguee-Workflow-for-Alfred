@@ -1,4 +1,4 @@
-.PHONY := install clean
+.PHONY := clean install test
 RELEASE_DIR := .release
 WORKFLOW_ZIP := Linguee.Search.alfredworkflow
 
@@ -17,13 +17,17 @@ workflow: collect-workflow
 	zip -ju $(WORKFLOW_ZIP) $(RELEASE_DIR)/*
 	@echo "$(WORKFLOW_ZIP) was successfully created."
 
-collect-workflow: build-release | $(RELEASE_DIR)
+collect-workflow: build-release test | $(RELEASE_DIR)
 	@echo "Collecting workflow archive files in $(RELEASE_DIR)"
 	cp .build/release/LingueeOnAlfred $(RELEASE_DIR)/
 	cp Workflow/* $(RELEASE_DIR)/
 
 $(RELEASE_DIR):
 	mkdir -p $(RELEASE_DIR)
+
+test:
+	@echo "Running tests..."
+	swift test
 
 clean:
 	@echo "Cleaning all..."
