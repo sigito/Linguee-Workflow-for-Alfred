@@ -1,5 +1,7 @@
 # Linguee Workflow for Alfred
 
+![Demo](demo.gif)
+
 ## Download the workflow
 
 The latest version of the workflow can be downloaded from [GitHub releases](https://github.com/sigito/Linguee-Workflow-for-Alfred/releases).
