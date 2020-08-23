@@ -23,7 +23,7 @@ A new `Linguee.Search.alfredworkflow` workflow would be built from source and op
   * `↩` (Return) on "Search on Linguee for '{query}'". This entry is always added as the last search result.
 * Search autocomplete on `↹` (Tab).
 * Copy the results with `⌘ C` (Command-C).
-* Display a selected result in a large type with "⌘ L" (Command-L).
+* Display a selected result in a large type with `⌘ L` (Command-L).
 * Quickly look at the tranlation page by tapping `⇧` (Shift) or `⌘ Y` (Command+Y).
 
 ### Setting a global keyboard schortcut
