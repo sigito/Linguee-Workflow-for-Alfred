@@ -9,12 +9,24 @@ let package = Package(
     .macOS(.v10_15)
   ],
   dependencies: [
-    .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.3.2")
+    .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
+    .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.3.2"),
   ],
   targets: [
     .target(
       name: "LingueeOnAlfred",
-      dependencies: ["Linguee", "Alfred"]),
+      dependencies: [
+        "Alfred",
+        "Linguee",
+        "Updater",
+      ]),
+
+    .target(
+      name: "Alfred",
+      dependencies: []),
+    .testTarget(
+      name: "AlfredTests",
+      dependencies: ["Alfred"]),
 
     .target(
       name: "Linguee",
@@ -24,10 +36,12 @@ let package = Package(
       dependencies: ["Linguee"]),
 
     .target(
-      name: "Alfred",
-      dependencies: []),
+      name: "Updater",
+      dependencies: [
+        .product(name: "Logging", package: "swift-log"),
+      ]),
     .testTarget(
-      name: "AlfredTests",
-      dependencies: ["Alfred"]),
+      name: "UpdaterTests",
+      dependencies: ["Updater"]),
   ]
 )

@@ -50,36 +50,36 @@ public class Linguee {
     return .linqueeSearch(query, mode: .regular)
   }
 
-  public func search(
-    for query: String, completion: @escaping (Result<[Autocompletion], Error>) -> Void
-  ) {
-    URLSession.shared.dataTaskPublisher(for: .linqueeSearch(query, mode: .lightweight))
-      .tryMap { (data, _) -> String in
-        // Linguee returns content in iso-8859-15 encoding.
-        guard let html = String(data: data, encoding: .isoLatin1) else {
-          throw Error.badEncoding
-        }
-        return html
-      }
-      .tryMap { html in
-        let document = try SwiftSoup.parse(html)
-        return try self.selectTranslations(in: document)
-      }
-      .receive(on: DispatchQueue.main)
-      .sink(
-        receiveCompletion: { result in
-          switch result {
-          case .failure(let error):
-            completion(.failure(.generic(error)))
-          default:
-            return
+  public func search(for query: String) -> Future<[Autocompletion], Error> {
+    return Future { (completion) in
+      URLSession.shared.dataTaskPublisher(for: .linqueeSearch(query, mode: .lightweight))
+        .tryMap { (data, _) -> String in
+          // Linguee returns content in iso-8859-15 encoding.
+          guard let html = String(data: data, encoding: .isoLatin1) else {
+            throw Error.badEncoding
           }
-        },
-        receiveValue: { results in
-          completion(.success(results))
+          return html
         }
-      )
-      .store(in: &cancellables)
+        .tryMap { html in
+          let document = try SwiftSoup.parse(html)
+          return try self.selectTranslations(in: document)
+        }
+        .receive(on: DispatchQueue.main)
+        .sink(
+          receiveCompletion: { result in
+            switch result {
+            case .failure(let error):
+              completion(.failure(.generic(error)))
+            default:
+              return
+            }
+          },
+          receiveValue: { results in
+            completion(.success(results))
+          }
+        )
+        .store(in: &self.cancellables)
+    }
   }
 
   func selectTranslations(in document: Document) throws -> [Autocompletion] {

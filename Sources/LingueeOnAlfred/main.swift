@@ -13,23 +13,25 @@ let query = CommandLine.arguments[1]
   // https://stackoverflow.com/questions/23219482#23226449
   .precomposedStringWithCanonicalMapping
 
-let linguee = Linguee()
-linguee.search(for: query) { result in
-  var workflow = Workflow()
-  let fallback = DefaultFallback(query: query)
+var workflow = Workflow()
+let fallback = DefaultFallback(query: query)
 
-  switch result {
-  case .failure(let error):
-    workflow.add(.init(valid: false, title: "Failed to get translations", subtitle: "\(error)"))
-  case .success(let results):
-    results
-      .map { $0.alfredItem(defaultFallback: fallback) }
-      .forEach { workflow.add($0) }
-  }
-  // Add a direct search link to the end of the list.
-  workflow.add(.fromDefaultFallback(fallback))
-  try! workflow.emit()
-  exit(EXIT_SUCCESS)
-}
+let linguee = Linguee()
+let lingueeSearchRequset = linguee.search(for: query)
+  .sink(
+    receiveCompletion: { result in
+      if case .failure(let error) = result {
+        workflow.add(.init(valid: false, title: "Failed to get translations", subtitle: "\(error)"))
+      }
+      try! workflow.emit()
+      exit(EXIT_SUCCESS)
+    },
+    receiveValue: { results in
+      results
+        .map { $0.alfredItem(defaultFallback: fallback) }
+        .forEach { workflow.add($0) }
+      // Add a direct search link to the end of the list.
+      workflow.add(.fromDefaultFallback(fallback))
+    })
 
 RunLoop.main.run()
