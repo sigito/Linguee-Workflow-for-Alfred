@@ -1,6 +1,8 @@
 .PHONY := clean install test
 RELEASE_DIR := .release
 WORKFLOW_ZIP := Linguee.Search.alfredworkflow
+VERSION_FILE := LATEST_VERSION
+VERSION := $(shell cat $(VERSION_FILE))
 
 all: workflow
 
@@ -17,7 +19,7 @@ workflow: collect-workflow
 	zip -ju $(WORKFLOW_ZIP) $(RELEASE_DIR)/*
 	@echo "$(WORKFLOW_ZIP) was successfully created."
 
-collect-workflow: build-release test | $(RELEASE_DIR)
+collect-workflow: build-release test info.plist version | $(RELEASE_DIR)
 	@echo "Collecting workflow archive files in $(RELEASE_DIR)"
 	cp .build/release/LingueeOnAlfred $(RELEASE_DIR)/
 	cp Workflow/* $(RELEASE_DIR)/
@@ -34,6 +36,15 @@ clean:
 	rm -rf "$(RELEASE_DIR)"
 	rm "$(WORKFLOW_ZIP)"
 	swift package clean
+
+info.plist version: _create_version_files
+
+_create_version_files: | $(RELEASE_DIR)
+	@echo "Creating info.plist."
+	@echo "Updating version to $(VERSION)."
+	sed 's/$$(VERSION)/$(VERSION)/g' info.plist.tmpl > $(RELEASE_DIR)/info.plist
+	echo '$(VERSION)' > $(VERSION_FILE)
+	cp $(VERSION_FILE) $(RELEASE_DIR)/version
 
 format:
 	@echo "Formatting the code..."
