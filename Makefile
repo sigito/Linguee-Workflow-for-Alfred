@@ -34,7 +34,7 @@ test:
 clean:
 	@echo "Cleaning all..."
 	rm -rf "$(RELEASE_DIR)"
-	rm "$(WORKFLOW_ZIP)"
+	rm -f "$(WORKFLOW_ZIP)"
 	swift package clean
 
 info.plist version: _create_version_files
