@@ -43,6 +43,8 @@ To change the assigned key combination, just repeat the steps described above.
 
 More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/workflows/triggers/hotkey/).
 
-## Credits
+## License
 
-The workflow is inspired by [linguee-alfred-workflow](https://github.com/alexander-heimbuch/linguee-alfred-workflow) from Alexander Heimbuch.
+* The Linguee Workflow for Alfred is released under the MIT license. [See LICENSE](LICENSE) for details.
+* The Linguee icon included in the workflow is a property of [DeepL GmbH](https://www.deepl.com/en/publisher/).
+* The surved results are used according to Linguee's [Terms and Conditions](https://www.linguee.com/english-german/page/termsAndConditions.php).
