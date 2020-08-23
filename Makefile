@@ -22,7 +22,7 @@ workflow: collect-workflow
 collect-workflow: build-release test info.plist version | $(RELEASE_DIR)
 	@echo "Collecting workflow archive files in $(RELEASE_DIR)"
 	cp .build/release/LingueeOnAlfred $(RELEASE_DIR)/
-	cp Workflow/* $(RELEASE_DIR)/
+	cp Icons/* $(RELEASE_DIR)/
 
 $(RELEASE_DIR):
 	mkdir -p $(RELEASE_DIR)
