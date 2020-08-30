@@ -71,6 +71,37 @@ public struct Text: Encodable {
   }
 }
 
+public enum Icon {
+  /// Display an icon at the passed location.
+  case icon(location: String)
+  /// Display an icon for the path.
+  case fileIcon(forPath: String)
+  /// Display an icon of a specific file.
+  case fileType(of: String)
+}
+
+extension Icon: Encodable {
+  private enum CodingKeys: String, CodingKey {
+    case type
+    case path
+  }
+
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    switch self {
+    case .icon(location: let path):
+      // No type for icon.
+      try container.encode(path, forKey: .path)
+    case .fileIcon(forPath: let path):
+      try container.encode("fileicon", forKey: .type)
+      try container.encode(path, forKey: .path)
+    case .fileType(of: let path):
+      try container.encode("filetype", forKey: .type)
+      try container.encode(path, forKey: .path)
+    }
+  }
+}
+
 /// See https://www.alfredapp.com/help/workflows/inputs/script-filter/json/ for fields descriptions.
 public struct Item: Encodable {
   public var uid: String?
@@ -79,6 +110,7 @@ public struct Item: Encodable {
   public var title: String
   public var subtitle: String?
   public var arg: String?
+  public var icon: Icon?
   public var autocomplete: String?
   public var mods: Mods?
   public var text: Text?
@@ -92,6 +124,7 @@ public struct Item: Encodable {
     case title
     case subtitle
     case arg
+    case icon
     case autocomplete
     case mods
     case text
@@ -104,6 +137,7 @@ public struct Item: Encodable {
     title: String,
     subtitle: String? = nil,
     arg: String? = nil,
+    icon: Icon? = nil,
     autocomplete: String? = nil,
     mods: [Mods.Key: Modifier] = [:],
     text: [Text.Option: String] = [:],
@@ -114,6 +148,7 @@ public struct Item: Encodable {
     self.title = title
     self.subtitle = subtitle
     self.arg = arg
+    self.icon = icon
     self.autocomplete = autocomplete
     self.mods = Mods(modifiers: mods)
     self.text = Text(options: text)

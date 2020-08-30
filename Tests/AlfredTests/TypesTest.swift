@@ -3,13 +3,7 @@ import XCTest
 
 @testable import Alfred
 
-class TypesTest: XCTestCase {
-  private var encoder: JSONEncoder!
-
-  override func setUp() {
-    self.encoder = JSONEncoder()
-    self.encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
-  }
+class TypesTest: JSONEncodingBaseTestCase {
 
   /// Tests that `Modifier` is serialized into an Alfred-expected format.
   func testModifierSerialization() throws {
@@ -76,6 +70,23 @@ class TypesTest: XCTestCase {
       """#
     let encodedItem = try self.encodedJson(item)
     XCTAssertEqual(encodedItem, expectedOutput)
+  }
+
+  /// Tests that the `Item.icon` is encoded with a correct key and value.
+  func testIcon() throws {
+    let item = Item(title: "Title", icon: .fileType(of: "public.png"))
+    let expectedOutput = """
+      {
+        "icon" : {
+          "path" : "public.png",
+          "type" : "filetype"
+        },
+        "title" : "Title",
+        "valid" : true
+      }
+      """
+
+    XCTAssertEqual(try encode(item), expectedOutput)
   }
 
   /// MARK: - Private
