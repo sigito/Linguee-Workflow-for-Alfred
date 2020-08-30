@@ -8,7 +8,7 @@ func notFaked2<A, B, R>(file: StaticString = #file, line: UInt = #line) -> (A, B
 
 class GitHubAPIFake: GitHubAPI {
   class Stubs {
-    var latestReleaseResult: (String, String) -> Result<LatestRelease?, GitHubAPIError> =
+    var latestReleaseResult: (String, String) -> Result<LatestRelease, GitHubAPIError> =
       notFaked2()
   }
 
@@ -16,8 +16,7 @@ class GitHubAPIFake: GitHubAPI {
 
   init() {}
 
-  func getLatestRelease(user: String, repository: String) -> Future<LatestRelease?, GitHubAPIError>
-  {
+  func getLatestRelease(user: String, repository: String) -> Future<LatestRelease, GitHubAPIError> {
     Future { (completion) in
       completion(self.stubs.latestReleaseResult(user, repository))
     }

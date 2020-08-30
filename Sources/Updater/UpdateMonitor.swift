@@ -4,13 +4,13 @@ import Logging
 
 public struct Release {
   /// The version of the release.
-  let version: String
+  public let version: String
   /// The URL to fetch the new workflow.
-  let workflowURL: URL
+  public let workflowURL: URL
   /// The release page URL.
-  let releaseURL: URL
+  public let releaseURL: URL
   /// When the release has been published.
-  let releaseDate: Date
+  public let releaseDate: Date
 }
 
 extension Release: Codable {}

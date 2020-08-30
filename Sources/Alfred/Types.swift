@@ -4,7 +4,11 @@ struct Items: Encodable {
   private(set) var items: [Item] = []
 
   mutating func add(_ item: Item) {
-    return self.items.append(item)
+    self.items.append(item)
+  }
+
+  mutating func insert(_ item: Item, at index: Int) {
+    items.insert(item, at: index)
   }
 }
 

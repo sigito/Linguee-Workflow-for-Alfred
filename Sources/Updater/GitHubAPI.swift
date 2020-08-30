@@ -13,6 +13,8 @@ extension Asset: Decodable {
   }
 }
 
+extension Asset: Equatable {}
+
 public struct LatestRelease {
   let tagName: String
   /// The release page URL.
@@ -50,28 +52,45 @@ public enum GitHubAPIError: Error {
   case cannotContructURL
   case unexpectedResponse
   case badResponseCode
+  /// Latest release not found.
+  case notFound
   case generic(Error)
 }
 
 public protocol GitHubAPI {
-  func getLatestRelease(user: String, repository: String) -> Future<LatestRelease?, GitHubAPIError>
+  func getLatestRelease(user: String, repository: String) -> Future<LatestRelease, GitHubAPIError>
+}
+
+public protocol URLLoader {
+  func requestData(for url: URL) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
+}
+
+extension URLSession: URLLoader {
+  public func requestData(for url: URL) -> AnyPublisher<
+    (data: Data, response: URLResponse), URLError
+  > {
+    return self.dataTaskPublisher(for: url).eraseToAnyPublisher()
+  }
 }
 
 public class GitHubAPIImpl: GitHubAPI {
 
   private var cancellables: Set<AnyCancellable> = []
+  private let loader: URLLoader
 
-  public init() {}
+  public init(loader: URLLoader = URLSession.shared) {
+    self.loader = loader
+  }
 
   public func getLatestRelease(user: String, repository: String) -> Future<
-    LatestRelease?, GitHubAPIError
+    LatestRelease, GitHubAPIError
   > {
     return Future.init { completion in
       guard let latestReleaseURL = URL.latestRelease(user: user, repository: repository) else {
         completion(.failure(.cannotContructURL))
         return
       }
-      URLSession.shared.dataTaskPublisher(for: latestReleaseURL)
+      self.loader.requestData(for: latestReleaseURL)
         .tryMap { (data, response) in
           guard let httpURLResponse = response as? HTTPURLResponse else {
             throw GitHubAPIError.unexpectedResponse
@@ -79,11 +98,9 @@ public class GitHubAPIImpl: GitHubAPI {
           if !(200...299).contains(httpURLResponse.statusCode) {
             throw GitHubAPIError.badResponseCode
           }
-          let string = String(data: data, encoding: .utf8)!
-          print(string)
           return data
         }
-        .decode(type: LatestRelease.self, decoder: JSONDecoder())
+        .decode(type: LatestRelease.self, decoder: self.makeDecoder())
         .sink(
           receiveCompletion: { (result) in
             if case .failure(let error) = result {
@@ -96,5 +113,13 @@ public class GitHubAPIImpl: GitHubAPI {
         )
         .store(in: &self.cancellables)
     }
+  }
+
+  // MARK: - Private
+
+  private func makeDecoder() -> JSONDecoder {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601
+    return decoder
   }
 }

@@ -207,15 +207,15 @@ class UpdateMonitorTest: XCTestCase {
     try self.assertReleaseIgnoreDate(storedRelease, expectedRelease: release)
   }
 
-  /// Tests that `nil` is returned when no GitHub releases found.
+  /// Tests that an error is returned when no GitHub releases are found.
   func testNilIsReturnedIfNoGitHubReleaseReturned() throws {
     localStore.stubs.latestRelease = { nil }
-    gitHubAPI.stubs.latestReleaseResult = { _, _ in .success(nil) }
+    gitHubAPI.stubs.latestReleaseResult = { _, _ in .failure(.notFound) }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [nil])
+    releaseSubscriber.waitForCompletion()?.assertError()
+    XCTAssertEqual(releaseSubscriber.receivedValues, [])
   }
 
   /// Tests that an error is returned when GitHub request fails.
@@ -240,7 +240,7 @@ class UpdateMonitorTest: XCTestCase {
     var requestTime: Date?
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
       requestTime = Date()
-      return .success(nil)
+      return .failure(.notFound)
     }
     localStore.stubs.checkAttemptTimestamp = { nil }
     var storedAttemptTimestamp: TimeInterval?
@@ -252,8 +252,15 @@ class UpdateMonitorTest: XCTestCase {
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [nil])
+    releaseSubscriber.waitForCompletion()?.assertError { error in
+      guard case UpdateMonitorError.generic(let underlyingError) = error,
+        case GitHubAPIError.notFound = underlyingError
+      else {
+        XCTFail("Unexpected error: \(error)")
+        return
+      }
+    }
+    XCTAssertEqual(releaseSubscriber.receivedValues, [])
 
     let attepmtTimestamp = try XCTUnwrap(storedAttemptTimestamp)
     let storeAttemptDate = try XCTUnwrap(storedAttemptTime)
@@ -270,7 +277,7 @@ class UpdateMonitorTest: XCTestCase {
 
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
       XCTFail("Request should not be sent")
-      return .success(nil)
+      return .failure(.badResponseCode)
     }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)

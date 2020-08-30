@@ -12,6 +12,16 @@ fileprivate let kFiveMituneSeconds = 5 * kMinuteSeconds
 /// Usual amount of seconds per week.
 fileprivate let kWeekSeconds: Int = kMinuteSeconds * 60 * 24 * 7
 
+extension WorkflowEnvironment {
+  /// Whether the updates monitoring is enabled.
+  var checkForUpdates: Bool {
+    guard let value = environment["check_for_updates"] else {
+      return false
+    }
+    return Bool(value) ?? false
+  }
+}
+
 class LingueeSearchWorkflow {
   private static let logger = Logger(
     label: "\(LingueeSearchWorkflow.self)", factory: StreamLogHandler.standardError(label:))
@@ -32,8 +42,7 @@ class LingueeSearchWorkflow {
     environment: WorkflowEnvironment,
     enabled: Bool = false
   ) -> UpdateMonitor? {
-    // TODO: enable the updater based on the external configuration.
-    guard enabled else {
+    guard environment.checkForUpdates else {
       logger.debug("Update monitoring is disabled.")
       return nil
     }
@@ -82,6 +91,24 @@ class LingueeSearchWorkflow {
             autocompletions
               .map { $0.alfredItem(defaultFallback: fallback) }
               .forEach { workflow.add($0) }
+
+            if let release = release {
+              // TODO: set a custom icon.
+              workflow.addAtLastVisiblePosition(
+                Item(
+                  title: "Update to \(release.version)",
+                  subtitle: "A newer version of the workflow is available.",
+                  arg: release.workflowURL.absoluteString,
+                  mods: [
+                    .cmd: .init(
+                      subtitle: "Open the \(release.version) release page", valid: true,
+                      arg: release.releaseURL.absoluteString)
+                  ],
+                  // TODO: maybe copy all the information available.
+                  text: [.copy: release.releaseURL.absoluteString]))
+
+            }
+
             // Add a direct search link to the end of the list.
             workflow.add(.fromDefaultFallback(fallback))
           }
@@ -134,10 +161,13 @@ class LingueeSearchWorkflow {
 
   // MARK: - Private
 
-  private func fetchUpdate() -> Future<Release?, Error> {
-    // TODO: implement me.
-    return Future { completion in
-      completion(.success(nil))
+  private func fetchUpdate() -> AnyPublisher<Release?, UpdateMonitorError> {
+    guard let updateMonitor = updateMonitor else {
+      return Just(nil).setFailureType(to: UpdateMonitorError.self).eraseToAnyPublisher()
     }
+    return
+      updateMonitor
+      .availableUpdate()
+      .eraseToAnyPublisher()
   }
 }

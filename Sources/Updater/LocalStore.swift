@@ -25,7 +25,7 @@ public protocol LocalStore {
 }
 
 public protocol FileAccessing {
-  func createDirectory(at url: URL, withIntermediateDirectories: Bool) throws
+  func mkdir(at url: URL, withIntermediateDirectories: Bool) throws
   func fileExists(atPath path: String) -> Bool
 
   func read(contentsOf url: URL) throws -> Data
@@ -64,7 +64,7 @@ extension FileAccessing {
 }
 
 extension FileManager: FileAccessing {
-  public func createDirectory(at url: URL, withIntermediateDirectories: Bool) throws {
+  public func mkdir(at url: URL, withIntermediateDirectories: Bool) throws {
     try createDirectory(at: url, withIntermediateDirectories: withIntermediateDirectories)
   }
 }
@@ -76,14 +76,9 @@ public class LocalFileStore: LocalStore {
   private let latestReleaseFile: URL
   private let lastCheckAttemptTimestampFile: URL
 
-  // TODO: use `alfred_workflow_cache` variable instead.
-  // https://www.alfredapp.com/help/workflows/script-environment-variables/
-  public init(
-    rootDir: URL = URL(fileURLWithPath: ".updater", isDirectory: true),
-    fileAccessor: FileAccessing = FileManager.default
-  ) throws {
+  public init(rootDir: URL, fileAccessor: FileAccessing = FileManager.default) throws {
     do {
-      try fileAccessor.createDirectory(at: rootDir, withIntermediateDirectories: true)
+      try fileAccessor.mkdir(at: rootDir, withIntermediateDirectories: true)
     } catch {
       throw LocalStoreError.rootDirectoryCreationFailed(rootDir, underlyingError: error)
     }
