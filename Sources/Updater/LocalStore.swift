@@ -17,8 +17,6 @@ public struct VersionedRelease: Codable {
 }
 
 public protocol LocalStore {
-  func currentVersion() throws -> String
-
   func latestRelease() throws -> VersionedRelease?
   func save(latestRelease release: Release) throws
 
@@ -26,7 +24,7 @@ public protocol LocalStore {
   func save(checkAttemptTimestamp timestamp: TimeInterval) throws
 }
 
-protocol FileAccessing {
+public protocol FileAccessing {
   func createDirectory(at url: URL, withIntermediateDirectories: Bool) throws
   func fileExists(atPath path: String) -> Bool
 
@@ -40,48 +38,47 @@ protocol FileAccessing {
 }
 
 extension FileAccessing {
-  func read(contentsOf url: URL) throws -> Data {
+  public func read(contentsOf url: URL) throws -> Data {
     return try Data(contentsOf: url)
   }
 
-  func read(contentsOf url: URL) throws -> String {
+  public func read(contentsOf url: URL) throws -> String {
     return try String(contentsOf: url, encoding: .utf8)
   }
 
-  func read<T>(contentsOf url: URL) throws -> T? where T: LosslessStringConvertible {
+  public func read<T>(contentsOf url: URL) throws -> T? where T: LosslessStringConvertible {
     return try T(read(contentsOf: url))
   }
 
-  func write(_ data: Data, to url: URL) throws {
+  public func write(_ data: Data, to url: URL) throws {
     try data.write(to: url, options: .atomicWrite)
   }
 
-  func write(string: String, to url: URL) throws {
+  public func write(string: String, to url: URL) throws {
     try string.write(to: url, atomically: true, encoding: .utf8)
   }
 
-  func write<T>(_ object: T, to url: URL) throws where T: LosslessStringConvertible {
+  public func write<T>(_ object: T, to url: URL) throws where T: LosslessStringConvertible {
     try String(object).write(to: url, atomically: true, encoding: .utf8)
   }
 }
 
 extension FileManager: FileAccessing {
-  func createDirectory(at url: URL, withIntermediateDirectories: Bool) throws {
+  public func createDirectory(at url: URL, withIntermediateDirectories: Bool) throws {
     try createDirectory(at: url, withIntermediateDirectories: withIntermediateDirectories)
   }
 }
 
-class LocalStoreImpl: LocalStore {
+public class LocalFileStore: LocalStore {
   private let fileAccessor: FileAccessing
 
   private let rootDir: URL
-  private let versionFile: URL
   private let latestReleaseFile: URL
   private let lastCheckAttemptTimestampFile: URL
 
   // TODO: use `alfred_workflow_cache` variable instead.
   // https://www.alfredapp.com/help/workflows/script-environment-variables/
-  init(
+  public init(
     rootDir: URL = URL(fileURLWithPath: ".updater", isDirectory: true),
     fileAccessor: FileAccessing = FileManager.default
   ) throws {
@@ -91,10 +88,6 @@ class LocalStoreImpl: LocalStore {
       throw LocalStoreError.rootDirectoryCreationFailed(rootDir, underlyingError: error)
     }
     self.fileAccessor = fileAccessor
-    // TODO: version does not fit the definition.
-    // TODO: read version from `alfred_workflow_version` instead.
-    // https://www.alfredapp.com/help/workflows/script-environment-variables/
-    self.versionFile = URL(fileURLWithPath: "version", isDirectory: false)
     self.rootDir = rootDir
     self.latestReleaseFile = URL(
       fileURLWithPath: ".latest_update", isDirectory: false, relativeTo: rootDir)
@@ -102,22 +95,12 @@ class LocalStoreImpl: LocalStore {
       fileURLWithPath: "last_attempt", isDirectory: false, relativeTo: rootDir)
   }
 
-  /// Returns the current version of the workflow.
-  /// - Throws: `LocalStoreError.readFailed` if failed to read the version.
-  func currentVersion() throws -> String {
-    do {
-      return try fileAccessor.read(contentsOf: versionFile)
-    } catch {
-      throw LocalStoreError.readFailed(versionFile, underlyingError: error)
-    }
-  }
-
   /// Returns the latest known release.
   /// - Returns: The letast known release or `nil` if have been previously stored.
   /// - Throws:
   ///   - `LocalStoreError.readFailed`, if the failed to read a previosly stored release.
   ///   - `LocalStoreError.releaseDecodingFailed`, if the stored release has unexpected format.
-  func latestRelease() throws -> VersionedRelease? {
+  public func latestRelease() throws -> VersionedRelease? {
     guard fileAccessor.fileExists(atPath: latestReleaseFile.path) else {
       // Not an issues, there were no fetched updates yet.
       return nil
@@ -142,7 +125,7 @@ class LocalStoreImpl: LocalStore {
   /// - Throws:
   ///   - `LocalStoreError.releaseEncodingFailed`, if the `release` encoding has been unsuccessful.
   ///   - `LocalStoreError.writeFailed`, if failed to write the `release`.
-  func save(latestRelease release: Release) throws {
+  public func save(latestRelease release: Release) throws {
     let timestampedRelease = VersionedRelease(
       release: release,
       timestamp: Date().timeIntervalSince1970)
@@ -164,7 +147,7 @@ class LocalStoreImpl: LocalStore {
   /// - Returns: The check attempt timestamp or `nil` if have been previously stored.
   /// - Throws:
   ///   - `LocalStoreError.readFailed`, if the failed to read the stored timestamp.
-  func checkAttemptTimestamp() throws -> TimeInterval? {
+  public func checkAttemptTimestamp() throws -> TimeInterval? {
     do {
       return try fileAccessor.read(contentsOf: lastCheckAttemptTimestampFile)
     } catch {
@@ -177,7 +160,7 @@ class LocalStoreImpl: LocalStore {
   /// - Parameter timestamp The new timestamp to save.
   /// - Throws:
   ///   - `LocalStoreError.writeFailed`, if failed to write the `timestamp`.
-  func save(checkAttemptTimestamp timestamp: TimeInterval) throws {
+  public func save(checkAttemptTimestamp timestamp: TimeInterval) throws {
     do {
       try fileAccessor.write(timestamp, to: lastCheckAttemptTimestampFile)
     } catch {

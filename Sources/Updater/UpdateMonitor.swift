@@ -35,30 +35,26 @@ public class UpdateMonitor {
 
   private let logger = Logger(
     label: "\(UpdateMonitor.self)", factory: StreamLogHandler.standardError(label:))
+  /// The current version of the workflow.
+  public let currentVersion: String?
   /// The number of seconds between GitHub API requests.
   private let requestInterval: Int
   private let localStore: LocalStore
   private let gitHubAPI: GitHubAPI
   private var cancellables = Set<AnyCancellable>()
 
-  public init(requestInterval: Int, localStore: LocalStore, gitHubAPI: GitHubAPI) {
+  public init(
+    currentVersion: String?, requestInterval: Int, localStore: LocalStore, gitHubAPI: GitHubAPI
+  ) {
+    self.currentVersion = currentVersion
     self.requestInterval = requestInterval
     self.localStore = localStore
     self.gitHubAPI = gitHubAPI
   }
 
-  public convenience init() throws {
-    self.init(
-      requestInterval: kFiveMituneSeconds, localStore: try LocalStoreImpl(),
-      gitHubAPI: GitHubAPIImpl())
-  }
-
   public func availableUpdate() -> Future<Release?, UpdateMonitorError> {
     return Future { (completion) in
-      let currentVersion = try? self.localStore.currentVersion()
-      if let release = self.previoslyFetchedRelease(
-        currentVersion: currentVersion, freshness: kWeekSeconds)
-      {
+      if let release = self.previoslyFetchedRelease(freshness: kWeekSeconds) {
         self.logger.debug("Returning cached release: \(release)")
         completion(.success(release))
         return
@@ -82,7 +78,7 @@ public class UpdateMonitor {
         // explicit type signature to help with this.
         .tryMap(self.maybeReleaseWithWorkflow(_:))
         .sink(
-          receiveCompletion: { (gitHubAPICompletion) in
+          receiveCompletion: { gitHubAPICompletion in
             switch gitHubAPICompletion {
             case .failure(let error as UpdateMonitorError):
               completion(.failure(error))
@@ -94,7 +90,7 @@ public class UpdateMonitor {
             }
           },
           receiveValue: { (release) in
-            completion(.success(self.processGitHubRelease(release, currentVersion: currentVersion)))
+            completion(.success(self.processGitHubRelease(release)))
           }
         )
         .store(in: &self.cancellables)
@@ -122,13 +118,9 @@ public class UpdateMonitor {
 
   /// Returns the previosly fetched release, if it is not older than `freshness` interval, and its
   /// version is ahead of `currentVersion`. Otherwise, nil.
-  /// - Parameter currentVersion: The current version of the workflow. When provided, the release is
-  ///     only returned, if it is newer than the current version.
   /// - Parameter freshness: The number of seconds after which the release is considered obsolete.
   ///     Default is `Int.max`.
-  private func previoslyFetchedRelease(currentVersion: String? = nil, freshness: Int = .max)
-    -> Release?
-  {
+  private func previoslyFetchedRelease(freshness: Int = .max) -> Release? {
     let release: Release
     let releaseFetchTimestamp: TimeInterval
     do {
@@ -147,7 +139,7 @@ public class UpdateMonitor {
         "Previosly fetched release is more than a week old. Fetched at \(releaseFetchTimestamp).")
       return nil
     }
-    guard isNewRelease(release: release, currentVersion: currentVersion) else {
+    guard isNewRelease(release: release) else {
       logger.debug(
         "Previosly fetched released is not newer than the currently running version: \(release.version) < \(String(describing: currentVersion))"
       )
@@ -157,7 +149,7 @@ public class UpdateMonitor {
   }
 
   /// Whether the `release` is newer than the `currentVersion`.
-  private func isNewRelease(release: Release, currentVersion: String?) -> Bool {
+  private func isNewRelease(release: Release) -> Bool {
     guard let currentVersion = currentVersion else {
       // Assume the `release` is newere, if `currentVersion` is `nil`.
       return true
@@ -176,7 +168,7 @@ public class UpdateMonitor {
 
   /// Stores and filters the GitHub `release` if available.
   /// An instance of release is returned only if it is an update candidate.
-  private func processGitHubRelease(_ release: Release?, currentVersion: String?) -> Release? {
+  private func processGitHubRelease(_ release: Release?) -> Release? {
     guard let release = release else {
       self.logger.debug("No releases found on GitHub!")
       return nil
@@ -187,7 +179,7 @@ public class UpdateMonitor {
     } catch {
       self.logger.error("Failed to save a release from GitHub: \(error)")
     }
-    guard self.isNewRelease(release: release, currentVersion: currentVersion) else {
+    guard self.isNewRelease(release: release) else {
       self.logger.debug(
         "GitHub latest released is not newer than the currently running version: \(release.version) < \(String(describing: currentVersion))"
       )

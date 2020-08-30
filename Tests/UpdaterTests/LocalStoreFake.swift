@@ -25,7 +25,6 @@ func notFaked1<T, R>(file: StaticString = #file, line: UInt = #line) -> (T) thro
 
 class LocalStoreFake: LocalStore {
   class Stubs {
-    var currentVersion: () throws -> String = notFaked0()
     var latestRelease: () throws -> VersionedRelease? = notFaked0()
     var saveLatestRelease: (Release) throws -> Void = notFaked1()
     var checkAttemptTimestamp: () throws -> TimeInterval? = notFaked0()
@@ -33,10 +32,6 @@ class LocalStoreFake: LocalStore {
   }
 
   let stubs = Stubs()
-
-  func currentVersion() throws -> String {
-    try stubs.currentVersion()
-  }
 
   func latestRelease() throws -> VersionedRelease? {
     try stubs.latestRelease()
