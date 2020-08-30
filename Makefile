@@ -48,4 +48,4 @@ _create_version_files: | $(RELEASE_DIR)
 
 format:
 	@echo "Formatting the code..."
-	swift-format -i --configuration swift-format.config.json -r Sources Tests
+	swift-format -i --configuration swift-format.config.json -r Sources Tests Package.swift
