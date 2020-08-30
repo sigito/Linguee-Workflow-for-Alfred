@@ -64,7 +64,6 @@ public class Linguee {
           let document = try SwiftSoup.parse(html)
           return try self.selectTranslations(in: document)
         }
-        .receive(on: DispatchQueue.main)
         .sink(
           receiveCompletion: { result in
             switch result {

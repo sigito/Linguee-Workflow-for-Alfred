@@ -3,7 +3,7 @@ import Foundation
 /// Environment variables accessor.
 ///
 /// See https://www.alfredapp.com/help/workflows/script-environment-variables/ for descriptions.
-public struct Environment {
+public struct WorkflowEnvironment {
   public let environment: [String: String]
 
   public init(environment: [String: String] = ProcessInfo.processInfo.environment) {

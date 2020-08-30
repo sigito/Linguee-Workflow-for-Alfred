@@ -2,13 +2,6 @@ import Combine
 import Foundation
 import Logging
 
-/// Usual amount of seconds in a minute.
-fileprivate let kMinuteSeconds: Int = 60
-/// Usual amount of secands in 5 minutes.
-fileprivate let kFiveMituneSeconds = 5 * kMinuteSeconds
-/// Usual amount of seconds per week.
-fileprivate let kWeekSeconds: Int = kMinuteSeconds * 60 * 24 * 7
-
 public struct Release {
   /// The version of the release.
   let version: String
@@ -39,22 +32,29 @@ public class UpdateMonitor {
   public let currentVersion: String?
   /// The number of seconds between GitHub API requests.
   private let requestInterval: Int
+  /// The number of seconds the previously fetchead release is cached.
+  private let cacheExpirationInterval: Int
   private let localStore: LocalStore
   private let gitHubAPI: GitHubAPI
   private var cancellables = Set<AnyCancellable>()
 
   public init(
-    currentVersion: String?, requestInterval: Int, localStore: LocalStore, gitHubAPI: GitHubAPI
+    currentVersion: String?,
+    requestIntervalSec: Int,
+    cacheExpirationIntervalSec: Int,
+    localStore: LocalStore,
+    gitHubAPI: GitHubAPI
   ) {
     self.currentVersion = currentVersion
-    self.requestInterval = requestInterval
+    self.requestInterval = requestIntervalSec
+    self.cacheExpirationInterval = cacheExpirationIntervalSec
     self.localStore = localStore
     self.gitHubAPI = gitHubAPI
   }
 
   public func availableUpdate() -> Future<Release?, UpdateMonitorError> {
     return Future { (completion) in
-      if let release = self.previoslyFetchedRelease(freshness: kWeekSeconds) {
+      if let release = self.previoslyFetchedRelease(freshness: self.cacheExpirationInterval) {
         self.logger.debug("Returning cached release: \(release)")
         completion(.success(release))
         return

@@ -57,12 +57,15 @@ public protocol GitHubAPI {
   func getLatestRelease(user: String, repository: String) -> Future<LatestRelease?, GitHubAPIError>
 }
 
-class GitHubAPIImpl: GitHubAPI {
+public class GitHubAPIImpl: GitHubAPI {
 
   private var cancellables: Set<AnyCancellable> = []
 
-  func getLatestRelease(user: String, repository: String) -> Future<LatestRelease?, GitHubAPIError>
-  {
+  public init() {}
+
+  public func getLatestRelease(user: String, repository: String) -> Future<
+    LatestRelease?, GitHubAPIError
+  > {
     return Future.init { completion in
       guard let latestReleaseURL = URL.latestRelease(user: user, repository: repository) else {
         completion(.failure(.cannotContructURL))

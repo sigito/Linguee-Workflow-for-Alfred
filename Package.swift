@@ -8,6 +8,8 @@ let package = Package(
   platforms: [
     .macOS(.v10_15)
   ],
+  products: [
+    .executable(name: "LingueeOnAlfred", targets: ["LingueeOnAlfred"])],
   dependencies: [
     .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
     .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.3.2"),
