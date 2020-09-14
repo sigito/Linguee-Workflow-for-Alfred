@@ -97,20 +97,7 @@ class LingueeSearchWorkflow {
               .forEach { workflow.add($0) }
 
             if let release = release {
-              // TODO: set a custom icon.
-              workflow.addAtLastVisiblePosition(
-                Item(
-                  title: "Update to \(release.version)",
-                  subtitle: "A newer version of the workflow is available.",
-                  arg: release.workflowURL.absoluteString,
-                  mods: [
-                    .cmd: .init(
-                      subtitle: "Open the \(release.version) release page", valid: true,
-                      arg: release.releaseURL.absoluteString)
-                  ],
-                  // TODO: maybe copy all the information available.
-                  text: [.copy: release.releaseURL.absoluteString]))
-
+              workflow.addAtLastVisiblePosition(release.alfredItem)
             }
 
             // Add a direct search link to the end of the list.
