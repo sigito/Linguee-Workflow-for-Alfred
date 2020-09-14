@@ -38,12 +38,15 @@ extension Modifier {
 
 extension Item {
   static func fromDefaultFallback(_ fallback: DefaultFallback) -> Self {
-    // TODO: add copy, large text, etc.
-    return .init(title: fallback.text, arg: fallback.arg)
+    return .init(
+      title: fallback.text,
+      arg: fallback.arg,
+      icon: .linguee)
   }
 }
 
 extension Autocompletion {
+  // TODO: generalize item creation logic in a protocol.
   func alfredItem(defaultFallback: DefaultFallback, promote: Bool) -> Item {
     let formattedTitle = format(phrase: self.mainItem.phrase, wordTypes: self.mainItem.wordTypes)
     let formattedTranslations = format(translations: self.translations)
@@ -56,6 +59,7 @@ extension Autocompletion {
       title: formattedTitle,
       subtitle: formattedTranslations,
       arg: resultsURL,
+      icon: .checkMark,
       autocomplete: self.mainItem.phrase,
       mods: [.cmd: .defaultFallback(defaultFallback)],
       text: [.copy: copyText, .largeType: largeType],

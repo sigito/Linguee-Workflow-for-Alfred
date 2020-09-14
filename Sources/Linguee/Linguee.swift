@@ -82,8 +82,8 @@ public class Linguee {
   }
 
   func selectTranslations(in document: Document) throws -> [Autocompletion] {
-    return try
-      document
+    return
+      try document
       .select(".autocompletion_item")
       .compactMap(Autocompletion.from(autocompletionItem:))
   }

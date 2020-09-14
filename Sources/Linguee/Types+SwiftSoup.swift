@@ -7,8 +7,8 @@ fileprivate enum ClassPrefix: String {
 }
 
 fileprivate func parseWordTypes(in element: Element, classPrefix: ClassPrefix) throws -> [String] {
-  return try
-    element
+  return
+    try element
     .select("div.\(classPrefix.rawValue)wordtype")
     // Drop word types without text.
     .filter { $0.hasText() }  // TODO: add a test for empty word types.

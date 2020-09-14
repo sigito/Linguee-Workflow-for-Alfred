@@ -11,6 +11,13 @@ public struct Release {
   public let releaseURL: URL
   /// When the release has been published.
   public let releaseDate: Date
+
+  public init(version: String, workflowURL: URL, releaseURL: URL, releaseDate: Date) {
+    self.version = version
+    self.workflowURL = workflowURL
+    self.releaseURL = releaseURL
+    self.releaseDate = releaseDate
+  }
 }
 
 extension Release: Codable {}

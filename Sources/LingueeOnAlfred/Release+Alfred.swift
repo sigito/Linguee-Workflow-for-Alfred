@@ -8,8 +8,7 @@ extension Release {
       title: "Update to \(self.version)",
       subtitle: "A newer version of the \(workflowName) workflow is available.",
       arg: self.workflowURL.absoluteString,
-      // TODO(#15): set a custom icon.
-      icon: nil,
+      icon: .arrowDown,
       mods: [
         .cmd: .init(
           subtitle: "Open the \(self.version) release page", valid: true,

@@ -54,9 +54,12 @@ More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/wor
   Possible values: `true` or `false`. Default: `false`.
 * `disable_copy_text_promotion` – disables inclusion of a URL to this workflow in the copied result text.  
   Possible values: `true` or `false`. Default: `false`.
+* `demo_mode` – return a stubbed response with all states available.  
+  Possible values: `true` or `false`. Default: `false`.  
+  **Attention**: setting this varibale would make the workflow to always return stubbed values.
 
 ## License
 
 * The Linguee Workflow for Alfred is released under the MIT license. [See LICENSE](LICENSE) for details.
-* The Linguee icon included in the workflow is a property of [DeepL GmbH](https://www.deepl.com/en/publisher/).
 * The surved results are used according to Linguee's [Terms and Conditions](https://www.linguee.com/english-german/page/termsAndConditions.php).
+* The icons are provided by [Susan Kaltschmidt](http://www.susan-kaltschmidt.com/).

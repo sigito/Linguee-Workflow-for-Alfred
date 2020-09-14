@@ -67,6 +67,11 @@ class LingueeSearchWorkflow {
 
   public func run() -> Future<Workflow, Error> {
     return Future { promise in
+      guard !self.environment.demoMode else {
+        promise(.success(.demo))
+        return
+      }
+
       var workflow = Workflow()
       self.linguee
         .search(for: self.query)
@@ -82,8 +87,7 @@ class LingueeSearchWorkflow {
         .sink(
           receiveCompletion: { completion in
             if case .failure(let error) = completion {
-              workflow.add(
-                .init(valid: false, title: "Failed to get translations", subtitle: "\(error)"))
+              workflow.add(error.alfredItem)
             }
             promise(.success(workflow))
           },

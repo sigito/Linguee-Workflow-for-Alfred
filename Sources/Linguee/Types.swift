@@ -6,7 +6,7 @@ public struct TranslationItem: Equatable {
   /// The work types of the translation.
   public var wordTypes: [String]
 
-  init(
+  public init(
     translation: String,
     wordTypes: [String]
   ) {
@@ -23,7 +23,7 @@ public struct MainItem: Equatable {
   /// The link to this item.
   public var link: URL
 
-  init(
+  public init(
     phrase: String,
     wordTypes: [String],
     link: URL
@@ -38,7 +38,7 @@ public struct Autocompletion: Equatable {
   public var mainItem: MainItem
   public var translations: [TranslationItem]
 
-  init(
+  public init(
     mainItem: MainItem,
     translations: [TranslationItem]
   ) {
