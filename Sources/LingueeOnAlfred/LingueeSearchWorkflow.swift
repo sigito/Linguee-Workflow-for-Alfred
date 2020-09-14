@@ -15,10 +15,11 @@ fileprivate let kWeekSeconds: Int = kMinuteSeconds * 60 * 24 * 7
 extension WorkflowEnvironment {
   /// Whether the updates monitoring is enabled.
   var checkForUpdates: Bool {
-    guard let value = environment["check_for_updates"] else {
-      return false
-    }
-    return Bool(value) ?? false
+    return bool(forKey: "check_for_updates")
+  }
+
+  var disableCopyTextPromotion: Bool {
+    return bool(forKey: "disable_copy_text_promotion")
   }
 }
 
@@ -31,7 +32,7 @@ class LingueeSearchWorkflow {
   private let updateMonitor: UpdateMonitor?
   private let linguee: Linguee
 
-  init(query: String, environment: WorkflowEnvironment) {
+  init(query: String, environment: WorkflowEnvironment = .default) {
     self.query = query
     self.environment = environment
     self.linguee = Linguee()
@@ -89,7 +90,10 @@ class LingueeSearchWorkflow {
           receiveValue: { (autocompletions, release) in
             let fallback = DefaultFallback(query: self.query)
             autocompletions
-              .map { $0.alfredItem(defaultFallback: fallback) }
+              .map {
+                $0.alfredItem(
+                  defaultFallback: fallback, promote: !self.environment.disableCopyTextPromotion)
+              }
               .forEach { workflow.add($0) }
 
             if let release = release {
@@ -130,8 +134,7 @@ class LingueeSearchWorkflow {
       // https://stackoverflow.com/questions/23219482#23226449
       .precomposedStringWithCanonicalMapping
 
-    let environment = WorkflowEnvironment()
-    let lingueSearchWorkflow = LingueeSearchWorkflow(query: query, environment: environment)
+    let lingueSearchWorkflow = LingueeSearchWorkflow(query: query)
     // Capture the cancellable in a variable, to prevent deallocation.
     var cancellable: AnyCancellable? = nil
     cancellable =

@@ -38,17 +38,19 @@ extension Modifier {
 
 extension Item {
   static func fromDefaultFallback(_ fallback: DefaultFallback) -> Self {
+    // TODO: add copy, large text, etc.
     return .init(title: fallback.text, arg: fallback.arg)
   }
 }
 
 extension Autocompletion {
-  func alfredItem(defaultFallback: DefaultFallback) -> Item {
+  func alfredItem(defaultFallback: DefaultFallback, promote: Bool) -> Item {
     let formattedTitle = format(phrase: self.mainItem.phrase, wordTypes: self.mainItem.wordTypes)
     let formattedTranslations = format(translations: self.translations)
     let resultsURL = self.mainItem.link.absoluteString
     let copyText = self.copyText(
-      title: formattedTitle, translations: formattedTranslations, resultsURL: resultsURL)
+      title: formattedTitle, translations: formattedTranslations, resultsURL: resultsURL,
+      promote: promote)
     let largeType = self.largeType(title: formattedTitle, translations: self.translations)
     return Item(
       title: formattedTitle,
@@ -60,21 +62,32 @@ extension Autocompletion {
       quickLookURL: resultsURL)
   }
 
-  private func copyText(title: String, translations: String, resultsURL: String) -> String {
-    // Do not add a translations line, if there are no translations found.
+  private func copyText(title: String, translations: String, resultsURL: String, promote: Bool)
+    -> String
+  {
+    var baseText: String
     if translations.isEmpty {
-      return """
+      // Do not add a translations line, if there are no translations found.
+      baseText = """
         \(title)
 
         \(resultsURL)
         """
-    }
-    return """
-      \(title)
-      \(translations)
+    } else {
+      baseText = """
+        \(title)
+        \(translations)
 
-      \(resultsURL)
-      """
+        \(resultsURL)
+        """
+    }
+
+    if promote {
+      let promotionText =
+        "\n\nTranslated using Linguee Workflow (https://tinyurl.com/LingueeWorkflow)."
+      baseText.append(promotionText)
+    }
+    return baseText
   }
 
   private func largeType(title: String, translations: [TranslationItem]) -> String {

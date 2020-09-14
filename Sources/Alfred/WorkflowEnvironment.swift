@@ -10,6 +10,8 @@ public struct WorkflowEnvironment {
     self.environment = environment
   }
 
+  public static let `default` = WorkflowEnvironment()
+
   public var workflowVersion: String? {
     return environment["alfred_workflow_version"]
   }
@@ -26,5 +28,17 @@ public struct WorkflowEnvironment {
       return nil
     }
     return URL(fileURLWithPath: dir, isDirectory: true)
+  }
+}
+
+extension WorkflowEnvironment {
+  /// Returns an environment bool value for `key`.
+  ///
+  /// `defaultValue` is returned, if the value is missing for the `key` or is not a `bool`.
+  public func bool(forKey key: String, defaultValue: Bool = false) -> Bool {
+    guard let value = environment[key] else {
+      return defaultValue
+    }
+    return Bool(value) ?? defaultValue
   }
 }

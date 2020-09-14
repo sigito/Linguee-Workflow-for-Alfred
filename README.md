@@ -50,7 +50,10 @@ More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/wor
 
 ### Miscellaneous flags
 
-* `check_for_updates` – whether the workflow should periodically check for a new version.
+* `check_for_updates` – whether the workflow should periodically check for a new version.  
+  Possible values: `true` or `false`. Default: `false`.
+* `disable_copy_text_promotion` – disables inclusion of a URL to this workflow in the copied result text.  
+  Possible values: `true` or `false`. Default: `false`.
 
 ## License
 
