@@ -3,11 +3,10 @@ import Foundation
 import Updater
 
 extension Release {
-  var alfredItem: Item {
+  func alfredItem(workflowName: String) -> Item {
     return Item(
-      // TODO(#15): include the name of the workflow in the title/subtitle.
       title: "Update to \(self.version)",
-      subtitle: "A newer version of the workflow is available.",
+      subtitle: "A newer version of the \(workflowName) workflow is available.",
       arg: self.workflowURL.absoluteString,
       // TODO(#15): set a custom icon.
       icon: nil,

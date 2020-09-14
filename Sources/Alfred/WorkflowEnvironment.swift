@@ -29,6 +29,10 @@ public struct WorkflowEnvironment {
     }
     return URL(fileURLWithPath: dir, isDirectory: true)
   }
+
+  public var workflowName: String? {
+    return environment["alfred_workflow_name"]
+  }
 }
 
 extension WorkflowEnvironment {

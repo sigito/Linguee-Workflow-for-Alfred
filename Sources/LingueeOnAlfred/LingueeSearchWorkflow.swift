@@ -97,7 +97,8 @@ class LingueeSearchWorkflow {
               .forEach { workflow.add($0) }
 
             if let release = release {
-              workflow.addAtLastVisiblePosition(release.alfredItem)
+              let workflowName = self.environment.workflowName ?? "Linguee Search"
+              workflow.addAtLastVisiblePosition(release.alfredItem(workflowName: workflowName))
             }
 
             // Add a direct search link to the end of the list.
