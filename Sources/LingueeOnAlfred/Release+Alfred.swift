@@ -5,8 +5,8 @@ import Updater
 extension Release {
   func alfredItem(workflowName: String) -> Item {
     return Item(
-      title: "Update to \(self.version)",
-      subtitle: "A newer version of the \(workflowName) workflow is available.",
+      title: "An update for \(workflowName) is available.",
+      subtitle: "Update to version \(version).",
       arg: self.workflowURL.absoluteString,
       icon: .arrowDown,
       mods: [
