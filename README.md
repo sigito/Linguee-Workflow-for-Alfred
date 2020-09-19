@@ -29,6 +29,9 @@ A new `Linguee.Search.alfredworkflow` workflow would be built from source and op
 * Copy the results with `⌘ C` (Command-C).
 * Display a selected result in a large type with `⌘ L` (Command-L).
 * Quickly look at the tranlation page by tapping `⇧` (Shift) or `⌘ Y` (Command+Y).
+* Automatic checks for updates.
+  * Use `check_for_updates` variable to control this feature.
+  * If a newer version of the workflow is available, an extra result row is added with [an update prompt](periodic_checks_for_updates.png).
 
 ### Setting a global keyboard schortcut
 
