@@ -5,11 +5,7 @@ import Foundation
 extension LatestRelease {
   /// A sample response stored in the `github-latest-release-0.4.0.json`.
   static var sampleData: Data {
-    // TODO(SR-12912): remove once the bug is fixed, and replace with:
-    // Bundle.module.url(forResource: "github-latest-release-0.4.0", withExtension: "json")!
-    let url = URL(fileURLWithPath: #file, isDirectory: false)
-      .deletingLastPathComponent()
-      .appendingPathComponent("Resources/github-latest-release-0.4.0.json")
+    let url = Bundle.module.url(forResource: "github-latest-release-0.4.0", withExtension: "json")!
     return try! Data(contentsOf: url)
   }
 

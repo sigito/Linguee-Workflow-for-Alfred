@@ -23,6 +23,17 @@ extension WorkflowEnvironment {
   }
 }
 
+// Language direction.
+extension WorkflowEnvironment {
+  var sourceLanguage: String {
+    return environment["source_language", default: "english"]
+  }
+
+  var destinationLanguage: String {
+    return environment["destination_language", default: "german"]
+  }
+}
+
 class LingueeSearchWorkflow {
   private static let logger = Logger(
     label: "\(LingueeSearchWorkflow.self)", factory: StreamLogHandler.standardError(label:))
@@ -35,7 +46,10 @@ class LingueeSearchWorkflow {
   init(query: String, environment: WorkflowEnvironment = .default) {
     self.query = query
     self.environment = environment
-    self.linguee = Linguee()
+    let languagePair = LanguagePair(
+      source: environment.sourceLanguage,
+      destination: environment.destinationLanguage)
+    self.linguee = Linguee(languagePair: languagePair)
     self.updateMonitor = LingueeSearchWorkflow.makeUpdateMonitor(environment: environment)
   }
 

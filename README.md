@@ -51,6 +51,12 @@ To change the assigned key combination, just repeat the steps described above.
 
 More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/workflows/triggers/hotkey/).
 
+### Setting translation language pair
+
+`source_language` and `destination_language` define the language pair used for the translation.
+
+Default pair is English + German. To override this behavior, set the variables to a desired pair. For a full list of available language pairs please visit <https://www.linguee.com/?moreLanguages=1#moreLanguages>. The values of the variables must be a lowercased language name in English. E.g., "english", "german", "french".
+
 ### Miscellaneous flags
 
 * `check_for_updates` – whether the workflow should periodically check for a new version.  

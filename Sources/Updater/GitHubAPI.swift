@@ -1,4 +1,5 @@
 import Combine
+import Common
 import Foundation
 
 public struct Asset {
@@ -59,18 +60,6 @@ public enum GitHubAPIError: Error {
 
 public protocol GitHubAPI {
   func getLatestRelease(user: String, repository: String) -> Future<LatestRelease, GitHubAPIError>
-}
-
-public protocol URLLoader {
-  func requestData(for url: URL) -> AnyPublisher<(data: Data, response: URLResponse), URLError>
-}
-
-extension URLSession: URLLoader {
-  public func requestData(for url: URL) -> AnyPublisher<
-    (data: Data, response: URLResponse), URLError
-  > {
-    return self.dataTaskPublisher(for: url).eraseToAnyPublisher()
-  }
 }
 
 public class GitHubAPIImpl: GitHubAPI {

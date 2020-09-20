@@ -1,3 +1,4 @@
+import CommonTesting
 import XCTest
 
 @testable import Updater

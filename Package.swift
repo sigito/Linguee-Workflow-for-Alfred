@@ -33,20 +33,28 @@ let package = Package(
 
     .target(
       name: "Linguee",
-      dependencies: ["SwiftSoup"]),
+      dependencies: ["Common", "SwiftSoup"]),
     .testTarget(
       name: "LingueeTests",
-      dependencies: ["Linguee"]),
+      dependencies: ["Linguee", "CommonTesting"],
+      resources: [.copy("Resources/bereich-translation-response.html")]),
 
     .target(
       name: "Updater",
       dependencies: [
-        .product(name: "Logging", package: "swift-log")
+        "Common",
+        .product(name: "Logging", package: "swift-log"),
       ]),
     .testTarget(
       name: "UpdaterTests",
-      dependencies: ["Updater"],
+      dependencies: ["Updater", "CommonTesting"],
       resources: [.copy("Resources/github-latest-release-0.4.0.json")]
     ),
+
+    .target(name: "Common"),
+    .target(
+      name: "CommonTesting",
+      dependencies: ["Common"],
+      path: "Tests/CommonTesting"),
   ]
 )

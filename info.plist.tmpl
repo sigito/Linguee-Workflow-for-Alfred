@@ -103,8 +103,6 @@
 				<integer>1</integer>
 				<key>runningsubtext</key>
 				<string></string>
-				<key>script</key>
-				<string>./LingueeOnAlfred "{query}"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -116,7 +114,7 @@
 				<key>type</key>
 				<integer>8</integer>
 				<key>withspace</key>
-				<false/>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
@@ -149,6 +147,9 @@
 	<string>Search for a phrase translation on Linguee.com. The results are auto-populated in the Alfred search window. Hit Enter to open the translation in the browser, or CMD-C to copy the translation.
 
 Use "l" to initiate the Linguee Search in the Alfred window.
+
+Setting translation language:
+There are two variables that indicate the language translation pair: source_language and destination_language. Default pair is English + German. To override this behavior, set the variables to a desired pair. For a full list of available language pairs please visit https://www.linguee.com/?moreLanguages=1#moreLanguages. The values of the variables must be a lowercased language name in English. E.g., "english", "german", "french".
 
 Additionaly a system-wide shortcut can be added:
 1. Double-click on the "Hotkey" box in the workflow (alternatively right click and choose "Configure Object...").
@@ -183,6 +184,10 @@ Visit the workflow homepage to find out more about available features: https://t
 	</dict>
 	<key>variables</key>
 	<dict>
+		<key>source_language</key>
+		<string>english</string>
+		<key>destination_language</key>
+		<string>german</string>
 		<key>check_for_updates</key>
 		<string>true</string>
 	</dict>
