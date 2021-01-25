@@ -12,7 +12,7 @@ let package = Package(
     .executable(name: "LingueeOnAlfred", targets: ["LingueeOnAlfred"])
   ],
   dependencies: [
-    .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
+    .package(url: "https://github.com/apple/swift-log.git", from: "1.4.0"),
     .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.3.2"),
   ],
   targets: [
