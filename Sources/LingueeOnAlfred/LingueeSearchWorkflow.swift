@@ -53,8 +53,9 @@ class LingueeSearchWorkflow {
     }
     do {
       let localStore = try LocalFileStore(rootDir: worflowCacheDir)
+      let version = environment.workflowVersion.flatMap(Version.init) ?? .unknown
       return UpdateMonitor(
-        currentVersion: environment.workflowVersion,
+        currentVersion: version,
         requestIntervalSec: kFiveMituneSeconds,
         cacheExpirationIntervalSec: kWeekSeconds,
         localStore: localStore,

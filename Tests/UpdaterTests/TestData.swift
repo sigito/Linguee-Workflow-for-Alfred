@@ -3,7 +3,7 @@ import Foundation
 @testable import Updater
 
 extension Release {
-  init(version: String) {
+  init(version: Version) {
     self.init(
       version: version,
       workflowURL: URL(string: "https://example.com/release/worflow")!,

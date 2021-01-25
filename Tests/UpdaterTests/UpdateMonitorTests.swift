@@ -12,7 +12,7 @@ class UpdateMonitorTest: XCTestCase {
   private let releaseSubscriber = TestSubscriber<Release?, UpdateMonitorError>()
   private let requestInterval: Int = 2 * 60  // 2 minute
   private let cacheExpirationInterval: Int = 7 * 24 * 60 * 60  // 1 week
-  private let defaultCurrentVersion = "1.0.0"
+  private let defaultCurrentVersion: Version = "1.0.0"
 
   override func setUpWithError() throws {
     localStore = LocalStoreFake()
@@ -38,7 +38,7 @@ class UpdateMonitorTest: XCTestCase {
   /// Tests that when the current version of the workflow is unknown, the cached release is
   /// returned.
   func testReturnsPreviouslyFetchedReleaseIfCurrentVersionIsUnknown() throws {
-    makeMonitor(currentVersion: nil)
+    makeMonitor(currentVersion: .unknown)
     let release = Release(version: "1.0.0")
     localStore.stubs.latestRelease = {
       VersionedRelease(release: release, timestamp: Date.daysAgo(6).timeIntervalSince1970)
@@ -55,7 +55,7 @@ class UpdateMonitorTest: XCTestCase {
     localStore.stubs.latestRelease = { nil }
     let release = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version))
+      .success(LatestRelease(tagName: release.version.description))
     }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
@@ -72,7 +72,7 @@ class UpdateMonitorTest: XCTestCase {
     }
     let release = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version))
+      .success(LatestRelease(tagName: release.version.description))
     }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
@@ -90,7 +90,7 @@ class UpdateMonitorTest: XCTestCase {
     }
     let release = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version))
+      .success(LatestRelease(tagName: release.version.description))
     }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
@@ -104,7 +104,7 @@ class UpdateMonitorTest: XCTestCase {
     localStore.stubs.latestRelease = { throw LocalStoreError.releaseDecodingFailed(Data()) }
     let release = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version))
+      .success(LatestRelease(tagName: release.version.description))
     }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
@@ -140,7 +140,7 @@ class UpdateMonitorTest: XCTestCase {
   func testNilIsReturnedIfGitHubReleaseIsOfCurrentVersion() throws {
     localStore.stubs.latestRelease = { nil }
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: self.defaultCurrentVersion))
+      .success(LatestRelease(tagName: self.defaultCurrentVersion.description))
     }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
@@ -151,11 +151,11 @@ class UpdateMonitorTest: XCTestCase {
 
   /// Tests that a GitHub release is returned when the current version is unknown.
   func testGitHubReleaseIsReturnedIfCurrentVersionIsUnknown() throws {
-    makeMonitor(currentVersion: nil)
+    makeMonitor(currentVersion: .unknown)
     localStore.stubs.latestRelease = { nil }
     let release = Release(version: "1.0.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version))
+      .success(LatestRelease(tagName: release.version.description))
     }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
@@ -180,7 +180,7 @@ class UpdateMonitorTest: XCTestCase {
     localStore.stubs.latestRelease = { nil }
     let release = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version))
+      .success(LatestRelease(tagName: release.version.description))
     }
     var storedRelease: Release?
     localStore.stubs.saveLatestRelease = { release in storedRelease = release }
@@ -196,7 +196,7 @@ class UpdateMonitorTest: XCTestCase {
     localStore.stubs.latestRelease = { nil }
     let release = Release(version: defaultCurrentVersion)
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version))
+      .success(LatestRelease(tagName: release.version.description))
     }
     var storedRelease: Release?
     localStore.stubs.saveLatestRelease = { release in storedRelease = release }
@@ -323,7 +323,7 @@ class UpdateMonitorTest: XCTestCase {
 
     let release = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version))
+      .success(LatestRelease(tagName: release.version.description))
     }
 
     let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
@@ -335,7 +335,7 @@ class UpdateMonitorTest: XCTestCase {
   // MARK: - Private
 
   /// Initializes the `monitor` with a new instance using `currentVersion`
-  private func makeMonitor(currentVersion: String?) {
+  private func makeMonitor(currentVersion: Version) {
     monitor = UpdateMonitor(
       currentVersion: currentVersion,
       requestIntervalSec: requestInterval,

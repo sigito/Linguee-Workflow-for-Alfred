@@ -2,27 +2,6 @@ import Combine
 import Foundation
 import Logging
 
-public struct Release {
-  /// The version of the release.
-  public let version: String
-  /// The URL to fetch the new workflow.
-  public let workflowURL: URL
-  /// The release page URL.
-  public let releaseURL: URL
-  /// When the release has been published.
-  public let releaseDate: Date
-
-  public init(version: String, workflowURL: URL, releaseURL: URL, releaseDate: Date) {
-    self.version = version
-    self.workflowURL = workflowURL
-    self.releaseURL = releaseURL
-    self.releaseDate = releaseDate
-  }
-}
-
-extension Release: Codable {}
-extension Release: Equatable {}
-
 fileprivate let user = "sigito"
 fileprivate let repository = "Linguee-Workflow-for-Alfred"
 
@@ -36,7 +15,7 @@ public class UpdateMonitor {
   private let logger = Logger(
     label: "\(UpdateMonitor.self)", factory: StreamLogHandler.standardError(label:))
   /// The current version of the workflow.
-  public let currentVersion: String?
+  public let currentVersion: Version
   /// The number of seconds between GitHub API requests.
   private let requestInterval: Int
   /// The number of seconds the previously fetchead release is cached.
@@ -46,7 +25,7 @@ public class UpdateMonitor {
   private var cancellables = Set<AnyCancellable>()
 
   public init(
-    currentVersion: String?,
+    currentVersion: Version = .unknown,
     requestIntervalSec: Int,
     cacheExpirationIntervalSec: Int,
     localStore: LocalStore,
@@ -116,8 +95,9 @@ public class UpdateMonitor {
     else {
       throw UpdateMonitorError.workflowNotFound(latestRelease)
     }
+    let version = Version(latestRelease.tagName) ?? .unknown
     return Release(
-      version: latestRelease.tagName,
+      version: version,
       workflowURL: workflowAsset.browserDownloadURL,
       releaseURL: latestRelease.htmlURL,
       releaseDate: latestRelease.publishedAt)
@@ -157,10 +137,6 @@ public class UpdateMonitor {
 
   /// Whether the `release` is newer than the `currentVersion`.
   private func isNewRelease(release: Release) -> Bool {
-    guard let currentVersion = currentVersion else {
-      // Assume the `release` is newere, if `currentVersion` is `nil`.
-      return true
-    }
     return release.version > currentVersion
   }
 
