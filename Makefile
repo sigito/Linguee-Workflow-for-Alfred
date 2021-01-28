@@ -1,8 +1,23 @@
 .PHONY := clean install test
-RELEASE_DIR := .release
+
 VERSION_FILE := LATEST_VERSION
 VERSION := $(shell cat $(VERSION_FILE))
-WORKFLOW_ZIP := Linguee.Search-$(VERSION).alfredworkflow
+
+DEBUG ?= 0
+
+ifeq ($(DEBUG), 1)
+	WORKFLOW_NAME = Linguee Search (DEBUG)
+	BUNDLE_ID = com.samsoniuk.alfred.linguee-search.debug
+	BUILD_CONFIG = debug
+	TARGET_DIR = .$(BUILD_CONFIG)
+	WORKFLOW_ZIP = Linguee.Search-$(VERSION)-debug.alfredworkflow
+else
+	WORKFLOW_NAME = Linguee Search
+	BUNDLE_ID := com.samsoniuk.alfred.linguee-search
+	BUILD_CONFIG := release
+	TARGET_DIR := .$(BUILD_CONFIG)
+	WORKFLOW_ZIP := Linguee.Search-$(VERSION).alfredworkflow
+endif
 
 all: workflow
 
@@ -10,22 +25,22 @@ install: workflow
 	@echo "Openning the newly created $(WORKFLOW_ZIP)."
 	open $(WORKFLOW_ZIP)
 
-build-release:
-	@echo "Building a release binary..."
-	swift build -c release
+build:
+	@echo "Building a $(BUILD_CONFIG) binary..."
+	swift build -c $(BUILD_CONFIG)
 
 workflow: collect-workflow
 	@echo "Creating a workflow archive..."
-	zip -ju $(WORKFLOW_ZIP) $(RELEASE_DIR)/*
+	zip -ju $(WORKFLOW_ZIP) $(TARGET_DIR)/*
 	@echo "$(WORKFLOW_ZIP) was successfully created."
 
-collect-workflow: build-release test info.plist version | $(RELEASE_DIR)
-	@echo "Collecting workflow archive files in $(RELEASE_DIR)"
-	cp .build/release/LingueeOnAlfred $(RELEASE_DIR)/
-	cp Icons/* $(RELEASE_DIR)/
+collect-workflow: build test info.plist version | $(TARGET_DIR)
+	@echo "Collecting workflow archive files in $(TARGET_DIR)"
+	cp .build/$(BUILD_CONFIG)/LingueeOnAlfred $(TARGET_DIR)/
+	cp Icons/* $(TARGET_DIR)/
 
-$(RELEASE_DIR):
-	mkdir -p $(RELEASE_DIR)
+$(TARGET_DIR):
+	mkdir -p $(TARGET_DIR)
 
 test:
 	@echo "Running tests..."
@@ -33,18 +48,23 @@ test:
 
 clean:
 	@echo "Cleaning all..."
-	rm -rf "$(RELEASE_DIR)"
+	rm -rf "$(TARGET_DIR)"
 	rm -f "$(WORKFLOW_ZIP)"
 	swift package clean
 
 info.plist version: _create_version_files
 
-_create_version_files: | $(RELEASE_DIR)
+_create_version_files: | $(TARGET_DIR)
 	@echo "Creating info.plist."
 	@echo "Updating version to $(VERSION)."
-	sed 's/$$(VERSION)/$(VERSION)/g' info.plist.tmpl > $(RELEASE_DIR)/info.plist
+	sed '\
+		s/$$(WORKFLOW_NAME)/$(WORKFLOW_NAME)/g; \
+		s/$$(BUNDLE_ID)/$(BUNDLE_ID)/g; \
+		s/$$(VERSION)/$(VERSION)/g \
+		' \
+		info.plist.tmpl > $(TARGET_DIR)/info.plist
 	echo '$(VERSION)' > $(VERSION_FILE)
-	cp $(VERSION_FILE) $(RELEASE_DIR)/version
+	cp $(VERSION_FILE) $(TARGET_DIR)/version
 
 format:
 	@echo "Formatting the code..."
