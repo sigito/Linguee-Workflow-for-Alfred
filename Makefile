@@ -1,8 +1,8 @@
 .PHONY := clean install test
 RELEASE_DIR := .release
-WORKFLOW_ZIP := Linguee.Search.alfredworkflow
 VERSION_FILE := LATEST_VERSION
 VERSION := $(shell cat $(VERSION_FILE))
+WORKFLOW_ZIP := Linguee.Search-$(VERSION).alfredworkflow
 
 all: workflow
 
