@@ -48,7 +48,8 @@ fileprivate enum DemoError: Error {
 extension Workflow {
   static var demo: Workflow {
     var workflow = Workflow()
-    let query = TranslationQuery(text: "Bereich", languagePair: .englishGerman)
+    let query = TranslationQuery(
+      text: "Bereich", languagePair: .englishGerman, translationDirection: .auto)
     let defaultFallback = DefaultFallback(query: query)
     workflow.add(Autocompletion.bereich.alfredItem(defaultFallback: defaultFallback, promote: true))
     workflow.add(Release.demoRelease.alfredItem(workflowName: "Linguee Search"))

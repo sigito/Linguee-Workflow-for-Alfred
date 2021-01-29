@@ -8,7 +8,7 @@ class TranslationQueryTest: XCTestCase {
 
   override func setUp() {
     super.setUp()
-    query = TranslationQuery(text: "hola", languagePair: .testPair)
+    query = TranslationQuery(text: "hola", languagePair: .testPair, translationDirection: .auto)
   }
 
   /// Tests that for a lightweight mode the generated url searches with `qe=` query item.
@@ -32,5 +32,25 @@ class TranslationQueryTest: XCTestCase {
     XCTAssertEqual(
       query.url(withMode: .lightweight),
       URL(string: "https://www.linguee.com/german-english/search?source=auto&qe=hola"))
+  }
+
+  /// Tests that for a `source` translation direction the `sourceLanguage` is specified as `source=`
+  /// query item.
+  func testURLWithTranslationDirectionSource() {
+    query.translationDirection = .source
+
+    XCTAssertEqual(
+      query.url(withMode: .lightweight),
+      URL(string: "https://www.linguee.com/spanish-italian/search?source=spanish&qe=hola"))
+  }
+
+  /// Tests that for a `destination` translation direction the `destinationLanguage` is specified as
+  /// `source=` query item.
+  func testURLWithTranslationDirectionDestination() {
+    query.translationDirection = .destination
+
+    XCTAssertEqual(
+      query.url(withMode: .lightweight),
+      URL(string: "https://www.linguee.com/spanish-italian/search?source=italian&qe=hola"))
   }
 }

@@ -10,7 +10,8 @@ class DefaultFallbackTest: XCTestCase {
   /// page.
   func testDefaultFallback() {
     let query = TranslationQuery(
-      text: "hola", languagePair: LanguagePair(source: "left", destination: "right"))
+      text: "hola", languagePair: LanguagePair(source: "left", destination: "right"),
+      translationDirection: .auto)
     let fallback = DefaultFallback(query: query)
 
     XCTAssertEqual(fallback.text, "Search Linguee for 'hola'")

@@ -14,7 +14,8 @@ class LingueeTest: XCTestCase {
     super.setUp()
     loader = URLLoaderFake()
     linguee = Linguee(loader: loader)
-    query = TranslationQuery(text: "hola", languagePair: .testPair)
+    query = TranslationQuery(
+      text: "hola", languagePair: .testPair, translationDirection: .auto)
   }
 
   /// Tests that a search is done using a valid search URL.

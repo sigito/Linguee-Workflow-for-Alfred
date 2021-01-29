@@ -12,11 +12,13 @@ class TranslationQuery_EnvironmentTest: XCTestCase {
     let environment = WorkflowEnvironment(environment: [
       "source_language": "left",
       "destination_language": "right",
+      "translation_direction": "source",
     ])
     let text = "queryText"
     let query = TranslationQuery(text: text, environment: environment)
 
     XCTAssertEqual(query.text, text)
     XCTAssertEqual(query.languagePair, LanguagePair(source: "left", destination: "right"))
+    XCTAssertEqual(query.translationDirection, .source)
   }
 }

@@ -9,4 +9,13 @@ extension WorkflowEnvironment {
   var destinationLanguage: String {
     return environment["destination_language", default: "german"]
   }
+
+  var translationDirection: TranslationDirection {
+    guard let value = environment["translation_direction"],
+      let direction = TranslationDirection(rawValue: value)
+    else {
+      return .auto
+    }
+    return direction
+  }
 }

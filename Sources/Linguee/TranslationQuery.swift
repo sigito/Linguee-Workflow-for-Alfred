@@ -1,5 +1,29 @@
 import Foundation
 
+/// Indicates the direction of the translation lookup.
+public enum TranslationDirection: String {
+  /// Translate from the source language only.
+  case source
+  /// Translate from the desctination language only.
+  case destination
+  /// Automatically choose correct language to traslate from. In case the query can be translated
+  /// form either of the languages, the result would contain translations from both languages.
+  case auto
+}
+
+extension TranslationDirection {
+  fileprivate func queryItem(for languagePair: LanguagePair) -> URLQueryItem {
+    switch self {
+    case .auto:
+      return URLQueryItem(name: "source", value: "auto")
+    case .source:
+      return URLQueryItem(name: "source", value: languagePair.source)
+    case .destination:
+      return URLQueryItem(name: "source", value: languagePair.destination)
+    }
+  }
+}
+
 public enum QueryMode: String {
   /// No CSS payload.
   case lightweight = "qe"
@@ -25,10 +49,17 @@ public struct TranslationQuery {
   public var text: String
   /// The language pair to be used for translation.
   public var languagePair: LanguagePair
+  /// The direction of the translation.
+  public var translationDirection: TranslationDirection
 
-  public init(text: String, languagePair: LanguagePair) {
+  public init(
+    text: String,
+    languagePair: LanguagePair,
+    translationDirection: TranslationDirection
+  ) {
     self.text = text
     self.languagePair = languagePair
+    self.translationDirection = translationDirection
   }
 }
 
@@ -41,7 +72,7 @@ extension TranslationQuery {
     var searchURL = URLComponents(url: .linguee, resolvingAgainstBaseURL: false)!
     searchURL.path = "/\(languagePair.lingueePath)/search"
     searchURL.queryItems = [
-      URLQueryItem(name: "source", value: "auto"),
+      translationDirection.queryItem(for: languagePair),
       mode.queryItem(withQuery: text),
     ]
     // TODO: throw an error if the URL creation fails.
