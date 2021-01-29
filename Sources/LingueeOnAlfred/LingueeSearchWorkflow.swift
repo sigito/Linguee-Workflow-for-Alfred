@@ -41,12 +41,13 @@ class LingueeSearchWorkflow {
   private let query: String
   private let environment: WorkflowEnvironment
   private let updateMonitor: UpdateMonitor?
+  private let languagePair: LanguagePair
   private let linguee: Linguee
 
   init(query: String, environment: WorkflowEnvironment = .default) {
     self.query = query
     self.environment = environment
-    let languagePair = LanguagePair(
+    self.languagePair = LanguagePair(
       source: environment.sourceLanguage,
       destination: environment.destinationLanguage)
     self.linguee = Linguee(languagePair: languagePair)
@@ -107,7 +108,7 @@ class LingueeSearchWorkflow {
             promise(.success(workflow))
           },
           receiveValue: { (autocompletions, release) in
-            let fallback = DefaultFallback(query: self.query)
+            let fallback = DefaultFallback(query: self.query, languagePair: self.languagePair)
             autocompletions
               .map {
                 $0.alfredItem(

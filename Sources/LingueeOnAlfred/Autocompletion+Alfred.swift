@@ -21,10 +21,10 @@ struct DefaultFallback {
   let text: String
   let arg: String
 
-  init(query: String) {
+  init(query: String, languagePair: LanguagePair) {
     // Trim the query to be used in a direct search link.
     let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
-    let searchURL = Linguee.searchURL(query: trimmedQuery)
+    let searchURL = Linguee.searchURL(query: trimmedQuery, languagePair: languagePair)
     self.text = "Search Linguee for '\(trimmedQuery)'"
     self.arg = searchURL.absoluteString
   }

@@ -53,13 +53,13 @@ public class Linguee {
   private let loader: URLLoader
   private var cancellables = Set<AnyCancellable>()
 
-  public init(languagePair: LanguagePair = .englishGerman, loader: URLLoader = URLSession.shared) {
+  public init(languagePair: LanguagePair, loader: URLLoader = URLSession.shared) {
     self.languagePair = languagePair
     self.loader = loader
   }
 
   /// Returns a Linguee URL pointing at the `query` results.
-  public static func searchURL(query: String, languagePair: LanguagePair = .englishGerman)
+  public static func searchURL(query: String, languagePair: LanguagePair)
     -> URL
   {
     return .linqueeSearch(query, mode: .regular, languagePair: languagePair)

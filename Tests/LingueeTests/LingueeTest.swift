@@ -12,7 +12,7 @@ class LingueeTest: XCTestCase {
   override func setUp() {
     super.setUp()
     loader = URLLoaderFake()
-    linguee = Linguee(loader: loader)
+    linguee = Linguee(languagePair: .englishGerman, loader: loader)
   }
 
   /// Tests that a search is done against a valid search URL.
