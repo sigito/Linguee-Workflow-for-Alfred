@@ -34,7 +34,7 @@ extension WorkflowEnvironment {
   }
 }
 
-class LingueeSearchWorkflow {
+public class LingueeSearchWorkflow {
   private static let logger = Logger(
     label: "\(LingueeSearchWorkflow.self)", factory: StreamLogHandler.standardError(label:))
   private var cancellables: Set<AnyCancellable> = []

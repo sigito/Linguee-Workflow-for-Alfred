@@ -18,10 +18,19 @@ let package = Package(
   targets: [
     .target(
       name: "LingueeOnAlfred",
+      dependencies: ["LingueeSearchWorkflow"]),
+
+    .target(
+      name: "LingueeSearchWorkflow",
       dependencies: [
         "Alfred",
         "Linguee",
         "Updater",
+      ]),
+    .testTarget(
+      name: "LingueeSearchWorkflowTests",
+      dependencies: [
+        "LingueeSearchWorkflow"
       ]),
 
     .target(
