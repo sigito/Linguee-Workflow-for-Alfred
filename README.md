@@ -47,7 +47,7 @@ A new `Linguee.Search.alfredworkflow` workflow would be built from source and op
 
 ## Features
 
-* Rich search resulfts for query translations betwwen English and German.
+* Rich search results for query translations.
 * Use `l` keyword to search in Alfred.
   * The keyword is configurable in the Alfred workflow settings.
 * Open the the translation page in a browser by hitting `↩` (Return) on the result entry.
