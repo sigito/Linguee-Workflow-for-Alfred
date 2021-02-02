@@ -1,13 +1,31 @@
 # Linguee Workflow for Alfred
 
-[![Alfred](https://img.shields.io/badge/Alfred-4-blueviolet)](https://www.alfredapp.com/)
-![macOS version](https://img.shields.io/badge/macOS-10.15%20|%2011+-blue)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sigito/Linguee-Workflow-for-Alfred?color=important)](https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/latest)
-[![Twitter](https://img.shields.io/badge/Contact-%40sigito__is__taken-lightgrey)](https://twitter.com/sigito_is_taken)
+<p align="center">
 
-![Demo](demo.gif)
+<a href="https://www.alfredapp.com/">
+  <img src="https://img.shields.io/badge/Alfred-4-blueviolet" />
+</a>
+<img src="https://img.shields.io/badge/macOS-10.15%20|%2011+-blue" />
+<a href="https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/latest">
+  <img src="https://img.shields.io/github/v/release/sigito/Linguee-Workflow-for-Alfred?color=important" />
+</a>
+<a href="https://twitter.com/sigito_is_taken">
+  <img src="https://img.shields.io/badge/Contact-%40sigito__is__taken-lightgrey" />
+</a>
+
+</p>
+
+<p align="center"><img src="demo.gif" alt="Demo"/></p>
 
 Linguee Search is an Alfred workflow that lets you search for translations on Linguee.com.
+
+* [Download the workflow](#download-the-workflow)
+  * [Manually install the workflow](#manually-install-the-workflow)
+* [Features](#features)
+  * [Setting a global keyboard schortcut](#setting-a-global-keyboard-schortcut)
+  * [Setting translation language pair](#setting-translation-language-pair)
+  * [Miscellaneous flags](#miscellaneous-flags)
+* [License](#license)
 
 ## Download the workflow
 
