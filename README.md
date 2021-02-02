@@ -1,5 +1,10 @@
 # Linguee Workflow for Alfred
 
+[![Alfred](https://img.shields.io/badge/Alfred-4-blueviolet)](https://www.alfredapp.com/)
+![macOS version](https://img.shields.io/badge/macOS-10.15%20|%2011+-blue)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/sigito/Linguee-Workflow-for-Alfred?color=important)](https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/latest)
+[![Twitter](https://img.shields.io/badge/Contact-%40sigito__is__taken-lightgrey)](https://twitter.com/sigito_is_taken)
+
 ![Demo](demo.gif)
 
 ## Download the workflow
