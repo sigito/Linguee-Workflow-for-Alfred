@@ -22,8 +22,8 @@ Linguee Search is an Alfred workflow that lets you search for translations on Li
 * [Download the workflow](#download-the-workflow)
   * [Manually install the workflow](#manually-install-the-workflow)
 * [Features](#features)
-  * [Setting a global keyboard schortcut](#setting-a-global-keyboard-schortcut)
   * [Setting translation language pair](#setting-translation-language-pair)
+  * [Setting a global keyboard schortcut](#setting-a-global-keyboard-schortcut)
   * [Miscellaneous flags](#miscellaneous-flags)
 * [License](#license)
 
@@ -60,6 +60,12 @@ A new `Linguee.Search.alfredworkflow` workflow would be built from source and op
   * Use `check_for_updates` variable to control this feature.
   * If a newer version of the workflow is available, an extra result row is added with [an update prompt](periodic_checks_for_updates.png).
 
+### Setting translation language pair
+
+`source_language` and `destination_language` define the language pair used for the translation.
+
+Default pair is English + German. To override this behavior, set the variables to a desired pair. For a full list of available language pairs please visit <https://www.linguee.com/?moreLanguages=1#moreLanguages>. The values of the variables must be a lowercased language name in English. E.g., "english", "german", "french".
+
 ### Setting a global keyboard schortcut
 
 There is an option to trigger the Linguee Search from anywhere, skipping typing of the command prefix (`l` in our case) in the shared Alfred search window. Unfortunately, Alfred does not import the hotkeys, thus a manual setup is necessary.
@@ -77,12 +83,6 @@ By default the shortcut would searched for the selected text, or open a ready-to
 To change the assigned key combination, just repeat the steps described above.
 
 More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/workflows/triggers/hotkey/).
-
-### Setting translation language pair
-
-`source_language` and `destination_language` define the language pair used for the translation.
-
-Default pair is English + German. To override this behavior, set the variables to a desired pair. For a full list of available language pairs please visit <https://www.linguee.com/?moreLanguages=1#moreLanguages>. The values of the variables must be a lowercased language name in English. E.g., "english", "german", "french".
 
 ### Miscellaneous flags
 
