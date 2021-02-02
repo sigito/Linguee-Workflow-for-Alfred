@@ -12,45 +12,23 @@ fileprivate let kFiveMituneSeconds = 5 * kMinuteSeconds
 /// Usual amount of seconds per week.
 fileprivate let kWeekSeconds: Int = kMinuteSeconds * 60 * 24 * 7
 
-extension WorkflowEnvironment {
-  /// Whether the updates monitoring is enabled.
-  var checkForUpdates: Bool {
-    return bool(forKey: "check_for_updates")
-  }
-
-  var disableCopyTextPromotion: Bool {
-    return bool(forKey: "disable_copy_text_promotion")
-  }
-}
-
-// Language direction.
-extension WorkflowEnvironment {
-  var sourceLanguage: String {
-    return environment["source_language", default: "english"]
-  }
-
-  var destinationLanguage: String {
-    return environment["destination_language", default: "german"]
-  }
-}
-
 public class LingueeSearchWorkflow {
   private static let logger = Logger(
     label: "\(LingueeSearchWorkflow.self)", factory: StreamLogHandler.standardError(label:))
   private var cancellables: Set<AnyCancellable> = []
-  private let query: String
-  private let environment: WorkflowEnvironment
+
+  /// Provided enviroment.
+  public let environment: WorkflowEnvironment
+  /// The query to be searched for.
+  public let query: TranslationQuery
+
   private let updateMonitor: UpdateMonitor?
-  private let languagePair: LanguagePair
   private let linguee: Linguee
 
   init(query: String, environment: WorkflowEnvironment = .default) {
-    self.query = query
+    self.query = TranslationQuery(text: query, environment: environment)
     self.environment = environment
-    self.languagePair = LanguagePair(
-      source: environment.sourceLanguage,
-      destination: environment.destinationLanguage)
-    self.linguee = Linguee(languagePair: languagePair)
+    self.linguee = Linguee()
     self.updateMonitor = LingueeSearchWorkflow.makeUpdateMonitor(environment: environment)
   }
 
@@ -108,7 +86,7 @@ public class LingueeSearchWorkflow {
             promise(.success(workflow))
           },
           receiveValue: { (autocompletions, release) in
-            let fallback = DefaultFallback(query: self.query, languagePair: self.languagePair)
+            let fallback = DefaultFallback(query: self.query)
             autocompletions
               .map {
                 $0.alfredItem(

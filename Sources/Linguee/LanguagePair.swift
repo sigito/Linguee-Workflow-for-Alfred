@@ -10,6 +10,9 @@ public struct LanguagePair {
   }
 }
 
+extension LanguagePair: Equatable {}
+
 extension LanguagePair {
+  /// Fallback language pair.
   public static var englishGerman = LanguagePair(source: "english", destination: "german")
 }

@@ -1,6 +1,10 @@
 import Foundation
 import Linguee
 
+extension LanguagePair {
+  public static let testPair = LanguagePair(source: "spanish", destination: "italian")
+}
+
 extension MainItem {
   static let bereich = MainItem(
     phrase: "Bereich", wordTypes: ["m"],

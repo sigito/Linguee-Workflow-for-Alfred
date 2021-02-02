@@ -17,19 +17,6 @@ fileprivate func format(translations: [TranslationItem]) -> String {
     .joined(separator: " · ")
 }
 
-struct DefaultFallback {
-  let text: String
-  let arg: String
-
-  init(query: String, languagePair: LanguagePair) {
-    // Trim the query to be used in a direct search link.
-    let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
-    let searchURL = Linguee.searchURL(query: trimmedQuery, languagePair: languagePair)
-    self.text = "Search Linguee for '\(trimmedQuery)'"
-    self.arg = searchURL.absoluteString
-  }
-}
-
 extension Modifier {
   static func defaultFallback(_ fallback: DefaultFallback) -> Self {
     return .init(subtitle: fallback.text, arg: fallback.arg)
