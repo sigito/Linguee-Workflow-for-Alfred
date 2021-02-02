@@ -9,7 +9,7 @@
 
 ## Download the workflow
 
-The latest version of the workflow can be downloaded from [GitHub releases](https://github.com/sigito/Linguee-Workflow-for-Alfred/releases).
+The latest version of the workflow can be downloaded from [GitHub releases](https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/latest).
 
 ### Manually install the workflow
 
