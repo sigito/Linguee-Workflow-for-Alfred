@@ -25,6 +25,8 @@ Linguee Search is an Alfred workflow that lets you search for translations on Li
   * [Setting translation language pair](#setting-translation-language-pair)
   * [Setting a global keyboard schortcut](#setting-a-global-keyboard-schortcut)
   * [Miscellaneous flags](#miscellaneous-flags)
+* [Known issues](#known-issues)
+  * [LingueeOnAlfred will damage your computer and you should remove it to the trash (\#13)](#lingueeonalfred-will-damage-your-computer-and-you-should-remove-it-to-the-trash-13)
 * [License](#license)
 
 ## Download the workflow
@@ -93,6 +95,14 @@ More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/wor
 * `demo_mode` – return a stubbed response with all states available.  
   Possible values: `true` or `false`. Default: `false`.  
   **Attention**: setting this varibale would make the workflow to always return stubbed values.
+
+## Known issues
+
+### LingueeOnAlfred will damage your computer and you should remove it to the trash (#13)
+
+The workflow binary is not verified by Apple. Thus macOS would not recognize the binary and suggest to move it to trash.
+
+In order to work this around, go to `System Preferences` > `Security & Privacy`, switch to `General` tab. In the `Allow apps downloaded from:` section select `App Store and identified developers` and then to the right of it tap an `Open Anyway` button. In the next dialog confirm by tapping `Open`.
 
 ## License
 
