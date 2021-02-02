@@ -7,7 +7,11 @@
 
 ![Demo](demo.gif)
 
+Linguee Search is an Alfred workflow that lets you search for translations on Linguee.com.
+
 ## Download the workflow
+
+> ⚠️ This workflow requires [Alfred app with Powerpack](https://www.alfredapp.com/powerpack/).
 
 The latest version of the workflow can be downloaded from [GitHub releases](https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/latest).
 
