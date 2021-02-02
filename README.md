@@ -102,7 +102,9 @@ More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/wor
 
 The workflow binary is not verified by Apple. Thus macOS would not recognize the binary and suggest to move it to trash.
 
-In order to work this around, go to `System Preferences` > `Security & Privacy`, switch to `General` tab. In the `Allow apps downloaded from:` section select `App Store and identified developers` and then to the right of it tap an `Open Anyway` button. In the next dialog confirm by tapping `Open`.
+In order to work this around, go to `System Preferences` > `Security & Privacy`, switch to `General` tab. In the `Allow apps downloaded from:` section select `App Store and identified developers` and then to the right of it tap an `Open Anyway` button. 
+
+On the next attempt to search with Linguee, a dialog would pop. Select `Open` and you are good to go!
 
 ## License
 
