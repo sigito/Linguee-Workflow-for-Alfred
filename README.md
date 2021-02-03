@@ -98,7 +98,7 @@ More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/wor
 
 ## Known issues
 
-### LingueeOnAlfred will damage your computer and you should remove it to the trash (#13)
+### LingueeOnAlfred will damage your computer and you should remove it to the trash ([#13](https://github.com/sigito/Linguee-Workflow-for-Alfred/issues/13))
 
 The workflow binary is not verified by Apple. Thus macOS would not recognize the binary and suggest to move it to trash.
 
