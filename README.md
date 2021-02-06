@@ -94,7 +94,7 @@ More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/wor
   Possible values: `true` or `false`. Default: `false`.
 * `demo_mode` – return a stubbed response with all states available.  
   Possible values: `true` or `false`. Default: `false`.  
-  **Attention**: setting this varibale would make the workflow to always return stubbed values.
+  ⚠️  Setting this varibale would make the workflow to always return stubbed values.
 
 ## Known issues
 
