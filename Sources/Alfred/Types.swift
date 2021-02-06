@@ -12,7 +12,7 @@ struct Items: Encodable {
   }
 }
 
-public struct Modifier: Encodable {
+public struct Modifier: Codable {
   var valid: Bool
   var arg: String?
   var subtitle: String
@@ -28,7 +28,7 @@ public struct Modifier: Encodable {
   }
 }
 
-public struct Mods: Encodable {
+public struct Mods: Codable {
   public enum Key {
     case alt
     case cmd
@@ -47,7 +47,7 @@ public struct Mods: Encodable {
   }
 }
 
-public struct Text: Encodable {
+public struct Text: Codable {
   public enum Option {
     case copy
     case largeType
@@ -80,10 +80,35 @@ public enum Icon {
   case fileType(of: String)
 }
 
-extension Icon: Encodable {
+extension Icon: Codable {
   private enum CodingKeys: String, CodingKey {
     case type
     case path
+  }
+
+  private static let fileIconType = "fileicon"
+  private static let fileTypeType = "fileicon"
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    let path = try container.decode(String.self, forKey: .path)
+    let type = try container.decodeIfPresent(String.self, forKey: .type)
+    switch type {
+    case nil:
+      // .icon has no type.
+      self = .icon(location: path)
+
+    case Icon.fileIconType:
+      self = .fileIcon(forPath: path)
+
+    case Icon.fileTypeType:
+      self = .fileType(of: path)
+
+    case .some(let type):
+      throw DecodingError.dataCorruptedError(
+        forKey: CodingKeys.type, in: container,
+        debugDescription: "Unexpected value for key: \(type)")
+    }
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -102,8 +127,10 @@ extension Icon: Encodable {
   }
 }
 
+extension Icon: Equatable {}
+
 /// See https://www.alfredapp.com/help/workflows/inputs/script-filter/json/ for fields descriptions.
-public struct Item: Encodable {
+public struct Item: Codable {
   public var uid: String?
   // TODO: remove `valid` and infer it based on the `arg` presence.
   public var valid: Bool

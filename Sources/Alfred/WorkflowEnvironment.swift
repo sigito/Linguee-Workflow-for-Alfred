@@ -10,8 +10,6 @@ public struct WorkflowEnvironment {
     self.environment = environment
   }
 
-  public static let `default` = WorkflowEnvironment()
-
   public var workflowVersion: String? {
     return environment["alfred_workflow_version"]
   }

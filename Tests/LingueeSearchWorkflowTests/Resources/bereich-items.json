@@ -1,0 +1,958 @@
+{
+    "items": [
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/Bereich.html",
+            "subtitle": "area (n) · field (n) · group (n) · sector (n)",
+            "title": "Bereich (m)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "Bereich (m)\narea (n) · field (n) · group (n) · sector (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/Bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "Bereich (m)\n· area (n)\n· field (n)\n· group (n)\n· sector (n)"
+            },
+            "autocomplete": "Bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/Bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/Bereicherung.html",
+            "subtitle": "enrichment (n) · gain (n) · enhancement (n) · asset (n)",
+            "title": "Bereicherung (f)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "Bereicherung (f)\nenrichment (n) · gain (n) · enhancement (n) · asset (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/Bereicherung.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "Bereicherung (f)\n· enrichment (n)\n· gain (n)\n· enhancement (n)\n· asset (n)"
+            },
+            "autocomplete": "Bereicherung",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/Bereicherung.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/bereichern.html",
+            "subtitle": "enrich (v) · enhance (v)",
+            "title": "bereichern (v)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "bereichern (v)\nenrich (v) · enhance (v)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/bereichern.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "bereichern (v)\n· enrich (v)\n· enhance (v)"
+            },
+            "autocomplete": "bereichern",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/bereichern.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/Bereichsleiter.html",
+            "subtitle": "division manager (n) · divisional head (n) · divisional director (n) · area manager (n) · division managers (pl) · division heads (pl) · department heads (pl) · area managers (pl)",
+            "title": "Bereichsleiter (pl\/m)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "Bereichsleiter (pl\/m)\ndivision manager (n) · divisional head (n) · divisional director (n) · area manager (n) · division managers (pl) · division heads (pl) · department heads (pl) · area managers (pl)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/Bereichsleiter.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "Bereichsleiter (pl\/m)\n· division manager (n)\n· divisional head (n)\n· divisional director (n)\n· area manager (n)\n· division managers (pl)\n· division heads (pl)\n· department heads (pl)\n· area managers (pl)"
+            },
+            "autocomplete": "Bereichsleiter",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/Bereichsleiter.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/im+Bereich+von.html",
+            "subtitle": "in the range of",
+            "title": "im Bereich von",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "im Bereich von\nin the range of\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/im+Bereich+von.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "im Bereich von\n· in the range of"
+            },
+            "autocomplete": "im Bereich von",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/im+Bereich+von.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/bereichernd.html",
+            "subtitle": "enriching (adj) · rewarding (adj)",
+            "title": "bereichernd (adj)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "bereichernd (adj)\nenriching (adj) · rewarding (adj)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/bereichernd.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "bereichernd (adj)\n· enriching (adj)\n· rewarding (adj)"
+            },
+            "autocomplete": "bereichernd",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/bereichernd.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/bereichs%C3%BCbergreifend.html",
+            "subtitle": "cross-functional (adj) · trans-sectoral (adj) · cross-functional (adj)",
+            "title": "bereichsübergreifend (adj)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "bereichsübergreifend (adj)\ncross-functional (adj) · trans-sectoral (adj) · cross-functional (adj)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/bereichs%C3%BCbergreifend.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "bereichsübergreifend (adj)\n· cross-functional (adj)\n· trans-sectoral (adj)\n· cross-functional (adj)"
+            },
+            "autocomplete": "bereichsübergreifend",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/bereichs%C3%BCbergreifend.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/Bereichsleitung.html",
+            "subtitle": "divisional management (n)",
+            "title": "Bereichsleitung (f)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "Bereichsleitung (f)\ndivisional management (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/Bereichsleitung.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "Bereichsleitung (f)\n· divisional management (n)"
+            },
+            "autocomplete": "Bereichsleitung",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/Bereichsleitung.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/bereichert.html",
+            "subtitle": "enriched",
+            "title": "bereichert",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "bereichert\nenriched\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/bereichert.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "bereichert\n· enriched"
+            },
+            "autocomplete": "bereichert",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/bereichert.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/kaufm%C3%A4nnischer+Bereich.html",
+            "subtitle": "commercial department (n)",
+            "title": "kaufmännischer Bereich (m)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "kaufmännischer Bereich (m)\ncommercial department (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/kaufm%C3%A4nnischer+Bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "kaufmännischer Bereich (m)\n· commercial department (n)"
+            },
+            "autocomplete": "kaufmännischer Bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/kaufm%C3%A4nnischer+Bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/bereichsweise.html",
+            "subtitle": "area by area (adv)",
+            "title": "bereichsweise (adv)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "bereichsweise (adv)\narea by area (adv)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/bereichsweise.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "bereichsweise (adv)\n· area by area (adv)"
+            },
+            "autocomplete": "bereichsweise",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/bereichsweise.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/Bereichsvorstand.html",
+            "subtitle": "divisional director (n)",
+            "title": "Bereichsvorstand (m)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "Bereichsvorstand (m)\ndivisional director (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/Bereichsvorstand.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "Bereichsvorstand (m)\n· divisional director (n)"
+            },
+            "autocomplete": "Bereichsvorstand",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/Bereichsvorstand.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/verschiedene+Bereiche.html",
+            "subtitle": "various areas (pl) · different areas (pl) · different fields (pl) · different sectors (pl)",
+            "title": "verschiedene Bereiche (pl)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "verschiedene Bereiche (pl)\nvarious areas (pl) · different areas (pl) · different fields (pl) · different sectors (pl)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/verschiedene+Bereiche.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "verschiedene Bereiche (pl)\n· various areas (pl)\n· different areas (pl)\n· different fields (pl)\n· different sectors (pl)"
+            },
+            "autocomplete": "verschiedene Bereiche",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/verschiedene+Bereiche.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/unterer+Bereich.html",
+            "subtitle": "low area (n)",
+            "title": "unterer Bereich (m)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "unterer Bereich (m)\nlow area (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/unterer+Bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "unterer Bereich (m)\n· low area (n)"
+            },
+            "autocomplete": "unterer Bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/unterer+Bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/gro%C3%9Fe+Bereicherung.html",
+            "subtitle": "big enrichment (n) · great asset (n) · huge asset (n) · major enrichment (n)",
+            "title": "große Bereicherung (f)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "große Bereicherung (f)\nbig enrichment (n) · great asset (n) · huge asset (n) · major enrichment (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/gro%C3%9Fe+Bereicherung.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "große Bereicherung (f)\n· big enrichment (n)\n· great asset (n)\n· huge asset (n)\n· major enrichment (n)"
+            },
+            "autocomplete": "große Bereicherung",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/gro%C3%9Fe+Bereicherung.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/technischer+Bereich.html",
+            "subtitle": "technical sector (n) · technical field (n) · technical area (n)",
+            "title": "technischer Bereich (m)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "technischer Bereich (m)\ntechnical sector (n) · technical field (n) · technical area (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/technischer+Bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "technischer Bereich (m)\n· technical sector (n)\n· technical field (n)\n· technical area (n)"
+            },
+            "autocomplete": "technischer Bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/technischer+Bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/einzelne+Bereiche.html",
+            "subtitle": "individual areas (pl) · individual divisions (pl) · individual sectors (pl) · separate areas (pl)",
+            "title": "einzelne Bereiche (pl)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "einzelne Bereiche (pl)\nindividual areas (pl) · individual divisions (pl) · individual sectors (pl) · separate areas (pl)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/einzelne+Bereiche.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "einzelne Bereiche (pl)\n· individual areas (pl)\n· individual divisions (pl)\n· individual sectors (pl)\n· separate areas (pl)"
+            },
+            "autocomplete": "einzelne Bereiche",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/einzelne+Bereiche.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/oberer+Bereich.html",
+            "subtitle": "upper area (n) · upper range (n)",
+            "title": "oberer Bereich (m)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "oberer Bereich (m)\nupper area (n) · upper range (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/oberer+Bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "oberer Bereich (m)\n· upper area (n)\n· upper range (n)"
+            },
+            "autocomplete": "oberer Bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/oberer+Bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/medizinischer+Bereich.html",
+            "subtitle": "medical field (n) · medical sector (n) · medical area (n)",
+            "title": "medizinischer Bereich (m)",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "medizinischer Bereich (m)\nmedical field (n) · medical sector (n) · medical area (n)\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/medizinischer+Bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "medizinischer Bereich (m)\n· medical field (n)\n· medical sector (n)\n· medical area (n)"
+            },
+            "autocomplete": "medizinischer Bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/medizinischer+Bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/im+bereich.html",
+            "subtitle": "",
+            "title": "im bereich",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "im bereich\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/im+bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "im bereich"
+            },
+            "autocomplete": "im bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/im+bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/in+diesem+bereich.html",
+            "subtitle": "",
+            "title": "in diesem bereich",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in diesem bereich\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/in+diesem+bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in diesem bereich"
+            },
+            "autocomplete": "in diesem bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/in+diesem+bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/in+den+bereichen.html",
+            "subtitle": "",
+            "title": "in den bereichen",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in den bereichen\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/in+den+bereichen.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in den bereichen"
+            },
+            "autocomplete": "in den bereichen",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/in+den+bereichen.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/aus+dem+bereich.html",
+            "subtitle": "",
+            "title": "aus dem bereich",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "aus dem bereich\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/aus+dem+bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "aus dem bereich"
+            },
+            "autocomplete": "aus dem bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/aus+dem+bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/in+allen+bereichen.html",
+            "subtitle": "",
+            "title": "in allen bereichen",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in allen bereichen\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/in+allen+bereichen.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in allen bereichen"
+            },
+            "autocomplete": "in allen bereichen",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/in+allen+bereichen.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/im+unteren+bereich.html",
+            "subtitle": "",
+            "title": "im unteren bereich",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "im unteren bereich\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/im+unteren+bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "im unteren bereich"
+            },
+            "autocomplete": "im unteren bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/im+unteren+bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/aus+den+bereichen.html",
+            "subtitle": "",
+            "title": "aus den bereichen",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "aus den bereichen\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/aus+den+bereichen.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "aus den bereichen"
+            },
+            "autocomplete": "aus den bereichen",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/aus+den+bereichen.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/im+bereich+des.html",
+            "subtitle": "",
+            "title": "im bereich des",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "im bereich des\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/im+bereich+des.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "im bereich des"
+            },
+            "autocomplete": "im bereich des",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/im+bereich+des.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/german-english\/translation\/im+oberen+bereich.html",
+            "subtitle": "",
+            "title": "im oberen bereich",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "im oberen bereich\n\nhttps:\/\/www.linguee.com\/german-english\/translation\/im+oberen+bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "im oberen bereich"
+            },
+            "autocomplete": "im oberen bereich",
+            "arg": "https:\/\/www.linguee.com\/german-english\/translation\/im+oberen+bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/bereicherungsvorsatz.html",
+            "subtitle": "",
+            "title": "bereicherungsvorsatz",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "bereicherungsvorsatz\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/bereicherungsvorsatz.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "bereicherungsvorsatz"
+            },
+            "autocomplete": "bereicherungsvorsatz",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/bereicherungsvorsatz.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/in+bereichen.html",
+            "subtitle": "",
+            "title": "in bereichen",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in bereichen\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/in+bereichen.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in bereichen"
+            },
+            "autocomplete": "in bereichen",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/in+bereichen.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/bereichsarbeit.html",
+            "subtitle": "",
+            "title": "bereichsarbeit",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "bereichsarbeit\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/bereichsarbeit.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "bereichsarbeit"
+            },
+            "autocomplete": "bereichsarbeit",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/bereichsarbeit.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/bereichbusiness+to+business.html",
+            "subtitle": "",
+            "title": "bereichbusiness to business",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "bereichbusiness to business\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/bereichbusiness+to+business.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "bereichbusiness to business"
+            },
+            "autocomplete": "bereichbusiness to business",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/bereichbusiness+to+business.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+marketing.html",
+            "subtitle": "",
+            "title": "in den bereichen marketing",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in den bereichen marketing\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+marketing.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in den bereichen marketing"
+            },
+            "autocomplete": "in den bereichen marketing",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+marketing.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/im+business+to+business+bereich.html",
+            "subtitle": "",
+            "title": "im business to business bereich",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "im business to business bereich\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/im+business+to+business+bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "im business to business bereich"
+            },
+            "autocomplete": "im business to business bereich",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/im+business+to+business+bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/in+bereichen+in+denen.html",
+            "subtitle": "",
+            "title": "in bereichen in denen",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in bereichen in denen\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/in+bereichen+in+denen.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in bereichen in denen"
+            },
+            "autocomplete": "in bereichen in denen",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/in+bereichen+in+denen.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/it+security+bereich.html",
+            "subtitle": "",
+            "title": "it security bereich",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "it security bereich\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/it+security+bereich.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "it security bereich"
+            },
+            "autocomplete": "it security bereich",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/it+security+bereich.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+personal.html",
+            "subtitle": "",
+            "title": "in den bereichen personal",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in den bereichen personal\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+personal.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in den bereichen personal"
+            },
+            "autocomplete": "in den bereichen personal",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+personal.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/expertise+in+den+bereichen.html",
+            "subtitle": "",
+            "title": "expertise in den bereichen",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "expertise in den bereichen\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/expertise+in+den+bereichen.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "expertise in den bereichen"
+            },
+            "autocomplete": "expertise in den bereichen",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/expertise+in+den+bereichen.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/in+allen+it+bereichen.html",
+            "subtitle": "",
+            "title": "in allen it bereichen",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in allen it bereichen\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/in+allen+it+bereichen.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in allen it bereichen"
+            },
+            "autocomplete": "in allen it bereichen",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/in+allen+it+bereichen.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+design.html",
+            "subtitle": "",
+            "title": "in den bereichen design",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in den bereichen design\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+design.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in den bereichen design"
+            },
+            "autocomplete": "in den bereichen design",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/in+den+bereichen+design.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/know+how+in+den+bereichen.html",
+            "subtitle": "",
+            "title": "know how in den bereichen",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "know how in den bereichen\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/know+how+in+den+bereichen.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "know how in den bereichen"
+            },
+            "autocomplete": "know how in den bereichen",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/know+how+in+den+bereichen.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/in+bereiche+von.html",
+            "subtitle": "",
+            "title": "in bereiche von",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "in bereiche von\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/in+bereiche+von.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "in bereiche von"
+            },
+            "autocomplete": "in bereiche von",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/in+bereiche+von.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "quicklookurl": "https:\/\/www.linguee.com\/english-german\/translation\/im+bereich+research+and+development.html",
+            "subtitle": "",
+            "title": "im bereich research and development",
+            "valid": true,
+            "mods": {
+                "cmd": {
+                    "valid": true,
+                    "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+                    "subtitle": "Search Linguee for 'bereich'"
+                }
+            },
+            "text": {
+                "copy": "im bereich research and development\n\nhttps:\/\/www.linguee.com\/english-german\/translation\/im+bereich+research+and+development.html\n\nTranslated using Linguee Workflow (https:\/\/tinyurl.com\/LingueeWorkflow).",
+                "largetype": "im bereich research and development"
+            },
+            "autocomplete": "im bereich research and development",
+            "arg": "https:\/\/www.linguee.com\/english-german\/translation\/im+bereich+research+and+development.html",
+            "icon": {
+                "path": ".\/check.png"
+            }
+        },
+        {
+            "title": "Search Linguee for 'bereich'",
+            "arg": "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+            "valid": true,
+            "icon": {
+                "path": ".\/linguee.png"
+            }
+        }
+    ]
+}
