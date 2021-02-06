@@ -26,4 +26,5 @@ extension Autocompletion {
 
 extension TranslationQuery {
   public static let hola = TranslationQuery(text: "hola", languagePair: .spanishItalian)
+  public static let bereich = TranslationQuery(text: "bereich", languagePair: .englishGerman)
 }

@@ -33,7 +33,9 @@ let package = Package(
         "CommonTesting",
         "LingueeSearchWorkflow",
         "LingueeTestData",
-      ]),
+      ],
+      resources: [.copy("Resources/bereich-items.json")]
+    ),
 
     .target(
       name: "Alfred",

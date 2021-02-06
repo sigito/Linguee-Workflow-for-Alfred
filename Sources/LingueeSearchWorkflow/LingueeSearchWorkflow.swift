@@ -25,7 +25,7 @@ public class LingueeSearchWorkflow {
   private let updateMonitor: UpdateMonitor?
   private let linguee: Linguee
 
-  init(query: String, environment: WorkflowEnvironment = .default) {
+  init(query: String, environment: WorkflowEnvironment = .init()) {
     self.query = TranslationQuery(text: query, environment: environment)
     self.environment = environment
     self.linguee = Linguee()
@@ -62,11 +62,12 @@ public class LingueeSearchWorkflow {
   public func run() -> Future<Workflow, Error> {
     return Future { promise in
       guard !self.environment.demoMode else {
-        promise(.success(.demo))
+        promise(.success(.demo(with: self.environment)))
         return
       }
 
       var workflow = Workflow()
+      let builder = AlfredItemBuilder(query: self.query, environment: self.environment)
       self.linguee
         .search(for: self.query)
         // Erase error type.
@@ -81,26 +82,21 @@ public class LingueeSearchWorkflow {
         .sink(
           receiveCompletion: { completion in
             if case .failure(let error) = completion {
-              workflow.add(error.alfredItem)
+              workflow.add(builder.item(for: error))
             }
             promise(.success(workflow))
           },
           receiveValue: { (autocompletions, release) in
-            let fallback = DefaultFallback(query: self.query)
             autocompletions
-              .map {
-                $0.alfredItem(
-                  defaultFallback: fallback, promote: !self.environment.disableCopyTextPromotion)
-              }
+              .map(builder.item(for:))
               .forEach { workflow.add($0) }
 
             if let release = release {
-              let workflowName = self.environment.workflowName ?? "Linguee Search"
-              workflow.addAtLastVisiblePosition(release.alfredItem(workflowName: workflowName))
+              workflow.addAtLastVisiblePosition(builder.item(for: release))
             }
 
             // Add a direct search link to the end of the list.
-            workflow.add(.fromDefaultFallback(fallback))
+            workflow.add(builder.openSearchOnLingueeItem())
           }
         )
         .store(in: &self.cancellables)

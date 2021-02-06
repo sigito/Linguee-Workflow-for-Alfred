@@ -46,14 +46,14 @@ fileprivate enum DemoError: Error {
 }
 
 extension Workflow {
-  static var demo: Workflow {
+  static func demo(with environment: WorkflowEnvironment) -> Workflow {
     var workflow = Workflow()
     let query = TranslationQuery(text: "Bereich", languagePair: .englishGerman)
-    let defaultFallback = DefaultFallback(query: query)
-    workflow.add(Autocompletion.bereich.alfredItem(defaultFallback: defaultFallback, promote: true))
-    workflow.add(Release.demoRelease.alfredItem(workflowName: "Linguee Search"))
-    workflow.add(DemoError.failedToFetchTranslations.alfredItem)
-    workflow.add(.fromDefaultFallback(defaultFallback))
+    let builder = AlfredItemBuilder(query: query, environment: environment)
+    workflow.add(builder.item(for: .bereich))
+    workflow.add(builder.item(for: .demoRelease))
+    workflow.add(builder.item(for: DemoError.failedToFetchTranslations))
+    workflow.add(builder.openSearchOnLingueeItem())
     return workflow
   }
 }
