@@ -34,7 +34,7 @@ extension Release {
     version: "1.0.0",
     workflowURL: URL(
       string:
-        "https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/download/1.0.0/Linguee.Search.alfredworkflow"
+        "https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/download/1.0.0/Linguee.Search-1.0.0.alfredworkflow"
     )!,
     releaseURL: URL(
       string: "https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/tag/1.0.0")!,
