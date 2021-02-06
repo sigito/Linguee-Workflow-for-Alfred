@@ -22,7 +22,7 @@ class UpdateMonitorTest: XCTestCase {
   }
 
   /// Tests that a previously fetched release is returned, when its version is newer than current,
-  /// and the release was fetche within last week.
+  /// and the release was fetched within last week.
   func testReturnsPrevioslyFetchedReleaseIfNew() throws {
     let release = Release(version: "1.1.0")
     let twoDaysAgo = Date.daysAgo(2)
@@ -335,7 +335,7 @@ class UpdateMonitorTest: XCTestCase {
 
   // MARK: - Private
 
-  /// Initializes the `monitor` with a new instance using `currentVersion`
+  /// Initializes the `monitor` with a new instance using `currentVersion`.
   private func makeMonitor(currentVersion: Version) {
     monitor = UpdateMonitor(
       currentVersion: currentVersion,
