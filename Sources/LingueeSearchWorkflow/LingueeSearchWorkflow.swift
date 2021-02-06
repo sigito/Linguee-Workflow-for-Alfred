@@ -6,11 +6,11 @@ import Logging
 import Updater
 
 /// Usual amount of seconds in a minute.
-fileprivate let kMinuteSeconds: Int = 60
+fileprivate let kMinuteSeconds: TimeInterval = 60
 /// Usual amount of secands in 5 minutes.
 fileprivate let kFiveMituneSeconds = 5 * kMinuteSeconds
 /// Usual amount of seconds per week.
-fileprivate let kWeekSeconds: Int = kMinuteSeconds * 60 * 24 * 7
+fileprivate let kWeekSeconds = kMinuteSeconds * 60 * 24 * 7
 
 public class LingueeSearchWorkflow {
   private static let logger = Logger(
@@ -49,8 +49,8 @@ public class LingueeSearchWorkflow {
       let version = environment.workflowVersion.flatMap(Version.init) ?? .unknown
       return UpdateMonitor(
         currentVersion: version,
-        requestIntervalSec: kFiveMituneSeconds,
-        cacheExpirationIntervalSec: kWeekSeconds,
+        requestInterval: kFiveMituneSeconds,
+        cacheExpirationInterval: kWeekSeconds,
         localStore: localStore,
         gitHubAPI: GitHubAPIImpl())
     } catch {

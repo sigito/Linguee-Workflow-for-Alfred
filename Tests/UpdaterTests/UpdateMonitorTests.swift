@@ -11,8 +11,8 @@ class UpdateMonitorTest: XCTestCase {
   private var monitor: UpdateMonitor!
   private var receivedAvailableUpdate: Release? = nil
   private let releaseSubscriber = TestSubscriber<Release?, UpdateMonitorError>()
-  private let requestInterval: Int = 2 * 60  // 2 minute
-  private let cacheExpirationInterval: Int = 7 * 24 * 60 * 60  // 1 week
+  private let requestInterval: TimeInterval = 2 * 60  // 2 minute
+  private let cacheExpirationInterval: TimeInterval = 7 * 24 * 60 * 60  // 1 week
   private let defaultCurrentVersion: Version = "1.0.0"
 
   override func setUpWithError() throws {
@@ -339,8 +339,8 @@ class UpdateMonitorTest: XCTestCase {
   private func makeMonitor(currentVersion: Version) {
     monitor = UpdateMonitor(
       currentVersion: currentVersion,
-      requestIntervalSec: requestInterval,
-      cacheExpirationIntervalSec: cacheExpirationInterval,
+      requestInterval: requestInterval,
+      cacheExpirationInterval: cacheExpirationInterval,
       localStore: localStore,
       gitHubAPI: gitHubAPI)
   }

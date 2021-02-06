@@ -17,23 +17,23 @@ public class UpdateMonitor {
   /// The current version of the workflow.
   public let currentVersion: Version
   /// The number of seconds between GitHub API requests.
-  private let requestInterval: Int
+  private let requestInterval: TimeInterval
   /// The number of seconds the previously fetchead release is cached.
-  private let cacheExpirationInterval: Int
+  private let cacheExpirationInterval: TimeInterval
   private let localStore: LocalStore
   private let gitHubAPI: GitHubAPI
   private var cancellables = Set<AnyCancellable>()
 
   public init(
     currentVersion: Version = .unknown,
-    requestIntervalSec: Int,
-    cacheExpirationIntervalSec: Int,
+    requestInterval: TimeInterval,
+    cacheExpirationInterval: TimeInterval,
     localStore: LocalStore,
     gitHubAPI: GitHubAPI
   ) {
     self.currentVersion = currentVersion
-    self.requestInterval = requestIntervalSec
-    self.cacheExpirationInterval = cacheExpirationIntervalSec
+    self.requestInterval = requestInterval
+    self.cacheExpirationInterval = cacheExpirationInterval
     self.localStore = localStore
     self.gitHubAPI = gitHubAPI
   }
@@ -106,8 +106,7 @@ public class UpdateMonitor {
   /// Returns the previosly fetched release, if it is not older than `freshness` interval, and its
   /// version is ahead of `currentVersion`. Otherwise, nil.
   /// - Parameter freshness: The number of seconds after which the release is considered obsolete.
-  ///     Default is `Int.max`.
-  private func previoslyFetchedRelease(freshness: Int = .max) -> Release? {
+  private func previoslyFetchedRelease(freshness: TimeInterval) -> Release? {
     let release: Release
     let releaseFetchTimestamp: TimeInterval
     do {
@@ -141,12 +140,12 @@ public class UpdateMonitor {
   }
 
   /// Whether `difference` has passed since `timestamp`.
-  private func moreThan(_ difference: Int, since timestamp: TimeInterval?) -> Bool {
+  private func moreThan(_ difference: TimeInterval, since timestamp: TimeInterval?) -> Bool {
     guard let timestamp = timestamp else {
       return true
     }
     let timeSinceFetch = Date().timeIntervalSince1970 - timestamp
-    return timeSinceFetch >= TimeInterval(difference)
+    return timeSinceFetch >= difference
   }
 
   /// Stores and filters the GitHub `release` if available.
