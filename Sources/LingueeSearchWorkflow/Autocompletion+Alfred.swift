@@ -2,7 +2,7 @@ import Alfred
 import Foundation
 import Linguee
 
-/// Returns the title in format "Beobachten (n/...)".
+/// Returns the title in format "<phrase> (<wordType>/<wordType>/...)".
 fileprivate func format(phrase: String, wordTypes: [String]) -> String {
   guard !wordTypes.isEmpty else {
     return phrase
