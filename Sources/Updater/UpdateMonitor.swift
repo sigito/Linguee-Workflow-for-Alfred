@@ -60,7 +60,7 @@ public class UpdateMonitor {
       self.gitHubAPI
         .getLatestRelease(user: user, repository: repository)
         // Swift compiler fails to properly infer types when the closure of tryMap maps an
-        // optional to another optional (e.g., LatestRelease? -> Release?. Pass a function with an
+        // optional to another optional (e.g., LatestRelease? -> Release?). Pass a function with an
         // explicit type signature to help with this.
         .tryMap(self.maybeReleaseWithWorkflow(_:))
         .sink(
