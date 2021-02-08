@@ -1,5 +1,6 @@
 import Foundation
 import XCTest
+import CommonTesting
 
 @testable import Alfred
 
@@ -14,7 +15,7 @@ class IconTests: JSONEncodingBaseTestCase {
       }
       """
 
-    XCTAssertEqual(try encode(path), expectedOutput)
+    XCTAssertEqual(try json(for: path), expectedOutput)
   }
 
   /// Tests that an `Icon.fileIcon(forPath:)` is encoded with the specified path and "fileicon"
@@ -28,7 +29,7 @@ class IconTests: JSONEncodingBaseTestCase {
       }
       """#
 
-    XCTAssertEqual(try encode(path), expectedOutput)
+    XCTAssertEqual(try json(for: path), expectedOutput)
   }
 
   /// Tests that an `Icon.fileType(of:)` is encoded with the specfied file and "filetype" type.
@@ -41,6 +42,6 @@ class IconTests: JSONEncodingBaseTestCase {
       }
       """
 
-    XCTAssertEqual(try encode(path), expectedOutput)
+    XCTAssertEqual(try json(for: path), expectedOutput)
   }
 }

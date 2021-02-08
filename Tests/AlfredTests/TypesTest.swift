@@ -1,5 +1,6 @@
 import Foundation
 import XCTest
+import CommonTesting
 
 @testable import Alfred
 
@@ -16,7 +17,7 @@ class TypesTest: JSONEncodingBaseTestCase {
       }
       """#
 
-    let encodedModifier = try self.encodedJson(modifier)
+    let encodedModifier = try self.json(for: modifier)
     XCTAssertEqual(encodedModifier, expectedOutput)
   }
 
@@ -37,7 +38,7 @@ class TypesTest: JSONEncodingBaseTestCase {
       }
       """#
 
-    let encodedItem = try self.encodedJson(item)
+    let encodedItem = try self.json(for: item)
     XCTAssertEqual(encodedItem, expectedOutput)
   }
 
@@ -54,7 +55,7 @@ class TypesTest: JSONEncodingBaseTestCase {
         "valid" : true
       }
       """
-    let encodedItem = try self.encodedJson(item)
+    let encodedItem = try self.json(for: item)
     XCTAssertEqual(encodedItem, expectedOutput)
   }
 
@@ -68,7 +69,7 @@ class TypesTest: JSONEncodingBaseTestCase {
         "valid" : true
       }
       """#
-    let encodedItem = try self.encodedJson(item)
+    let encodedItem = try self.json(for: item)
     XCTAssertEqual(encodedItem, expectedOutput)
   }
 
@@ -86,14 +87,6 @@ class TypesTest: JSONEncodingBaseTestCase {
       }
       """
 
-    XCTAssertEqual(try encode(item), expectedOutput)
-  }
-
-  /// MARK: - Private
-
-  /// Returns a string with an JSON-encoded `value`.
-  private func encodedJson<T>(_ value: T) throws -> String where T: Encodable {
-    let data = try self.encoder.encode(value)
-    return try XCTUnwrap(String(data: data, encoding: .utf8))
+    XCTAssertEqual(try json(for: item), expectedOutput)
   }
 }
