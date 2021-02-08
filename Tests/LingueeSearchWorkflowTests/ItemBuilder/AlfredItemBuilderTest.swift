@@ -19,15 +19,6 @@ struct WorkflowEnvironmentBuilder {
   }
 }
 
-extension Date {
-
-  /// Returns a date representing midnight 2021-02-08.
-  fileprivate static var d2021_02_08: Date {
-    let components = DateComponents(calendar: .current, year: 2021, month: 2, day: 8)
-    return components.date!
-  }
-}
-
 fileprivate enum TestError: Error {
   case returnMeMaybe
 }
@@ -99,7 +90,7 @@ class AlfredItemBuilderTest: JSONEncodingBaseTestCase {
     let release = Release(
       version: "1.2.3", workflowURL: URL(string: "https://example.com/release/workflow")!,
       releaseURL: URL(string: "https://example.com/release")!,
-      releaseDate: .d2021_02_08)
+      releaseDate: Date())
     let item = builder.item(for: release)
 
     XCTAssertEqual(
