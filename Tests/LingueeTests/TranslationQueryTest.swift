@@ -5,12 +5,7 @@ import XCTest
 @testable import Linguee
 
 class TranslationQueryTest: XCTestCase {
-  private var query: TranslationQuery!
-
-  override func setUp() {
-    super.setUp()
-    query = TranslationQuery(text: "hola", languagePair: .spanishItalian)
-  }
+  private var query: TranslationQuery = .hola
 
   /// Tests that for a lightweight mode the generated url searches with `qe=` query item.
   func testURLWithModeLightweight() {
