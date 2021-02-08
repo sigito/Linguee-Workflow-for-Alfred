@@ -1,5 +1,6 @@
 import CommonTesting
 import Foundation
+import LingueeTestData
 import XCTest
 
 @testable import Linguee
@@ -14,7 +15,6 @@ class LingueeTest: XCTestCase {
     super.setUp()
     loader = URLLoaderFake()
     linguee = Linguee(loader: loader)
-    query = TranslationQuery(text: "hola", languagePair: .testPair)
   }
 
   /// Tests that a search is done using a valid search URL.
@@ -25,7 +25,7 @@ class LingueeTest: XCTestCase {
       return .success((Data(), URLResponse()))
     }
 
-    let _ = linguee.search(for: query).subscribe(translationSubscriber)
+    let _ = linguee.search(for: .hola).subscribe(translationSubscriber)
 
     translationSubscriber.waitForCompletion()?.assertSuccess()
     XCTAssertEqual(

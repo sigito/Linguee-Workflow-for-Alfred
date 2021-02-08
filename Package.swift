@@ -30,7 +30,9 @@ let package = Package(
     .testTarget(
       name: "LingueeSearchWorkflowTests",
       dependencies: [
-        "LingueeSearchWorkflow"
+        "CommonTesting",
+        "LingueeSearchWorkflow",
+        "LingueeTestData",
       ]),
 
     .target(
@@ -45,8 +47,17 @@ let package = Package(
       dependencies: ["Common", "SwiftSoup"]),
     .testTarget(
       name: "LingueeTests",
-      dependencies: ["Linguee", "CommonTesting"],
+      dependencies: [
+        "Linguee",
+        "CommonTesting",
+        "LingueeTestData",
+      ],
+      exclude: ["TestData"],
       resources: [.copy("Resources/bereich-translation-response.html")]),
+    .target(
+      name: "LingueeTestData",
+      dependencies: ["Linguee"],
+      path: "Tests/LingueeTests/TestData"),
 
     .target(
       name: "Updater",

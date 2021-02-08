@@ -1,6 +1,6 @@
+import CommonTesting
 import Foundation
 import XCTest
-import CommonTesting
 
 @testable import Alfred
 
