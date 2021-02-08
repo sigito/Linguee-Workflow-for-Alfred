@@ -7,31 +7,17 @@ import XCTest
 
 @testable import LingueeSearchWorkflow
 
-struct WorkflowEnvironmentBuilder {
-  var sourceLanguage: String? = "spanish"
-  var destinationLanguege: String? = "italian"
-
-  var environment: WorkflowEnvironment {
-    var container = [String: String]()
-    container["source_language"] = sourceLanguage
-    container["destination_language"] = destinationLanguege
-    return WorkflowEnvironment(environment: container)
-  }
-}
-
 fileprivate enum TestError: Error {
   case returnMeMaybe
 }
 
 class AlfredItemBuilderTest: JSONEncodingBaseTestCase {
-  private var query: TranslationQuery!
   private var builder: AlfredItemBuilder!
-  private var environmentBuilder = WorkflowEnvironmentBuilder()
 
   override func setUpWithError() throws {
     try super.setUpWithError()
-    query = TranslationQuery(text: "hola", environment: environmentBuilder.environment)
-    builder = AlfredItemBuilder(query: query, environment: environmentBuilder.environment)
+    let environment = WorkflowEnvironmentBuilder().environment
+    builder = AlfredItemBuilder(query: .bereich, environment: environment)
   }
 
   /// Tests that the autocompletion item has all the metadata.
@@ -49,8 +35,8 @@ class AlfredItemBuilderTest: JSONEncodingBaseTestCase {
         },
         "mods" : {
           "cmd" : {
-            "arg" : "https:\/\/www.linguee.com\/spanish-italian\/search?source=auto&query=hola",
-            "subtitle" : "Search Linguee for 'hola'",
+            "arg" : "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
+            "subtitle" : "Search Linguee for 'bereich'",
             "valid" : true
           }
         },
@@ -126,11 +112,11 @@ class AlfredItemBuilderTest: JSONEncodingBaseTestCase {
       try json(for: item),
       #"""
       {
-        "arg" : "https:\/\/www.linguee.com\/spanish-italian\/search?source=auto&query=hola",
+        "arg" : "https:\/\/www.linguee.com\/english-german\/search?source=auto&query=bereich",
         "icon" : {
           "path" : ".\/linguee.png"
         },
-        "title" : "Search Linguee for 'hola'",
+        "title" : "Search Linguee for 'bereich'",
         "valid" : true
       }
       """#)
