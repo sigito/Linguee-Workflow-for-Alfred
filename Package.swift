@@ -38,7 +38,7 @@ let package = Package(
       dependencies: []),
     .testTarget(
       name: "AlfredTests",
-      dependencies: ["Alfred"]),
+      dependencies: ["Alfred", "CommonTesting"]),
 
     .target(
       name: "Linguee",
