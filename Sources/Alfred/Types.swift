@@ -86,8 +86,11 @@ extension Icon: Codable {
     case path
   }
 
-  private static let fileIconType = "fileicon"
-  private static let fileTypeType = "fileicon"
+  /// The `type` value for the icons.
+  private enum IconType: String {
+    case fileIcon = "fileicon"
+    case fileType = "filetype"
+  }
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -98,10 +101,10 @@ extension Icon: Codable {
       // .icon has no type.
       self = .icon(location: path)
 
-    case Icon.fileIconType:
+    case IconType.fileIcon.rawValue:
       self = .fileIcon(forPath: path)
 
-    case Icon.fileTypeType:
+    case IconType.fileType.rawValue:
       self = .fileType(of: path)
 
     case .some(let type):
@@ -118,10 +121,10 @@ extension Icon: Codable {
       // No type for icon.
       try container.encode(path, forKey: .path)
     case .fileIcon(forPath: let path):
-      try container.encode("fileicon", forKey: .type)
+      try container.encode(IconType.fileIcon.rawValue, forKey: .type)
       try container.encode(path, forKey: .path)
     case .fileType(of: let path):
-      try container.encode("filetype", forKey: .type)
+      try container.encode(IconType.fileType.rawValue, forKey: .type)
       try container.encode(path, forKey: .path)
     }
   }
