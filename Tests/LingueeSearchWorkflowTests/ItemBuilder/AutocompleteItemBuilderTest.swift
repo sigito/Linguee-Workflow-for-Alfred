@@ -12,7 +12,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
   /// link to Linguee page.
   func testCopyText() throws {
     let item = AutocompleteItemBuilder(
-      .bereich, fallback: .bereich, copyTextPromotion: false
+      .bereich, fallback: .bereich, copyBehavior: .all
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
@@ -30,7 +30,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
   /// enabled.
   func testCopyTextPromotion() throws {
     let item = AutocompleteItemBuilder(
-      .bereich, fallback: .bereich, copyTextPromotion: true
+      .bereich, fallback: .bereich, copyBehavior: .allWithPromotion
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
@@ -55,7 +55,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
       return bereich
     }()
     let item = AutocompleteItemBuilder(
-      autocompletionWithoutTranslations, fallback: .bereich, copyTextPromotion: false
+      autocompletionWithoutTranslations, fallback: .bereich, copyBehavior: .all
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
@@ -68,9 +68,44 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
       """)
   }
 
+  /// Tests that the copy text for `url` copy behavior includes only the translation page URL.
+  func testCopyURL() throws {
+    let item = AutocompleteItemBuilder(.bereich, fallback: .bereich, copyBehavior: .url).item
+
+    let copyText = try XCTUnwrap(item.text?.copy)
+    XCTAssertEqual(copyText, "https://www.linguee.com/german-english/translation/Bereich.html")
+  }
+
+  /// Tests that the copy text for `firstTranlationOnly` copy behavior includes only the first
+  /// translation.
+  func testCopyFirstTranslationOnly() throws {
+    let item = AutocompleteItemBuilder(
+      .bereich, fallback: .bereich, copyBehavior: .firstTranlationOnly
+    ).item
+
+    let copyText = try XCTUnwrap(item.text?.copy)
+    XCTAssertEqual(copyText, "area")
+  }
+
+  /// Tests that the copy text for `firstTranlationOnly` copy behavior, when there are no
+  /// translations, includes the initial query text.
+  func testCopyFirstTranslationOnlyWithoutTranlations() throws {
+    let autocompletionWithoutTranslations: Autocompletion = {
+      var bereich = Autocompletion.bereich
+      bereich.translations = []
+      return bereich
+    }()
+    let item = AutocompleteItemBuilder(
+      autocompletionWithoutTranslations, fallback: .bereich, copyBehavior: .firstTranlationOnly
+    ).item
+
+    let copyText = try XCTUnwrap(item.text?.copy)
+    XCTAssertEqual(copyText, "Bereich")
+  }
+
   /// Tests tha the large type text has format of a query followed by the translations list.
   func testLargeType() throws {
-    let item = AutocompleteItemBuilder(.bereich, fallback: .bereich, copyTextPromotion: false).item
+    let item = AutocompleteItemBuilder(.bereich, fallback: .bereich, copyBehavior: .all).item
 
     let largeTypeText = try XCTUnwrap(item.text?.largeType)
     XCTAssertEqual(
@@ -92,7 +127,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
       return bereich
     }()
     let item = AutocompleteItemBuilder(
-      autocompletionWithoutTranslations, fallback: .bereich, copyTextPromotion: false
+      autocompletionWithoutTranslations, fallback: .bereich, copyBehavior: .all
     ).item
 
     let largeTypeText = try XCTUnwrap(item.text?.largeType)

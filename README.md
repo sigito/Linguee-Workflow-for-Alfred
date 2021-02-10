@@ -24,10 +24,11 @@ Linguee Search is an Alfred workflow that lets you search for translations on Li
 * [Features](#features)
   * [Setting translation language pair](#setting-translation-language-pair)
   * [Setting a global keyboard schortcut](#setting-a-global-keyboard-schortcut)
+  * [Copy behavior](#copy-behavior)
   * [Miscellaneous flags](#miscellaneous-flags)
 * [Known issues](#known-issues)
-  * [LingueeOnAlfred will damage your computer and you should remove it to the trash (\#13)](#lingueeonalfred-will-damage-your-computer-and-you-should-remove-it-to-the-trash-13)
-* [License](#license)
+  * [LingueeOnAlfred will damage your computer and you should remove it to the trash (<a href="https://github\.com/sigito/Linguee\-Workflow\-for\-Alfred/issues/13">\#13</a>)](#lingueeonalfred-will-damage-your-computer-and-you-should-remove-it-to-the-trash-13)
+* [License](#license))
 
 ## Download the workflow
 
@@ -56,6 +57,9 @@ A new `Linguee.Search.alfredworkflow` workflow would be built from source and op
   * `↩` (Return) on "Search on Linguee for '{query}'". This entry is always added as the last search result.
 * Search autocomplete on `↹` (Tab).
 * Copy the results with `⌘ C` (Command-C).
+
+   See (#copy-behavior) on the copy behavior options.
+
 * Display a selected result in a large type with `⌘ L` (Command-L).
 * Quickly look at the tranlation page by tapping `⇧` (Shift) or `⌘ Y` (Command+Y).
 * Automatic checks for updates.
@@ -86,6 +90,16 @@ To change the assigned key combination, just repeat the steps described above.
 
 More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/workflows/triggers/hotkey/).
 
+### Copy behavior
+
+By default all of the translation information, including the initial search text, translations, and the results link, would be copied as a result of `⌘ C` (Command-C) action.
+
+Use `copy_behavior` variable to change default behavior. There are a few possible values it can be set to:
+
+* `all` (default) — copy all of the translation information;
+* `url` — copy the Lingue.com link with the results;
+* `first-translation-only` — copy the first translation only. In case there no translations available, the initial query would be copied instead.
+
 ### Miscellaneous flags
 
 * `check_for_updates` – whether the workflow should periodically check for a new version.  
@@ -102,7 +116,7 @@ More about hotkeys in Alfred available [here](https://www.alfredapp.com/help/wor
 
 The workflow binary is not verified by Apple. Thus macOS would not recognize the binary and suggest to move it to trash.
 
-In order to work this around, go to `System Preferences` > `Security & Privacy`, switch to `General` tab. In the `Allow apps downloaded from:` section select `App Store and identified developers` and then to the right of it tap an `Open Anyway` button. 
+In order to work this around, go to `System Preferences` > `Security & Privacy`, switch to `General` tab. In the `Allow apps downloaded from:` section select `App Store and identified developers` and then to the right of it tap an `Open Anyway` button.
 
 On the next attempt to search with Linguee, a dialog would pop. Select `Open` and you are good to go!
 

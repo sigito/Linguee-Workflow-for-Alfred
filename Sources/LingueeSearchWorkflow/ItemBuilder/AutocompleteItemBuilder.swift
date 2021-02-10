@@ -11,12 +11,12 @@ extension DefaultFallback {
 class AutocompleteItemBuilder {
   let autocompletion: Autocompletion
   let fallback: DefaultFallback
-  let copyTextPromotion: Bool
+  let copyBehavior: CopyBehavior
 
-  init(_ autocompletion: Autocompletion, fallback: DefaultFallback, copyTextPromotion: Bool) {
+  init(_ autocompletion: Autocompletion, fallback: DefaultFallback, copyBehavior: CopyBehavior) {
     self.autocompletion = autocompletion
     self.fallback = fallback
-    self.copyTextPromotion = copyTextPromotion
+    self.copyBehavior = copyBehavior
   }
 
   /// Returns an item for the `autocompletion`.
@@ -51,29 +51,41 @@ class AutocompleteItemBuilder {
 
   /// Returns text to be used for the copy action.
   private func copyText() -> String {
-    var baseText: String
-    if self.formattedTranslations.isEmpty {
-      // Do not add a translations line, if there are no translations found.
-      baseText = """
-        \(formattedMainItem)
+    /// Returns copy action text for `all` option.
+    func copyTextAll() -> String {
+      var baseText: String
+      if self.formattedTranslations.isEmpty {
+        // Do not add a translations line, if there are no translations found.
+        baseText = """
+          \(formattedMainItem)
 
-        \(resultsURL)
-        """
-    } else {
-      baseText = """
-        \(formattedMainItem)
-        \(formattedTranslations.joined(separator: ", "))
+          \(resultsURL)
+          """
+      } else {
+        baseText = """
+          \(formattedMainItem)
+          \(formattedTranslations.joined(separator: ", "))
 
-        \(resultsURL)
-        """
+          \(resultsURL)
+          """
+      }
+
+      if copyBehavior.includePromotion {
+        let promotionText =
+          "\n\nTranslated using Linguee Workflow (https://tinyurl.com/LingueeWorkflow)."
+        baseText.append(promotionText)
+      }
+      return baseText
     }
 
-    if copyTextPromotion {
-      let promotionText =
-        "\n\nTranslated using Linguee Workflow (https://tinyurl.com/LingueeWorkflow)."
-      baseText.append(promotionText)
+    switch copyBehavior.option {
+    case .all:
+      return copyTextAll()
+    case .url:
+      return resultsURL
+    case .firstTranlationOnly:
+      return autocompletion.translations.first?.translation ?? autocompletion.mainItem.phrase
     }
-    return baseText
   }
 
   /// Returns text to be displayed in large type.
