@@ -34,6 +34,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>C5F6FE53-E6A6-48F4-8134-A9CAF992C467</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7CEFD5F5-0ED1-476D-972D-4CE38444128B</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Yurii Samsoniuk</string>
@@ -45,6 +58,55 @@
 	<string>$(WORKFLOW_NAME)</string>
 	<key>objects</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>l</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string></string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>./LingueeOnAlfred</string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Search Linguee for '{query}'</string>
+				<key>type</key>
+				<integer>8</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>50B0CD10-4D52-4898-9C05-DD3A34A829C3</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -79,53 +141,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>keyword</key>
-				<string>l</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string></string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string>./LingueeOnAlfred</string>
-				<key>subtext</key>
-				<string></string>
-				<key>title</key>
-				<string>Lookup on Linguee "{query}"</string>
-				<key>type</key>
-				<integer>8</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>50B0CD10-4D52-4898-9C05-DD3A34A829C3</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>browser</key>
 				<string></string>
 				<key>spaces</key>
@@ -139,6 +154,38 @@
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
 			<string>B94A24F6-DBCD-4727-B464-DCE1DFBA6F44</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>text</key>
+				<string>Search Linguee for '{query}'</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.fallback</string>
+			<key>uid</key>
+			<string>C5F6FE53-E6A6-48F4-8134-A9CAF992C467</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://www.linguee.com/{var:source_language}-{var:destination_language}/search?source=auto&amp;query={query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>7CEFD5F5-0ED1-476D-972D-4CE38444128B</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -162,34 +209,69 @@ Visit the workflow homepage to find out more about available features: https://t
 	<dict>
 		<key>50B0CD10-4D52-4898-9C05-DD3A34A829C3</key>
 		<dict>
+			<key>note</key>
+			<string>Default Linguee Search trigger keyword is 'l'. To change it:
+1. Right-click on this action.
+2. Select "Configure Object".
+3. In the "Keyword" type a desired one.
+4. Save.
+
+From now on searched starting with the specified keyword would be handled by this workflow.</string>
 			<key>xpos</key>
 			<integer>370</integer>
 			<key>ypos</key>
 			<integer>175</integer>
 		</dict>
+		<key>7CEFD5F5-0ED1-476D-972D-4CE38444128B</key>
+		<dict>
+			<key>xpos</key>
+			<integer>430</integer>
+			<key>ypos</key>
+			<integer>645</integer>
+		</dict>
 		<key>B94A24F6-DBCD-4727-B464-DCE1DFBA6F44</key>
 		<dict>
 			<key>xpos</key>
-			<integer>560</integer>
+			<integer>620</integer>
 			<key>ypos</key>
 			<integer>175</integer>
 		</dict>
 		<key>B9DE0733-1E3B-4C8B-8D7B-3CC55116EFEF</key>
 		<dict>
+			<key>note</key>
+			<string>This action adds a systemwide hotkey to trigger Linguee Search workflow. To add it:
+1. Right-click on this action.
+2. Select "Configure Object"
+3. Select "Hotkey" field and press the desired hotkey.
+4. Save.
+
+Now you can use the designated hotkey from anywhere in the system to go directly to Linguee Search in Alfred.
+
+More about hotkeys: https://www.alfredapp.com/help/workflows/triggers/hotkey/</string>
 			<key>xpos</key>
 			<integer>185</integer>
 			<key>ypos</key>
 			<integer>175</integer>
 		</dict>
+		<key>C5F6FE53-E6A6-48F4-8134-A9CAF992C467</key>
+		<dict>
+			<key>note</key>
+			<string>To add Linguee to the list of default fallbacks or learn more about the default fallback feature, go here:
+https://www.alfredapp.com/help/features/default-results/fallback-searches/</string>
+			<key>xpos</key>
+			<integer>180</integer>
+			<key>ypos</key>
+			<integer>645</integer>
+		</dict>
 	</dict>
 	<key>variables</key>
 	<dict>
-		<key>source_language</key>
-		<string>english</string>
-		<key>destination_language</key>
-		<string>german</string>
 		<key>check_for_updates</key>
 		<string>true</string>
+		<key>destination_language</key>
+		<string>german</string>
+		<key>source_language</key>
+		<string>english</string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array/>
