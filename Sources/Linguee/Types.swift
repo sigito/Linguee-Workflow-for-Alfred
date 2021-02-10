@@ -3,7 +3,7 @@ import Foundation
 public struct TranslationItem: Equatable {
   /// The actual translation.
   public var translation: String
-  /// The work types of the translation.
+  /// The word types of the translation.
   public var wordTypes: [String]
 
   public init(
@@ -18,7 +18,7 @@ public struct TranslationItem: Equatable {
 public struct MainItem: Equatable {
   /// The translated phrase.
   public var phrase: String
-  /// The word types of the phares.
+  /// The word types of the phrase.
   public var wordTypes: [String]
   /// The link to this item.
   public var link: URL
