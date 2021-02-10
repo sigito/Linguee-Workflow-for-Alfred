@@ -23,7 +23,7 @@ class AlfredItemBuilder {
     return AutocompleteItemBuilder(
       autocompletion,
       fallback: fallback,
-      copyTextPromotion: !environment.disableCopyTextPromotion
+      copyBehavior: environment.copyBehavior
     ).item
   }
 
