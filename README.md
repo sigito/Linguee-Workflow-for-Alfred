@@ -101,7 +101,7 @@ By default all of the translation information, including the initial search text
 Use `copy_behavior` variable to change default behavior. There are a few possible values it can be set to:
 
 * `all` (default) — copy all of the translation information;
-* `url` — copy the Lingue.com link with the results;
+* `url` — copy the Lingue.com link to the translation page;
 * `first-translation-only` — copy the first translation only. In case there no translations available, the initial query would be copied instead.
 
 ### Miscellaneous flags
