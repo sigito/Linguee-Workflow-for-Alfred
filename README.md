@@ -27,8 +27,8 @@ Linguee Search is an Alfred workflow that lets you search for translations on Li
   * [Copy behavior](#copy-behavior)
   * [Miscellaneous flags](#miscellaneous-flags)
 * [Known issues](#known-issues)
-  * [LingueeOnAlfred will damage your computer and you should remove it to the trash (<a href="https://github\.com/sigito/Linguee\-Workflow\-for\-Alfred/issues/13">\#13</a>)](#lingueeonalfred-will-damage-your-computer-and-you-should-remove-it-to-the-trash-13)
-* [License](#license))
+  * [LingueeOnAlfred will damage your computer and you should remove it to the trash (<a href="https://github\.com/sigito/Linguee\-Workflow\-for\-Alfred/issues/13">\#13</a>)](#lingueeonalfred-will-damage-your-computer-and-you-should-remove-it-to-the-trash-13))
+* [License](#license)
 
 ## Download the workflow
 
