@@ -24,6 +24,9 @@ public class UpdateMonitor {
   private let gitHubAPI: GitHubAPI
   private var cancellables = Set<AnyCancellable>()
 
+  /// Paramaters:
+  ///   - cacheExpirationInterval: the time interval to keep the available new release information
+  ///     in a cache, instead of requesting a new one.
   public init(
     currentVersion: Version = .unknown,
     requestInterval: TimeInterval,

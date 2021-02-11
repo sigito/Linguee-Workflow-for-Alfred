@@ -9,8 +9,8 @@ import Updater
 fileprivate let kMinuteSeconds: TimeInterval = 60
 /// Usual amount of secands in 5 minutes.
 fileprivate let kFiveMituneSeconds = 5 * kMinuteSeconds
-/// Usual amount of seconds per week.
-fileprivate let kWeekSeconds = kMinuteSeconds * 60 * 24 * 7
+/// The new release caching period.
+fileprivate let kReleaseCacheExpirationInterval = kMinuteSeconds * 60 * 24 * 3  // 3 days
 
 public class LingueeSearchWorkflow {
   private static let logger = Logger(
@@ -50,7 +50,7 @@ public class LingueeSearchWorkflow {
       return UpdateMonitor(
         currentVersion: version,
         requestInterval: kFiveMituneSeconds,
-        cacheExpirationInterval: kWeekSeconds,
+        cacheExpirationInterval: kReleaseCacheExpirationInterval,
         localStore: localStore,
         gitHubAPI: GitHubAPIImpl())
     } catch {
