@@ -65,6 +65,10 @@ A new `Linguee.Search.alfredworkflow` workflow would be built from source and op
 * Automatic checks for updates.
   * Use `check_for_updates` variable to control this feature.
   * If a newer version of the workflow is available, an extra result row is added with [an update prompt](periodic_checks_for_updates.png).
+* Linguee.com as a fallback search.
+
+  Follow insturctions in the workflow viewer in Alfred to add Linguee to the list of default fallbacks. See [Alfred's help center article](https://www.alfredapp.com/help/features/default-results/fallback-searches/) for more information about the default fallback feature.
+
 
 ### Setting translation language pair
 
