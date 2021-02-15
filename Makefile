@@ -9,15 +9,18 @@ ifeq ($(DEBUG), 1)
 	WORKFLOW_NAME = Linguee Search (DEBUG)
 	BUNDLE_ID = com.samsoniuk.alfred.linguee-search.debug
 	BUILD_CONFIG = debug
+	BINARY_PATH := .build/apple/Products/Debug/LingueeOnAlfred
 	TARGET_DIR = .$(BUILD_CONFIG)
 	WORKFLOW_ZIP = Linguee.Search-$(VERSION)-debug.alfredworkflow
 else
 	WORKFLOW_NAME = Linguee Search
 	BUNDLE_ID := com.samsoniuk.alfred.linguee-search
 	BUILD_CONFIG := release
+	BINARY_PATH := .build/apple/Products/Release/LingueeOnAlfred
 	TARGET_DIR := .$(BUILD_CONFIG)
 	WORKFLOW_ZIP := Linguee.Search-$(VERSION).alfredworkflow
 endif
+
 
 all: workflow
 
@@ -27,7 +30,7 @@ install: workflow
 
 build:
 	@echo "Building a $(BUILD_CONFIG) binary..."
-	swift build -c $(BUILD_CONFIG)
+	swift build -c $(BUILD_CONFIG) --arch x86_64 --arch arm64e
 
 workflow: collect-workflow
 	@echo "Creating a workflow archive..."
@@ -36,7 +39,7 @@ workflow: collect-workflow
 
 collect-workflow: build test info.plist version | $(TARGET_DIR)
 	@echo "Collecting workflow archive files in $(TARGET_DIR)"
-	cp .build/$(BUILD_CONFIG)/LingueeOnAlfred $(TARGET_DIR)/
+	cp $(BINARY_PATH) $(TARGET_DIR)/
 	cp Icons/* $(TARGET_DIR)/
 
 $(TARGET_DIR):
