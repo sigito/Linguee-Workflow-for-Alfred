@@ -23,7 +23,7 @@ Linguee Search is an Alfred workflow that lets you search for translations on Li
   * [Manually install the workflow](#manually-install-the-workflow)
 * [Features](#features)
   * [Setting translation language pair](#setting-translation-language-pair)
-  * [Setting a global keyboard schortcut](#setting-a-global-keyboard-schortcut)
+  * [Setting a global keyboard shortcut](#setting-a-global-keyboard-shortcut)
   * [Copy behavior](#copy-behavior)
   * [Miscellaneous flags](#miscellaneous-flags)
 * [Known issues](#known-issues)
@@ -61,13 +61,13 @@ A new `Linguee.Search.alfredworkflow` workflow would be built from source and op
    See (#copy-behavior) on the copy behavior options.
 
 * Display a selected result in a large type with `⌘ L` (Command-L).
-* Quickly look at the tranlation page by tapping `⇧` (Shift) or `⌘ Y` (Command+Y).
+* Quickly look at the translation page by tapping `⇧` (Shift) or `⌘ Y` (Command+Y).
 * Automatic checks for updates.
   * Use `check_for_updates` variable to control this feature.
   * If a newer version of the workflow is available, an extra result row is added with [an update prompt](periodic_checks_for_updates.png).
 * Linguee.com as a fallback search.
 
-  Follow insturctions in the workflow viewer in Alfred to add Linguee to the list of default fallbacks. See [Alfred's help center article](https://www.alfredapp.com/help/features/default-results/fallback-searches/) for more information about the default fallback feature.
+  Follow instructions in the workflow viewer in Alfred to add Linguee to the list of default fallbacks. See [Alfred's help center article](https://www.alfredapp.com/help/features/default-results/fallback-searches/) for more information about the default fallback feature.
 
 
 ### Setting translation language pair
@@ -76,11 +76,11 @@ A new `Linguee.Search.alfredworkflow` workflow would be built from source and op
 
 Default pair is English + German. To override this behavior, set the variables to a desired pair. For a full list of available language pairs please visit <https://www.linguee.com/?moreLanguages=1#moreLanguages>. The values of the variables must be a lowercased language name in English. E.g., "english", "german", "french".
 
-### Setting a global keyboard schortcut
+### Setting a global keyboard shortcut
 
 There is an option to trigger the Linguee Search from anywhere, skipping typing of the command prefix (`l` in our case) in the shared Alfred search window. Unfortunately, Alfred does not import the hotkeys, thus a manual setup is necessary.
 
-The workflow already contains an empty global keyboard shortuct configuration. You should:
+The workflow already contains an empty global keyboard shortcut configuration. You should:
 
 1. Open the workflows panel in Alfred settings.
 1. Select this workflow.
@@ -101,7 +101,7 @@ By default all of the translation information, including the initial search text
 Use `copy_behavior` variable to change default behavior. There are a few possible values it can be set to:
 
 * `all` (default) — copy all of the translation information;
-* `url` — copy the Lingue.com link to the translation page;
+* `url` — copy the Linguee.com link to the translation page;
 * `first-translation-only` — copy the first translation only. In case there no translations available, the initial query would be copied instead.
 
 ### Miscellaneous flags
@@ -112,7 +112,7 @@ Use `copy_behavior` variable to change default behavior. There are a few possibl
   Possible values: `true` or `false`. Default: `false`.
 * `demo_mode` – return a stubbed response with all states available.  
   Possible values: `true` or `false`. Default: `false`.  
-  ⚠️  Setting this varibale would make the workflow to always return stubbed values.
+  ⚠️  Setting this variable would make the workflow to always return stubbed values.
 
 ## Known issues
 
@@ -127,5 +127,5 @@ On the next attempt to search with Linguee, a dialog would pop. Select `Open` an
 ## License
 
 * The Linguee Workflow for Alfred is released under the MIT license. [See LICENSE](LICENSE) for details.
-* The surved results are used according to Linguee's [Terms and Conditions](https://www.linguee.com/english-german/page/termsAndConditions.php).
+* The served results are used according to Linguee's [Terms and Conditions](https://www.linguee.com/english-german/page/termsAndConditions.php).
 * The icons are provided by [Susan Kaltschmidt](http://www.susan-kaltschmidt.com/).
