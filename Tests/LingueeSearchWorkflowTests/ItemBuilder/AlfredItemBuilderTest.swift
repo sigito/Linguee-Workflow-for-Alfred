@@ -17,12 +17,12 @@ class AlfredItemBuilderTest: JSONEncodingBaseTestCase {
   override func setUpWithError() throws {
     try super.setUpWithError()
     let environment = WorkflowEnvironmentBuilder().environment
-    builder = AlfredItemBuilder(query: .bereich, environment: environment)
+    builder = AlfredItemBuilder(query: .bereichDeEn, environment: environment)
   }
 
   /// Tests that the autocompletion item has all the metadata.
   func testAutocompletionItem() {
-    let item = builder.item(for: .bereich)
+    let item = builder.item(for: .bereichDeEn)
 
     XCTAssertEqual(
       try json(for: item),

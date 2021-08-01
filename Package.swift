@@ -54,13 +54,16 @@ let package = Package(
         "CommonTesting",
         "LingueeTestData",
       ],
-      exclude: ["TestData"],
-      resources: [.copy("Resources/bereich-translation-response.html")]),
+      exclude: ["TestData"]
+      ),
     .target(
       name: "LingueeTestData",
       dependencies: ["Linguee"],
-      path: "Tests/LingueeTests/TestData"),
-
+      path: "Tests/LingueeTests/TestData",
+      resources: [
+        .copy("Resources/bereich-ende-translation-response.html"),
+        .copy("Resources/hello-enjp-translation-response.html"),
+      ]),
     .target(
       name: "Updater",
       dependencies: [

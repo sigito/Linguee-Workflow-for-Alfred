@@ -19,9 +19,9 @@ public class Linguee {
   public func search(for query: TranslationQuery) -> Future<[Autocompletion], Error> {
     return Future { (completion) in
       self.loader.requestData(for: query.url(withMode: .lightweight))
-        .tryMap { (data, _) -> String in
-          // Linguee returns content in iso-8859-15 encoding.
-          guard let html = String(data: data, encoding: .isoLatin1) else {
+        .tryMap { (data, response) -> String in
+          let encoding = response.textEncoding ?? .utf8
+          guard let html = String(data: data, encoding: encoding) else {
             throw Error.badEncoding
           }
           return html
@@ -55,4 +55,5 @@ public class Linguee {
       .select(".autocompletion_item")
       .compactMap(Autocompletion.from(autocompletionItem:))
   }
+
 }

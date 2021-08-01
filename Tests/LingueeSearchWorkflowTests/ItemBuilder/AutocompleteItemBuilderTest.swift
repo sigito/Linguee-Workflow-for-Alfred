@@ -12,7 +12,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
   /// link to Linguee page.
   func testCopyText() throws {
     let item = AutocompleteItemBuilder(
-      .bereich, fallback: .bereich, copyBehavior: .all
+      .bereichDeEn, fallback: .bereichDeEn, copyBehavior: .all
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
@@ -30,7 +30,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
   /// enabled.
   func testCopyTextPromotion() throws {
     let item = AutocompleteItemBuilder(
-      .bereich, fallback: .bereich, copyBehavior: .allWithPromotion
+      .bereichDeEn, fallback: .bereichDeEn, copyBehavior: .allWithPromotion
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
@@ -50,12 +50,12 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
   /// available.
   func testCopyTextWithoutTranslations() throws {
     let autocompletionWithoutTranslations: Autocompletion = {
-      var bereich = Autocompletion.bereich
+      var bereich = Autocompletion.bereichDeEn
       bereich.translations = []
       return bereich
     }()
     let item = AutocompleteItemBuilder(
-      autocompletionWithoutTranslations, fallback: .bereich, copyBehavior: .all
+      autocompletionWithoutTranslations, fallback: .bereichDeEn, copyBehavior: .all
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
@@ -70,7 +70,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
 
   /// Tests that the copy text for `url` copy behavior includes only the translation page URL.
   func testCopyURL() throws {
-    let item = AutocompleteItemBuilder(.bereich, fallback: .bereich, copyBehavior: .url).item
+    let item = AutocompleteItemBuilder(.bereichDeEn, fallback: .bereichDeEn, copyBehavior: .url).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
     XCTAssertEqual(copyText, "https://www.linguee.com/german-english/translation/Bereich.html")
@@ -80,7 +80,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
   /// translation.
   func testCopyFirstTranslationOnly() throws {
     let item = AutocompleteItemBuilder(
-      .bereich, fallback: .bereich, copyBehavior: .firstTranlationOnly
+      .bereichDeEn, fallback: .bereichDeEn, copyBehavior: .firstTranlationOnly
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
@@ -91,12 +91,12 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
   /// translations, includes the initial query text.
   func testCopyFirstTranslationOnlyWithoutTranlations() throws {
     let autocompletionWithoutTranslations: Autocompletion = {
-      var bereich = Autocompletion.bereich
+      var bereich = Autocompletion.bereichDeEn
       bereich.translations = []
       return bereich
     }()
     let item = AutocompleteItemBuilder(
-      autocompletionWithoutTranslations, fallback: .bereich, copyBehavior: .firstTranlationOnly
+      autocompletionWithoutTranslations, fallback: .bereichDeEn, copyBehavior: .firstTranlationOnly
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
@@ -105,7 +105,7 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
 
   /// Tests tha the large type text has format of a query followed by the translations list.
   func testLargeType() throws {
-    let item = AutocompleteItemBuilder(.bereich, fallback: .bereich, copyBehavior: .all).item
+    let item = AutocompleteItemBuilder(.bereichDeEn, fallback: .bereichDeEn, copyBehavior: .all).item
 
     let largeTypeText = try XCTUnwrap(item.text?.largeType)
     XCTAssertEqual(
@@ -122,12 +122,12 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
   /// Tests that teh large type text contains the query only when there are no translations.
   func testLargeTypeWithoutTranslations() throws {
     let autocompletionWithoutTranslations: Autocompletion = {
-      var bereich = Autocompletion.bereich
+      var bereich = Autocompletion.bereichDeEn
       bereich.translations = []
       return bereich
     }()
     let item = AutocompleteItemBuilder(
-      autocompletionWithoutTranslations, fallback: .bereich, copyBehavior: .all
+      autocompletionWithoutTranslations, fallback: .bereichDeEn, copyBehavior: .all
     ).item
 
     let largeTypeText = try XCTUnwrap(item.text?.largeType)

@@ -25,10 +25,40 @@ class LingueeTest: XCTestCase {
       return .success((Data(), URLResponse()))
     }
 
-    let _ = linguee.search(for: .hola).subscribe(translationSubscriber)
+    let _ = linguee.search(for: .holaEsIt).subscribe(translationSubscriber)
 
     translationSubscriber.waitForCompletion()?.assertSuccess()
     XCTAssertEqual(
       requestURL, URL(string: "https://www.linguee.com/spanish-italian/search?source=auto&qe=hola"))
+  }
+
+  /// Tests html data decoding when the response encoding name is `utf-8`.
+  func testUTF8Encoding() throws {
+    loader.stubs.requestDataResult = { url in
+      let response = URLResponse(url: url, mimeType: "text/html", expectedContentLength: 0, textEncodingName: "utf-8")
+      return .success((.helloEnJpData, response))
+    }
+
+    let _ = linguee.search(for: .helloEnJp).subscribe(translationSubscriber)
+    translationSubscriber.waitForCompletion()!.assertSuccess()
+
+    let result = try XCTUnwrap(translationSubscriber.receivedValues.first)
+    let firstResult = try XCTUnwrap(result.first)
+    XCTAssertEqual(firstResult, .helloEnJp)
+  }
+
+  /// Tests html data decoding when the response encoding name is `iso-8859-15`.
+  func testISO_8859_15Encoding() throws {
+    loader.stubs.requestDataResult = { url in
+      let response = URLResponse(url: url, mimeType: "text/html", expectedContentLength: 0, textEncodingName: "iso-8859-15")
+      return .success((.bereichEnDeData, response))
+    }
+
+    let _ = linguee.search(for: .helloEnJp).subscribe(translationSubscriber)
+    translationSubscriber.waitForCompletion()!.assertSuccess()
+
+    let result = try XCTUnwrap(translationSubscriber.receivedValues.first)
+    let firstResult = try XCTUnwrap(result.first)
+    XCTAssertEqual(firstResult, .bereichDeEn)
   }
 }
