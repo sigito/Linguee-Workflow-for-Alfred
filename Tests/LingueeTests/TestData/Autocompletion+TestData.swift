@@ -11,7 +11,8 @@ extension MainItem {
     phrase: "Bereich", wordTypes: ["m"],
     link: URL(string: "https://www.linguee.com/german-english/translation/Bereich.html")!)
 
-  public static let helloEnJp = MainItem(phrase: "hello", wordTypes: [],
+  public static let helloEnJp = MainItem(
+    phrase: "hello", wordTypes: [],
     link: URL(string: "https://www.linguee.com/english-japanese/translation/hello.html")!)
 }
 

@@ -55,7 +55,7 @@ let package = Package(
         "LingueeTestData",
       ],
       exclude: ["TestData"]
-      ),
+    ),
     .target(
       name: "LingueeTestData",
       dependencies: ["Linguee"],

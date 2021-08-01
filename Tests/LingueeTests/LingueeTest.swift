@@ -35,7 +35,8 @@ class LingueeTest: XCTestCase {
   /// Tests html data decoding when the response encoding name is `utf-8`.
   func testUTF8Encoding() throws {
     loader.stubs.requestDataResult = { url in
-      let response = URLResponse(url: url, mimeType: "text/html", expectedContentLength: 0, textEncodingName: "utf-8")
+      let response = URLResponse(
+        url: url, mimeType: "text/html", expectedContentLength: 0, textEncodingName: "utf-8")
       return .success((.helloEnJpData, response))
     }
 
@@ -50,7 +51,8 @@ class LingueeTest: XCTestCase {
   /// Tests html data decoding when the response encoding name is `iso-8859-15`.
   func testISO_8859_15Encoding() throws {
     loader.stubs.requestDataResult = { url in
-      let response = URLResponse(url: url, mimeType: "text/html", expectedContentLength: 0, textEncodingName: "iso-8859-15")
+      let response = URLResponse(
+        url: url, mimeType: "text/html", expectedContentLength: 0, textEncodingName: "iso-8859-15")
       return .success((.bereichEnDeData, response))
     }
 

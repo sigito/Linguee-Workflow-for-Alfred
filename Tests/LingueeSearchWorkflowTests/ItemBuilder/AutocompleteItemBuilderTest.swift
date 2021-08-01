@@ -70,7 +70,8 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
 
   /// Tests that the copy text for `url` copy behavior includes only the translation page URL.
   func testCopyURL() throws {
-    let item = AutocompleteItemBuilder(.bereichDeEn, fallback: .bereichDeEn, copyBehavior: .url).item
+    let item = AutocompleteItemBuilder(.bereichDeEn, fallback: .bereichDeEn, copyBehavior: .url)
+      .item
 
     let copyText = try XCTUnwrap(item.text?.copy)
     XCTAssertEqual(copyText, "https://www.linguee.com/german-english/translation/Bereich.html")
@@ -105,7 +106,8 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
 
   /// Tests tha the large type text has format of a query followed by the translations list.
   func testLargeType() throws {
-    let item = AutocompleteItemBuilder(.bereichDeEn, fallback: .bereichDeEn, copyBehavior: .all).item
+    let item = AutocompleteItemBuilder(.bereichDeEn, fallback: .bereichDeEn, copyBehavior: .all)
+      .item
 
     let largeTypeText = try XCTUnwrap(item.text?.largeType)
     XCTAssertEqual(

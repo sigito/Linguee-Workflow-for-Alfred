@@ -3,8 +3,8 @@ import XCTest
 
 @testable import Linguee
 
-fileprivate extension String.Encoding {
-  static let isoLatin9 = String.Encoding.init(rawValue: 2147484175)
+extension String.Encoding {
+  fileprivate static let isoLatin9 = String.Encoding.init(rawValue: 2_147_484_175)
 }
 
 class URLResponse_EncodingTest: XCTestCase {
@@ -32,6 +32,8 @@ class URLResponse_EncodingTest: XCTestCase {
   // MARK: - Private
 
   private func response(textEncodingName: String?) -> URLResponse {
-    return URLResponse(url: .linguee, mimeType: "text/html", expectedContentLength: 0, textEncodingName: textEncodingName)
+    return URLResponse(
+      url: .linguee, mimeType: "text/html", expectedContentLength: 0,
+      textEncodingName: textEncodingName)
   }
 }
