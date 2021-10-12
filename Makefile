@@ -9,18 +9,17 @@ ifeq ($(DEBUG), 1)
 	WORKFLOW_NAME = Linguee Search (DEBUG)
 	BUNDLE_ID = com.samsoniuk.alfred.linguee-search.debug
 	BUILD_CONFIG = debug
-	BINARY_PATH := .build/apple/Products/Debug/LingueeOnAlfred
 	TARGET_DIR = .$(BUILD_CONFIG)
 	WORKFLOW_ZIP = Linguee.Search-$(VERSION)-debug.alfredworkflow
 else
 	WORKFLOW_NAME = Linguee Search
 	BUNDLE_ID := com.samsoniuk.alfred.linguee-search
 	BUILD_CONFIG := release
-	BINARY_PATH := .build/apple/Products/Release/LingueeOnAlfred
 	TARGET_DIR := .$(BUILD_CONFIG)
 	WORKFLOW_ZIP := Linguee.Search-$(VERSION).alfredworkflow
 endif
 
+BINARY_PATH := .build/$(BUILD_CONFIG)/LingueeOnAlfred
 
 all: workflow
 
