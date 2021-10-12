@@ -30,7 +30,7 @@ install: workflow
 
 build:
 	@echo "Building a $(BUILD_CONFIG) binary..."
-	swift build -c $(BUILD_CONFIG) --arch x86_64 --arch arm64e
+	swift build -c $(BUILD_CONFIG) --arch x86_64
 
 workflow: collect-workflow
 	@echo "Creating a workflow archive..."
