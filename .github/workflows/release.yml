@@ -35,7 +35,6 @@ jobs:
           * TODO: populate change list.
 
           See Milestone [${{ env.VERSION }}](TODO: link to the correct milestone) for all fixes in this release.
-        body_path: "LATEST_VERSION"
         name: ${{ env.VERSION }}
         tag_name: ${{ env.VERSION }}
         files: "Linguee.Search-*.alfredworkflow"
