@@ -1,4 +1,3 @@
-import Combine
 import Common
 import Foundation
 
@@ -51,57 +50,36 @@ extension URL {
 
 public enum GitHubAPIError: Error {
   case cannotContructURL
-  case unexpectedResponse
+  case unexpectedResponseType
   case badResponseCode
   /// Latest release not found.
   case notFound
-  case generic(Error)
 }
 
 public protocol GitHubAPI {
-  func getLatestRelease(user: String, repository: String) -> Future<LatestRelease, GitHubAPIError>
+  func getLatestRelease(user: String, repository: String) async throws -> LatestRelease
 }
 
 public class GitHubAPIImpl: GitHubAPI {
 
-  private var cancellables: Set<AnyCancellable> = []
   private let loader: URLLoader
 
   public init(loader: URLLoader = URLSession.shared) {
     self.loader = loader
   }
 
-  public func getLatestRelease(user: String, repository: String) -> Future<
-    LatestRelease, GitHubAPIError
-  > {
-    return Future.init { completion in
-      guard let latestReleaseURL = URL.latestRelease(user: user, repository: repository) else {
-        completion(.failure(.cannotContructURL))
-        return
-      }
-      self.loader.requestData(for: latestReleaseURL)
-        .tryMap { (data, response) in
-          guard let httpURLResponse = response as? HTTPURLResponse else {
-            throw GitHubAPIError.unexpectedResponse
-          }
-          if !(200...299).contains(httpURLResponse.statusCode) {
-            throw GitHubAPIError.badResponseCode
-          }
-          return data
-        }
-        .decode(type: LatestRelease.self, decoder: self.makeDecoder())
-        .sink(
-          receiveCompletion: { (result) in
-            if case .failure(let error) = result {
-              completion(.failure(.generic(error)))
-            }
-          },
-          receiveValue: { (release) in
-            completion(.success(release))
-          }
-        )
-        .store(in: &self.cancellables)
+  public func getLatestRelease(user: String, repository: String) async throws -> LatestRelease {
+    guard let latestReleaseURL = URL.latestRelease(user: user, repository: repository) else {
+      throw GitHubAPIError.cannotContructURL
     }
+    let (data, response) = try await loader.requestData(for: latestReleaseURL)
+    guard let httpURLResponse = response as? HTTPURLResponse else {
+      throw GitHubAPIError.unexpectedResponseType
+    }
+    if !(200...299).contains(httpURLResponse.statusCode) {
+      throw GitHubAPIError.badResponseCode
+    }
+    return try self.makeDecoder().decode(LatestRelease.self, from: data)
   }
 
   // MARK: - Private

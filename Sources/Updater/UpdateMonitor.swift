@@ -1,4 +1,3 @@
-import Combine
 import Foundation
 import Logging
 
@@ -22,7 +21,6 @@ public class UpdateMonitor {
   private let cacheExpirationInterval: TimeInterval
   private let localStore: LocalStore
   private let gitHubAPI: GitHubAPI
-  private var cancellables = Set<AnyCancellable>()
 
   /// Paramaters:
   ///   - cacheExpirationInterval: the time interval to keep the available new release information
@@ -41,58 +39,31 @@ public class UpdateMonitor {
     self.gitHubAPI = gitHubAPI
   }
 
-  public func availableUpdate() -> Future<Release?, UpdateMonitorError> {
-    return Future { (completion) in
-      if let release = self.previoslyFetchedRelease(freshness: self.cacheExpirationInterval) {
-        self.logger.debug("Returning cached release: \(release)")
-        completion(.success(release))
-        return
-      }
-      guard self.moreThan(self.requestInterval, since: try? self.localStore.checkAttemptTimestamp())
-      else {
-        self.logger.debug(
-          "Previous GitHub request was sent less than \(self.requestInterval) seconds ago. Skipping."
-        )
-        completion(.success(nil))
-        return
-      }
-      // Store the attempt immediately, so the very next workflow execution would not send a new
-      // request.
-      try? self.localStore.save(checkAttemptTimestamp: Date().timeIntervalSince1970)
-
-      self.gitHubAPI
-        .getLatestRelease(user: user, repository: repository)
-        // Swift compiler fails to properly infer types when the closure of tryMap maps an
-        // optional to another optional (e.g., LatestRelease? -> Release?). Pass a function with an
-        // explicit type signature to help with this.
-        .tryMap(self.maybeReleaseWithWorkflow(_:))
-        .sink(
-          receiveCompletion: { gitHubAPICompletion in
-            switch gitHubAPICompletion {
-            case .failure(let error as UpdateMonitorError):
-              completion(.failure(error))
-            case .failure(let error):
-              completion(.failure(.generic(error)))
-            case .finished:
-              // Nothing to do. A value has been already passed in `receiveValue` handle.
-              break
-            }
-          },
-          receiveValue: { (release) in
-            completion(.success(self.processGitHubRelease(release)))
-          }
-        )
-        .store(in: &self.cancellables)
+  public func availableUpdate() async throws -> Release? {
+    if let release = self.previoslyFetchedRelease(freshness: self.cacheExpirationInterval) {
+      self.logger.debug("Returning cached release: \(release)")
+      return release
     }
+    guard self.moreThan(self.requestInterval, since: try? self.localStore.checkAttemptTimestamp())
+    else {
+      self.logger.debug(
+        "Previous GitHub request was sent less than \(self.requestInterval) seconds ago. Skipping."
+      )
+      return nil
+    }
+    // Store the attempt immediately, so the very next workflow execution would not send a new
+    // request.
+    try? self.localStore.save(checkAttemptTimestamp: Date().timeIntervalSince1970)
+
+    let latestRelease = try await self.gitHubAPI.getLatestRelease(
+      user: user, repository: repository)
+    let workflowRelease = try self.releaseWithWorkflow(latestRelease)
+    return self.processGitHubRelease(workflowRelease)
   }
 
   // MARK: - Private
 
-  private func maybeReleaseWithWorkflow(_ latestRelease: LatestRelease?) throws -> Release? {
-    return try latestRelease.flatMap(self.releaseWithWorkflow(_:))
-  }
-
-  private func releaseWithWorkflow(_ latestRelease: LatestRelease) throws -> Release? {
+  private func releaseWithWorkflow(_ latestRelease: LatestRelease) throws -> Release {
     guard
       let workflowAsset = latestRelease.assets.first(where: { $0.name.hasSuffix("alfredworkflow") })
     else {

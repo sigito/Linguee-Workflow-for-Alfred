@@ -1,4 +1,3 @@
-import Combine
 import Common
 import Foundation
 import SwiftSoup
@@ -10,41 +9,19 @@ public class Linguee {
   }
 
   private let loader: URLLoader
-  private var cancellables = Set<AnyCancellable>()
 
   public init(loader: URLLoader = URLSession.shared) {
     self.loader = loader
   }
 
-  public func search(for query: TranslationQuery) -> Future<[Autocompletion], Error> {
-    return Future { (completion) in
-      self.loader.requestData(for: query.url(withMode: .lightweight))
-        .tryMap { (data, response) -> String in
-          let encoding = response.textEncoding ?? .utf8
-          guard let html = String(data: data, encoding: encoding) else {
-            throw Error.badEncoding
-          }
-          return html
-        }
-        .tryMap { html in
-          let document = try SwiftSoup.parse(html)
-          return try self.selectTranslations(in: document)
-        }
-        .sink(
-          receiveCompletion: { result in
-            switch result {
-            case .failure(let error):
-              completion(.failure(.generic(error)))
-            default:
-              return
-            }
-          },
-          receiveValue: { results in
-            completion(.success(results))
-          }
-        )
-        .store(in: &self.cancellables)
+  public func search(for query: TranslationQuery) async throws -> [Autocompletion] {
+    let (data, response) = try await self.loader.requestData(for: query.url(withMode: .lightweight))
+    let encoding = response.textEncoding ?? .utf8
+    guard let html = String(data: data, encoding: encoding) else {
+      throw Error.badEncoding
     }
+    let document = try SwiftSoup.parse(html)
+    return try self.selectTranslations(in: document)
   }
 
   // MARK: - Private

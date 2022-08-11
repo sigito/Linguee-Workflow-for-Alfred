@@ -1,4 +1,3 @@
-import Combine
 import CommonTesting
 import Foundation
 import XCTest
@@ -10,7 +9,6 @@ class UpdateMonitorTest: XCTestCase {
   private var gitHubAPI: GitHubAPIFake!
   private var monitor: UpdateMonitor!
   private var receivedAvailableUpdate: Release? = nil
-  private let releaseSubscriber = TestSubscriber<Release?, UpdateMonitorError>()
   private let requestInterval: TimeInterval = 2 * 60  // 2 minute
   private let cacheExpirationInterval: TimeInterval = 7 * 24 * 60 * 60  // 1 week
   private let defaultCurrentVersion: Version = "1.0.0"
@@ -23,225 +21,218 @@ class UpdateMonitorTest: XCTestCase {
 
   /// Tests that a previously fetched release is returned, when its version is newer than current,
   /// and the release was fetched within last week.
-  func testReturnsPrevioslyFetchedReleaseIfNew() throws {
-    let release = Release(version: "1.1.0")
+  func testReturnsPrevioslyFetchedReleaseIfNew() async throws {
+    let expectedRelease = Release(version: "1.1.0")
     let twoDaysAgo = Date.daysAgo(2)
     localStore.stubs.latestRelease = {
-      VersionedRelease(release: release, timestamp: twoDaysAgo.timeIntervalSince1970)
+      VersionedRelease(release: expectedRelease, timestamp: twoDaysAgo.timeIntervalSince1970)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [release])
+    XCTAssertEqual(try XCTUnwrap(release), expectedRelease)
   }
 
   /// Tests that when the current version of the workflow is unknown, the cached release is
   /// returned.
-  func testReturnsPreviouslyFetchedReleaseIfCurrentVersionIsUnknown() throws {
+  func testReturnsPreviouslyFetchedReleaseIfCurrentVersionIsUnknown() async throws {
     makeMonitor(currentVersion: .unknown)
-    let release = Release(version: "1.0.0")
+    let expectedRelease = Release(version: "1.0.0")
     localStore.stubs.latestRelease = {
-      VersionedRelease(release: release, timestamp: Date.daysAgo(6).timeIntervalSince1970)
+      VersionedRelease(release: expectedRelease, timestamp: Date.daysAgo(6).timeIntervalSince1970)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [release])
+    XCTAssertEqual(try XCTUnwrap(release), expectedRelease)
   }
 
   /// Tests that a GitHub release is returned when there are no cached releases.
-  func testRequestsFromGitHubIfNoPreviouslyFetchedRelease() throws {
+  func testRequestsFromGitHubIfNoPreviouslyFetchedRelease() async throws {
     localStore.stubs.latestRelease = { nil }
-    let release = Release(version: "1.1.0")
+    let expectedRelease = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version.description))
+      LatestRelease(tagName: expectedRelease.version.description)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    try assertReleasesIgnoreDate(releaseSubscriber.receivedValues, expectedRelease: release)
+    try assertReleaseIgnoreDate(release, expectedRelease: expectedRelease)
   }
 
   /// Tests that a GitHub release is returned when the cached release is older than a week.
-  func testRequestsFromGitHubIfPreviouslyFetchedReleaseIsAWeekOld() throws {
+  func testRequestsFromGitHubIfPreviouslyFetchedReleaseIsAWeekOld() async throws {
     localStore.stubs.latestRelease = {
       VersionedRelease(
         release: Release(version: "1.2.0"), timestamp: Date.daysAgo(7).timeIntervalSince1970)
     }
-    let release = Release(version: "1.1.0")
+    let expectedRelease = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version.description))
+      LatestRelease(tagName: expectedRelease.version.description)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    try assertReleasesIgnoreDate(releaseSubscriber.receivedValues, expectedRelease: release)
+    try assertReleaseIgnoreDate(release, expectedRelease: expectedRelease)
   }
 
   /// Tests that a GitHub release is returned when the cached release matched the current version.
-  func testRequestsFromGitHubIfPreviouslyFetchedReleaseIsOfCurrentVersion() throws {
+  func testRequestsFromGitHubIfPreviouslyFetchedReleaseIsOfCurrentVersion() async throws {
     localStore.stubs.latestRelease = {
       VersionedRelease(
         release: Release(version: self.defaultCurrentVersion),
         timestamp: Date().timeIntervalSince1970)
     }
-    let release = Release(version: "1.1.0")
+    let expectedRelease = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version.description))
+      LatestRelease(tagName: expectedRelease.version.description)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    try assertReleasesIgnoreDate(releaseSubscriber.receivedValues, expectedRelease: release)
+    try assertReleaseIgnoreDate(release, expectedRelease: expectedRelease)
   }
 
   /// Tests that a GitHub release is returned when fetching of the cached release failed.
-  func testRequestsFromGitHubIfFailsToFetchPreviouslyFetchedRelease() throws {
+  func testRequestsFromGitHubIfFailsToFetchPreviouslyFetchedRelease() async throws {
     localStore.stubs.latestRelease = { throw LocalStoreError.releaseDecodingFailed(Data()) }
-    let release = Release(version: "1.1.0")
+    let expectedRelease = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version.description))
+      LatestRelease(tagName: expectedRelease.version.description)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    try assertReleasesIgnoreDate(releaseSubscriber.receivedValues, expectedRelease: release)
+    try assertReleaseIgnoreDate(release, expectedRelease: expectedRelease)
   }
 
   /// Tests that a `nil` release is returned when GitHub release has no workflow file.
-  func testNilIsReturnedIfGitHubReleaseHasNotWorkflowFile() throws {
+  func testNilIsReturnedIfGitHubReleaseHasNotWorkflowFile() async throws {
     localStore.stubs.latestRelease = { nil }
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(
-        LatestRelease(
-          tagName: "1.1.0",
-          workflow: Asset(
-            name: "LingueSearch.zip",
-            browserDownloadURL: URL(string: "https://example.com/release_archive")!)))
+      LatestRelease(
+        tagName: "1.1.0",
+        workflow: Asset(
+          name: "LingueSearch.zip",
+          browserDownloadURL: URL(string: "https://example.com/release_archive")!))
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
-
-    releaseSubscriber.waitForCompletion()?.assertError { (error) in
-      if case .workflowNotFound(_) = error {
+    do {
+      let release = try await monitor.availableUpdate()
+      XCTFail("The check should have failed, but got \(release.debugDescription)")
+    } catch {
+      if case UpdateMonitorError.workflowNotFound(_) = error {
         return
       }
       XCTFail("Unexpected error: \(error)")
     }
-    XCTAssertEqual(releaseSubscriber.receivedValues, [])
   }
 
   /// Tests that `nil` is returned, when GitHub release has the same version as the current one.
-  func testNilIsReturnedIfGitHubReleaseIsOfCurrentVersion() throws {
+  func testNilIsReturnedIfGitHubReleaseIsOfCurrentVersion() async throws {
     localStore.stubs.latestRelease = { nil }
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: self.defaultCurrentVersion.description))
+      LatestRelease(tagName: self.defaultCurrentVersion.description)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [nil])
+    XCTAssertNil(release)
   }
 
   /// Tests that a GitHub release is returned when the current version is unknown.
-  func testGitHubReleaseIsReturnedIfCurrentVersionIsUnknown() throws {
+  func testGitHubReleaseIsReturnedIfCurrentVersionIsUnknown() async throws {
     makeMonitor(currentVersion: .unknown)
     localStore.stubs.latestRelease = { nil }
-    let release = Release(version: "1.0.0")
+    let expectedRelease = Release(version: "1.0.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version.description))
+      LatestRelease(tagName: expectedRelease.version.description)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    try self.assertReleasesIgnoreDate(releaseSubscriber.receivedValues, expectedRelease: release)
+    try self.assertReleaseIgnoreDate(release, expectedRelease: expectedRelease)
   }
 
   /// Tests that `nil` is returned when a GitHub release is older the current version.
-  func testNilIsReturnedIfGitHubReleaseIsOfOlderVersion() throws {
+  func testNilIsReturnedIfGitHubReleaseIsOfOlderVersion() async throws {
     localStore.stubs.latestRelease = { nil }
-    gitHubAPI.stubs.latestReleaseResult = { _, _ in .success(LatestRelease(tagName: "0.9.0")) }
+    gitHubAPI.stubs.latestReleaseResult = { _, _ in LatestRelease(tagName: "0.9.0") }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [nil])
+    XCTAssertNil(release)
   }
 
   /// Tests that a GitHub release is stored.
-  func testGitHubReleaseIsStored() throws {
+  func testGitHubReleaseIsStored() async throws {
     localStore.stubs.latestRelease = { nil }
     let release = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version.description))
+      LatestRelease(tagName: release.version.description)
     }
     var storedRelease: Release?
     localStore.stubs.saveLatestRelease = { release in storedRelease = release }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let _ = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
     try self.assertReleaseIgnoreDate(storedRelease, expectedRelease: release)
   }
 
   /// Tests that a GitHub release is stored, when it is not an update candidate.
-  func testGitHubReleaseIsStoredIfItIsNotAnUpgrade() throws {
+  func testGitHubReleaseIsStoredIfItIsNotAnUpgrade() async throws {
     localStore.stubs.latestRelease = { nil }
     let release = Release(version: defaultCurrentVersion)
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version.description))
+      LatestRelease(tagName: release.version.description)
     }
     var storedRelease: Release?
     localStore.stubs.saveLatestRelease = { release in storedRelease = release }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let _ = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
     try self.assertReleaseIgnoreDate(storedRelease, expectedRelease: release)
   }
 
   /// Tests that an error is returned when no GitHub releases are found.
-  func testNilIsReturnedIfNoGitHubReleaseReturned() throws {
+  func testNilIsReturnedIfNoGitHubReleaseReturned() async throws {
     localStore.stubs.latestRelease = { nil }
-    gitHubAPI.stubs.latestReleaseResult = { _, _ in .failure(.notFound) }
+    gitHubAPI.stubs.latestReleaseResult = { _, _ in throw GitHubAPIError.notFound }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
-
-    releaseSubscriber.waitForCompletion()?.assertError()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [])
+    do {
+      let release = try await monitor.availableUpdate()
+      XCTFail("Unexpected result: \(release.debugDescription)")
+    } catch {
+      guard case GitHubAPIError.notFound = error else {
+        XCTFail("Unexpected error: \(error)")
+        return
+      }
+    }
   }
 
   /// Tests that an error is returned when GitHub request fails.
-  func testFailsIfGitHubRequestFails() throws {
+  func testFailsIfGitHubRequestFails() async throws {
     localStore.stubs.latestRelease = { nil }
-    gitHubAPI.stubs.latestReleaseResult = { _, _ in .failure(.badResponseCode) }
+    gitHubAPI.stubs.latestReleaseResult = { _, _ in throw GitHubAPIError.badResponseCode }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
-
-    releaseSubscriber.waitForCompletion()?.assertError { (error) in
-      if case .generic(GitHubAPIError.badResponseCode) = error {
+    do {
+      let release = try await monitor.availableUpdate()
+      XCTFail("Unexpect result: \(release.debugDescription)")
+    } catch {
+      if case GitHubAPIError.badResponseCode = error {
         return
       }
       XCTFail("Unexpected error: \(error)")
     }
-    XCTAssertEqual(releaseSubscriber.receivedValues, [])
   }
 
   /// Tests that a GitHub request attempt completion timestamp is stored before the request is sent.
-  func testAttemptTimestampIsStoredOnGitHubRequest() throws {
+  func testAttemptTimestampIsStoredOnGitHubRequest() async throws {
     localStore.stubs.latestRelease = { nil }
     var requestTime: Date?
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
       requestTime = Date()
-      return .failure(.notFound)
+      throw GitHubAPIError.notFound
     }
     localStore.stubs.checkAttemptTimestamp = { nil }
     var storedAttemptTimestamp: TimeInterval?
@@ -251,86 +242,80 @@ class UpdateMonitorTest: XCTestCase {
       storedAttemptTimestamp = timestamp
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
-
-    releaseSubscriber.waitForCompletion()?.assertError { error in
-      guard case UpdateMonitorError.generic(let underlyingError) = error,
-        case GitHubAPIError.notFound = underlyingError
-      else {
+    do {
+      let release = try await monitor.availableUpdate()
+      XCTFail("Unexpect result: \(release.debugDescription)")
+    } catch {
+      guard case GitHubAPIError.notFound = error else {
         XCTFail("Unexpected error: \(error)")
         return
       }
     }
-    XCTAssertEqual(releaseSubscriber.receivedValues, [])
 
-    let attepmtTimestamp = try XCTUnwrap(storedAttemptTimestamp)
+    let attemptTimestamp = try XCTUnwrap(storedAttemptTimestamp)
     let storeAttemptDate = try XCTUnwrap(storedAttemptTime)
     let requestDate = try XCTUnwrap(requestTime)
     XCTAssertLessThan(storeAttemptDate, requestDate)
-    XCTAssertLessThan(attepmtTimestamp, requestDate.timeIntervalSince1970)
+    XCTAssertLessThan(attemptTimestamp, requestDate.timeIntervalSince1970)
   }
 
   /// Tests that a GitHub request is not sent when the previous attempt was sent less than
   /// `requestInterval` minutes ago.
-  func testGitHubRequestIsNotSentIfPreviousAttemptWasLessThanRequestIntervalAgo() throws {
+  func testGitHubRequestIsNotSentIfPreviousAttemptWasLessThanRequestIntervalAgo() async throws {
     localStore.stubs.latestRelease = { nil }
     localStore.stubs.checkAttemptTimestamp = { Date.minutesAgo(1).timeIntervalSince1970 }
 
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
       XCTFail("Request should not be sent")
-      return .failure(.badResponseCode)
+      throw GitHubAPIError.badResponseCode
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [nil])
+    XCTAssertNil(release)
   }
 
   /// Tests that an attempt timestmap is not updated when a GitHub request was not sent.
-  func testAttemptTimestampIsNotUpdatedIfNotGitHubRequestIsSent() throws {
+  func testAttemptTimestampIsNotUpdatedIfNotGitHubRequestIsSent() async throws {
     localStore.stubs.latestRelease = { nil }
     localStore.stubs.checkAttemptTimestamp = { Date.minutesAgo(1).timeIntervalSince1970 }
 
     localStore.stubs.saveCheckAttemptTimestamp = { _ in XCTFail("Attempt should not be updated") }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [nil])
+    XCTAssertNil(release)
   }
 
   /// Tests that an attempt timestamp is not updated when a cached release is returned.
-  func testAttemptTimestampNotUpdatedIfCachedReleaseIsReturned() throws {
-    let release = Release(version: "1.1.0")
+  func testAttemptTimestampNotUpdatedIfCachedReleaseIsReturned() async throws {
+    let expectedRelease = Release(version: "1.1.0")
     localStore.stubs.latestRelease = {
-      VersionedRelease(release: release, timestamp: Date().timeIntervalSince1970)
+      VersionedRelease(release: expectedRelease, timestamp: Date().timeIntervalSince1970)
     }
 
     localStore.stubs.saveCheckAttemptTimestamp = { _ in XCTFail("Attempt should not be updated") }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    XCTAssertEqual(releaseSubscriber.receivedValues, [release])
+    XCTAssertEqual(release, expectedRelease)
   }
 
   /// Tests that a GitHub request is sent when the previous attempt was sent more than
   /// `requestInterval` ago.
-  func testGitHubRequestIsSentAfterMoreThanRequestIntervalSincePreviousAttempt() throws {
+  func testGitHubRequestIsSentAfterMoreThanRequestIntervalSincePreviousAttempt() async throws {
     localStore.stubs.latestRelease = { nil }
     localStore.stubs.checkAttemptTimestamp = { Date.minutesAgo(3).timeIntervalSince1970 }
     localStore.stubs.saveCheckAttemptTimestamp = { _ in }
 
-    let release = Release(version: "1.1.0")
+    let expectedRelease = Release(version: "1.1.0")
     gitHubAPI.stubs.latestReleaseResult = { _, _ in
-      .success(LatestRelease(tagName: release.version.description))
+      LatestRelease(tagName: expectedRelease.version.description)
     }
 
-    let _ = monitor.availableUpdate().subscribe(releaseSubscriber)
+    let release = try await monitor.availableUpdate()
 
-    releaseSubscriber.waitForCompletion()?.assertSuccess()
-    try self.assertReleasesIgnoreDate(releaseSubscriber.receivedValues, expectedRelease: release)
+    try self.assertReleaseIgnoreDate(release, expectedRelease: expectedRelease)
   }
 
   // MARK: - Private

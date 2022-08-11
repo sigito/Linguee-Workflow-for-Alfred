@@ -56,6 +56,7 @@ let package = Package(
       ],
       exclude: ["TestData"]
     ),
+
     .target(
       name: "LingueeTestData",
       dependencies: ["Linguee"],
@@ -64,6 +65,7 @@ let package = Package(
         .copy("Resources/bereich-ende-translation-response.html"),
         .copy("Resources/hello-enjp-translation-response.html"),
       ]),
+
     .target(
       name: "Updater",
       dependencies: [

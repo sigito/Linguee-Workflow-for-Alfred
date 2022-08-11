@@ -1,5 +1,3 @@
-import Combine
-
 @testable import Updater
 
 func notFaked2<A, B, R>(file: StaticString = #file, line: UInt = #line) -> (A, B) -> R {
@@ -8,17 +6,14 @@ func notFaked2<A, B, R>(file: StaticString = #file, line: UInt = #line) -> (A, B
 
 class GitHubAPIFake: GitHubAPI {
   class Stubs {
-    var latestReleaseResult: (String, String) -> Result<LatestRelease, GitHubAPIError> =
-      notFaked2()
+    var latestReleaseResult: (String, String) throws -> LatestRelease = notFaked2()
   }
 
   let stubs = Stubs()
 
   init() {}
 
-  func getLatestRelease(user: String, repository: String) -> Future<LatestRelease, GitHubAPIError> {
-    Future { (completion) in
-      completion(self.stubs.latestReleaseResult(user, repository))
-    }
+  func getLatestRelease(user: String, repository: String) async throws -> LatestRelease {
+    return try self.stubs.latestReleaseResult(user, repository)
   }
 }

@@ -1,5 +1,4 @@
 import Alfred
-import Combine
 import Foundation
 import Linguee
 import Logging
@@ -15,7 +14,6 @@ fileprivate let kReleaseCacheExpirationInterval = kMinuteSeconds * 60 * 24 * 3  
 public class LingueeSearchWorkflow {
   private static let logger = Logger(
     label: "\(LingueeSearchWorkflow.self)", factory: StreamLogHandler.standardError(label:))
-  private var cancellables: Set<AnyCancellable> = []
 
   /// Provided enviroment.
   public let environment: WorkflowEnvironment
@@ -59,51 +57,31 @@ public class LingueeSearchWorkflow {
     }
   }
 
-  public func run() -> Future<Workflow, Error> {
-    return Future { promise in
-      guard !self.environment.demoMode else {
-        promise(.success(.demo(with: self.environment)))
-        return
-      }
-
-      var workflow = Workflow()
-      let builder = AlfredItemBuilder(query: self.query, environment: self.environment)
-      self.linguee
-        .search(for: self.query)
-        // Erase error type.
-        .mapError { $0 as Error }
-        .combineLatest(
-          self.fetchUpdate()
-            // Ignore update lookup errors.
-            .replaceError(with: nil)
-            .setFailureType(to: Error.self)
-        )
-        .receive(on: DispatchQueue.main)
-        .sink(
-          receiveCompletion: { completion in
-            if case .failure(let error) = completion {
-              workflow.add(builder.item(for: error))
-            }
-            promise(.success(workflow))
-          },
-          receiveValue: { (autocompletions, release) in
-            autocompletions
-              .map(builder.item(for:))
-              .forEach { workflow.add($0) }
-
-            if let release = release {
-              workflow.addAtLastVisiblePosition(builder.item(for: release))
-            }
-
-            // Add a direct search link to the end of the list.
-            workflow.add(builder.openSearchOnLingueeItem())
-          }
-        )
-        .store(in: &self.cancellables)
+  public func run() async throws -> Workflow {
+    guard !self.environment.demoMode else {
+      return .demo(with: self.environment)
     }
+
+    async let release = self.fetchUpdate()
+
+    var workflow = Workflow()
+    let builder = AlfredItemBuilder(query: self.query, environment: self.environment)
+    do {
+      try await self.linguee.search(for: self.query)
+        .map(builder.item(for:))
+        .forEach { workflow.add($0) }
+    } catch {
+      workflow.add(builder.item(for: error))
+    }
+    if let release = try? await release {
+      workflow.addAtLastVisiblePosition(builder.item(for: release))
+    }
+    // Add a direct search link to the end of the list.
+    workflow.add(builder.openSearchOnLingueeItem())
+    return workflow
   }
 
-  public static func main() throws {
+  public static func main() async throws {
     // TODO: use ArgumentParser intead?
     guard CommandLine.arguments.count > 1 else {
       fatalError("No query parameter provided.")
@@ -117,42 +95,16 @@ public class LingueeSearchWorkflow {
       .precomposedStringWithCanonicalMapping
 
     let lingueSearchWorkflow = LingueeSearchWorkflow(query: query)
-    // Capture the cancellable in a variable, to prevent deallocation.
-    var cancellable: AnyCancellable? = nil
-    cancellable =
-      lingueSearchWorkflow
-      .run()
-      .tryMap { workflow in
-        try workflow.emit()
-      }
-      .ignoreOutput()
-      .sink(
-        receiveCompletion: { completion in
-          // Perform a cancellable nil check to stop the linter from complaining about written but
-          // never read variable.
-          if cancellable != nil {
-            cancellable = nil
-          }
-          switch completion {
-          case .finished:
-            exit(EXIT_SUCCESS)
-          case .failure(let error):
-            self.logger.error("Failed with \(error)")
-            exit(EXIT_FAILURE)
-          }
-        }, receiveValue: { _ in })
-    RunLoop.main.run()
+    let workflow = try await lingueSearchWorkflow.run()
+    try workflow.emit()
   }
 
   // MARK: - Private
 
-  private func fetchUpdate() -> AnyPublisher<Release?, UpdateMonitorError> {
+  private func fetchUpdate() async throws -> Release? {
     guard let updateMonitor = updateMonitor else {
-      return Just(nil).setFailureType(to: UpdateMonitorError.self).eraseToAnyPublisher()
+      return nil
     }
-    return
-      updateMonitor
-      .availableUpdate()
-      .eraseToAnyPublisher()
+    return try await updateMonitor.availableUpdate()
   }
 }
