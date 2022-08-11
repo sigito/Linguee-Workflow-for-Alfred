@@ -6,10 +6,8 @@ public protocol URLLoader {
 }
 
 extension URLSession: URLLoader {
-  public func requestData(for url: URL) async throws -> (data: Data, response: URLResponse) {
-    if #available(macOS 12.0, *) {
-      return try await self.data(from: url)
-    } else {
+  #if swift(<5.7)
+    public func requestData(for url: URL) async throws -> (data: Data, response: URLResponse) {
       var cancellable: AnyCancellable?
       return try await withCheckedThrowingContinuation { continuation in
         cancellable = self.dataTaskPublisher(for: url)
@@ -24,5 +22,9 @@ extension URLSession: URLLoader {
           }
       }
     }
-  }
+  #else
+    public func requestData(for url: URL) async throws -> (data: Data, response: URLResponse) {
+      return try await self.data(from: url)
+    }
+  #endif
 }
