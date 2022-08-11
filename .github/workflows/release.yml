@@ -24,10 +24,20 @@ jobs:
     - name: Create workflow archive
       run: make
 
+    - name: Read version number
+      run: echo "VERSION=$(cat LATEST_VERSION)" >> $GITHUB_ENV
+
     - name: Create draft release
       uses: softprops/action-gh-release@v0.1.14
       with:
+        body: |
+          What's new:
+          * TODO: populate change list.
+
+          See Milestone [${{ env.VERSION }}](TODO: link to the correct milestone) for all fixes in this release.
         body_path: "LATEST_VERSION"
+        name: ${{ env.VERSION }}
+        tag_name: ${{ env.VERSION }}
         files: "Linguee.Search-*.alfredworkflow"
         draft: true
         fail_on_unmatched_files: true
