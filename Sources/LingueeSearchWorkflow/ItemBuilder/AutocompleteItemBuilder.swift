@@ -83,7 +83,7 @@ class AutocompleteItemBuilder {
       return copyTextAll()
     case .url:
       return resultsURL
-    case .firstTranlationOnly:
+    case .firstTranslationOnly:
       return autocompletion.translations.first?.translation ?? autocompletion.mainItem.phrase
     }
   }

@@ -77,27 +77,27 @@ class AutocompleteItemBuilderTest: JSONEncodingBaseTestCase {
     XCTAssertEqual(copyText, "https://www.linguee.com/german-english/translation/Bereich.html")
   }
 
-  /// Tests that the copy text for `firstTranlationOnly` copy behavior includes only the first
+  /// Tests that the copy text for `firstTranslationOnly` copy behavior includes only the first
   /// translation.
   func testCopyFirstTranslationOnly() throws {
     let item = AutocompleteItemBuilder(
-      .bereichDeEn, fallback: .bereichDeEn, copyBehavior: .firstTranlationOnly
+      .bereichDeEn, fallback: .bereichDeEn, copyBehavior: .firstTranslationOnly
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)
     XCTAssertEqual(copyText, "area")
   }
 
-  /// Tests that the copy text for `firstTranlationOnly` copy behavior, when there are no
+  /// Tests that the copy text for `firstTranslationOnly` copy behavior, when there are no
   /// translations, includes the initial query text.
-  func testCopyFirstTranslationOnlyWithoutTranlations() throws {
+  func testCopyFirstTranslationOnlyWithoutTranslations() throws {
     let autocompletionWithoutTranslations: Autocompletion = {
       var bereich = Autocompletion.bereichDeEn
       bereich.translations = []
       return bereich
     }()
     let item = AutocompleteItemBuilder(
-      autocompletionWithoutTranslations, fallback: .bereichDeEn, copyBehavior: .firstTranlationOnly
+      autocompletionWithoutTranslations, fallback: .bereichDeEn, copyBehavior: .firstTranslationOnly
     ).item
 
     let copyText = try XCTUnwrap(item.text?.copy)

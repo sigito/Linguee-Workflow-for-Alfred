@@ -19,7 +19,7 @@ extension CopyBehavior {
 
     /// The first translation only.
     /// In case there no translations available, the initial query would be copied instead.
-    case firstTranlationOnly = "first-translation-only"
+    case firstTranslationOnly = "first-translation-only"
   }
 }
 
