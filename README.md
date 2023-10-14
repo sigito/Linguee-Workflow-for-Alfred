@@ -9,8 +9,8 @@
 <a href="https://github.com/sigito/Linguee-Workflow-for-Alfred/releases/latest">
   <img src="https://img.shields.io/github/v/release/sigito/Linguee-Workflow-for-Alfred?color=important" />
 </a>
-<a href="https://twitter.com/sigito_is_taken">
-  <img src="https://img.shields.io/badge/Contact-%40sigito__is__taken-lightgrey" />
+<a href="https://mastodon.social/@sigito">
+  <img src="https://img.shields.io/badge/Contact-%40sigito%40mastodon.social-lightgrey" />
 </a>
 
 </p>
