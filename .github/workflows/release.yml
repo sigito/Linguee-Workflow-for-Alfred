@@ -11,15 +11,15 @@ on:
 jobs:
   build:
 
-    runs-on: macos-12
+    runs-on: macos-14
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Setup Swift
-      uses: swift-actions/setup-swift@v1.15.0
+      uses: swift-actions/setup-swift@v1.25.0
       with:
-        swift-version: "5.6"
+        swift-version: "5.9"
 
     - name: Create workflow archive
       run: make
