@@ -11,6 +11,7 @@ fileprivate let kFiveMituneSeconds = 5 * kMinuteSeconds
 /// The new release caching period.
 fileprivate let kReleaseCacheExpirationInterval = kMinuteSeconds * 60 * 24 * 3  // 3 days
 
+@main
 public class LingueeSearchWorkflow {
   private static let logger = Logger(
     label: "\(LingueeSearchWorkflow.self)", factory: StreamLogHandler.standardError(label:))

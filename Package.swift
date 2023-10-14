@@ -9,7 +9,7 @@ let package = Package(
     .macOS(.v10_15)
   ],
   products: [
-    .executable(name: "LingueeOnAlfred", targets: ["LingueeOnAlfred"])
+    .executable(name: "LingueeOnAlfred", targets: ["LingueeSearchWorkflow"])
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-log.git", from: "1.4.0"),
@@ -17,10 +17,6 @@ let package = Package(
   ],
   targets: [
     .executableTarget(
-      name: "LingueeOnAlfred",
-      dependencies: ["LingueeSearchWorkflow"]),
-
-    .target(
       name: "LingueeSearchWorkflow",
       dependencies: [
         "Alfred",
